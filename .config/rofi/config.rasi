@@ -1,0 +1,54 @@
+* {
+    font: "JetBrains Mono 16";
+    highlight: bold italic;
+    scrollbar: true;
+
+    dark-bg0:                  #00000099;
+    dark-bg0-soft:             #11111199;
+    dark-fg0:                  #ffffff99;
+    gray:                      #808080;
+
+    background:                  @dark-bg0;
+    background-color:            @background;
+    foreground:                  @dark-fg0;
+    border-color:                @gray;
+    separatorcolor:              @border-color;
+    scrollbar-handle:            @border-color;
+
+    normal-background:           @background;
+    normal-foreground:           @foreground;
+    alternate-normal-background: @dark-bg0-soft;
+    alternate-normal-foreground: @foreground;
+    selected-normal-background:  @gray;
+    selected-normal-foreground:  @dark-fg0;
+
+    active-background:           @gray;
+    active-foreground:           @background;
+    alternate-active-background: @active-background;
+    alternate-active-foreground: @active-foreground;
+    selected-active-background:  @gray;
+    selected-active-foreground:  @active-foreground;
+
+    urgent-background:           @gray;
+    urgent-foreground:           @background;
+    alternate-urgent-background: @urgent-background;
+    alternate-urgent-foreground: @urgent-foreground;
+    selected-urgent-background:  @gray;
+    selected-urgent-foreground:  @urgent-foreground;
+}
+
+window {
+    transparency: "real";
+    border: 2px;
+    border-radius: 10px;
+    width: 600px;
+    padding: 10px;
+}
+
+element {
+    padding: 8px;
+}
+
+element selected {
+    border-radius: 5px;
+}

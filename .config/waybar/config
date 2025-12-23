@@ -1,0 +1,73 @@
+{
+    "layer": "top",
+    "exclusive": true,
+    "passthrough": false,
+    "position": "top",
+    "height": 36,
+    "spacing": 3,
+    "fixed-center": true,
+
+    "modules-left": ["hyprland/workspaces", "mpris"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "memory", "pulseaudio", "network", "battery", "tray"],
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+	"active-only": true,
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "persistent-workspaces": {
+             "eDP-1": 5
+        },
+        "sort-by": "number"
+    },
+
+    "pulseaudio": {
+    	"format": "{icon} {volume}%",
+    	"format-muted": "󰖁 {volume}%",
+    	"format-icons": {
+        	"headphone": "",
+        	"default": ["", "", ""]
+    	},
+    	"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    	"on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    	"on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    	"scroll-step": 5,
+    	"tooltip-format": "{desc} - {volume}%"
+    },
+
+    "mpris": {
+    	"format": " {status_icon} {artist} - {title}",
+    	"format-paused": "  {artist} - {title}",
+    	"max-length": 50,
+    	"player-icons": {
+        	"spotify": ""
+    	},
+    	"status-icons": {
+        	"playing": "▶",
+        	"paused": "",
+        	"stopped": ""
+    	},
+    	"ignored-players": ["firefox"],
+    	"on-click": "playerctl play-pause",
+    	"on-scroll-up": "playerctl next",
+    	"on-scroll-down": "playerctl previous"
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+	"format-alt": "{:%A, %B %d, %Y}",      
+    	"tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+    },
+
+    "battery": {
+	"format": "{capacity}%",
+        "format-plugged": "{capacity}%"
+    },
+
+    "tray": {
+        "spacing": 10
+    }
+
+}
