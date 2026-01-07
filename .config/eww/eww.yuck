@@ -1,5 +1,33 @@
-(deflisten activews "hyprctl monitors -j | jq '.[0].activeWorkspace.id'")
+;; Variables and listeners/polls
+(deflisten title_listener
+  :initial ""
+  "hyprctl activewindow -j | jq -r '.title // \"\"'")
 
+(deflisten ws_data "hyprland-workspaces eDP-1")
+
+(defpoll volume :interval "2s" "pamixer --get-volume-human")
+
+(defpoll battery :interval "30s" "printf \"%s%%\" \"$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 || echo 0)\"")
+
+(defpoll network :interval "10s" "nmcli -t -f active,ssid dev wifi | grep '^yes:' | cut -d':' -f2 || echo 'disconnected'")
+
+;; Widgets
+(defwidget workspaces-widget []
+  (box :class "workspaces" :orientation "h" :spacing 15
+    (eventbox :onscroll "hyprctl dispatch workspace {{echo {} | sed 's/up/e+/' | sed 's/down/e-/'}}1"
+      (for ws in ws_data
+        (button :onclick "hyprctl dispatch workspace ${ws.id}"
+                :class "${ws.class} ws-button"
+                "${ws.id}")))))
+
+(defwidget rightbox []
+  (box :class "right" :halign "end" :spacing 15
+    (label :class "volume" :text " ${volume}")
+    (label :class "battery" :text " ${battery}")
+    (label :class "network" :text " ${network}")
+    (label :class "clock" :text " ${strftime("%H:%M")}")))
+
+;; Main window
 (defwindow bar
   :monitor 0
   :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
@@ -9,33 +37,8 @@
   :exclusive true
   (box :class "bar" :orientation "h" :space-evenly false
     (workspaces-widget)
-    (centerbox :class "center"
-      (label :class "title" :text "${title}" :limit-width 80 :halign "center"))
-    (rightbox)))
-
-(defwidget workspaces-widget []
-  (box :class "workspaces" :orientation "h" :spacing 15
-    (button :onclick "hyprctl dispatch workspace 1" :class "ws ${activews == 1 ? 'active' : 'empty'}" "1")
-    (button :onclick "hyprctl dispatch workspace 2" :class "ws ${activews == 2 ? 'active' : 'empty'}" "2")
-    (button :onclick "hyprctl dispatch workspace 3" :class "ws ${activews == 3 ? 'active' : 'empty'}" "3")
-    (button :onclick "hyprctl dispatch workspace 4" :class "ws ${activews == 4 ? 'active' : 'empty'}" "4")
-    (button :onclick "hyprctl dispatch workspace 5" :class "ws ${activews == 5 ? 'active' : 'empty'}" "5")))
-
-(defwidget rightbox []
-  (box :class "right" :halign "end" :spacing 15
-    (label :class "volume" :text " ${volume}")
-    (label :class "battery" :text " ${battery}")
-    (label :class "network" :text " ${network}")
-    (label :class "clock" :text " ${strftime("%H:%M")}")))
-
-(defvar title "")
-
-(deflisten title_listener "hyprctl activewindow -j | jq -r '.title // \"\"'")
-
-(on title_listener "eww update title='${title_listener}'")
-
-(defpoll volume :interval "2s" "pamixer --get-volume-human")
-
-(defpoll battery :interval "30s" "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 || echo 'N/A'; echo %")
-
-(defpoll network :interval "10s" "nmcli -t -f active,ssid dev wifi | grep '^yes:' | cut -d':' -f2 || echo 'disconnected'")
+    (centerbox
+     (box :halign "start" :hexpand true)
+     (label :class "title" :text "${title_listener}" :limit-width 80 :halign "center")
+     (box :halign "end" :hexpand true)
+    )))

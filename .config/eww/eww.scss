@@ -11,35 +11,25 @@
 }
 
 .workspaces button {
-  padding: 0 8px;
+  padding: 0 10px;
   background: transparent;
+  color: #666666;     /* empty */
+  border-radius: 4px;
+  min-width: 28px;
+  transition: all 0.2s;
 }
 
-.workspaces .active {
+.workspace-active {     /* or .workspace-focused in older versions */
   background: #ffffff;
   color: #000000;
-  border-radius: 4px;
 }
 
-.workspaces .occupied {
+.workspace-occupied {
   color: #cccccc;
 }
 
-.workspaces .empty {
-  color: #666666;
-}
-
-.ws {
-  padding: 0 10px;
-  background: transparent;
-  color: #666666;  /* empty */
-}
-
-.ws.active {
-  background: #ffffff;
-  color: #000000;
-  border-radius: 4px;
-}
+/* Optional: subtle background for occupied */
+/* .workspace-occupied { background: #333333; } */
 
 .title {
   color: #eeeeee;
