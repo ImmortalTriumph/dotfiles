@@ -1,44 +1,408 @@
+// Eww Dashboard Styling - Gruvbox Dark Theme
+// Matching Hyprland/Waybar aesthetic
+
+// ============================================================================
+// COLOR VARIABLES
+// ============================================================================
+
+$bg: #1a1a1a;
+$bg-dark: #0d0d0d;
+$bg-light: #252525;
+$fg: #d9d9d9;
+$fg-dim: #808080;
+$border: #4d4d4d;
+$accent: #b3b3b3;
+
+// Gruvbox accent colors
+$red: #cc241d;
+$red-bright: #fb4934;
+$green: #98971a;
+$green-bright: #b8bb26;
+$yellow: #d79921;
+$yellow-bright: #fabd2f;
+$orange: #d65d0e;
+$orange-bright: #fe8019;
+$blue: #458588;
+$blue-bright: #83a598;
+$purple: #b16286;
+$purple-bright: #d3869b;
+$cyan: #689d6a;
+$cyan-bright: #8ec07c;
+
+// ============================================================================
+// BASE STYLES
+// ============================================================================
+
 * {
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 13px;
-  color: #ffffff;
+  all: unset;
+  font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", "Noto Sans Mono CJK SC", monospace;
+  font-size: 14px;
+  color: $fg;
 }
 
-.bar {
-  background-color: rgba(20, 20, 20, 0.8);
-  padding: 0 10px;
-  border-bottom: 1px solid #333333;
+// ============================================================================
+// DASHBOARD LAYOUT
+// ============================================================================
+
+.dashboard {
+  height: 100%
+  width: 100%
+  background-color: rgba(13, 13, 13, 0.95);
+  padding: 20px;
 }
 
-.workspaces button {
-  padding: 0 10px;
-  background: transparent;
-  color: #666666;     /* empty */
-  border-radius: 4px;
-  min-width: 28px;
-  transition: all 0.2s;
+// Top section (20% height for cava)
+.top-section {
+  min-height: 18vh;
+  max-height: 20vh;
+  padding: 10px;
 }
 
-.workspace-active {     /* or .workspace-focused in older versions */
-  background: #ffffff;
-  color: #000000;
+// Middle section (60% height for info panels)
+.middle-section {
+  min-height: 55vh;
+  padding: 20px 40px;
 }
 
-.workspace-occupied {
-  color: #cccccc;
+// Bottom section (20% height for power buttons)
+.bottom-section {
+  min-height: 18vh;
+  max-height: 20vh;
+  padding: 10px;
 }
 
-/* Optional: subtle background for occupied */
-/* .workspace-occupied { background: #333333; } */
+// ============================================================================
+// CAVA SECTION
+// ============================================================================
 
-.title {
-  color: #eeeeee;
+.cava-box {
+  background-color: rgba(26, 26, 26, 0.8);
+  border: 2px solid $border;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 600px;
 }
 
-.right label {
-  padding: 0 5px;
-}
-
-.clock {
+.cava-label {
+  font-size: 18px;
   font-weight: bold;
+  color: $cyan-bright;
+  margin-bottom: 10px;
+}
+
+.cava-terminal {
+  padding: 10px;
+}
+
+.cava-hint {
+  font-size: 12px;
+  color: $fg-dim;
+  font-style: italic;
+}
+
+// ============================================================================
+// INFO PANELS
+// ============================================================================
+
+.panel {
+  padding: 10px;
+  min-width: 280px;
+}
+
+.info-box {
+  background-color: rgba(26, 26, 26, 0.9);
+  border: 2px solid $border;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.section-header {
+  font-size: 16px;
+  font-weight: bold;
+  color: $accent;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.divider {
+  color: $border;
+  margin: 5px 0;
+  font-size: 10px;
+}
+
+.spacer {
+  min-height: 15px;
+}
+
+// ============================================================================
+// NETWORK INFO
+// ============================================================================
+
+.network-box {
+  border-color: $blue-bright;
+}
+
+.network-box .section-header {
+  color: $blue-bright;
+}
+
+.info-content {
+  padding: 10px;
+}
+
+.info-row {
+  margin: 8px 0;
+}
+
+.info-label {
+  color: $fg-dim;
+  font-size: 13px;
+}
+
+.info-value {
+  color: $fg;
+  font-size: 14px;
+}
+
+.info-value.mono {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.vpn-status {
+  color: $green-bright;
+}
+
+// ============================================================================
+// NETWORK SPEED
+// ============================================================================
+
+.speed-box {
+  border-color: $orange-bright;
+  min-height: 200px;
+}
+
+.speed-box .section-header {
+  color: $orange-bright;
+}
+
+.speed-content {
+  padding: 15px;
+}
+
+.speed-row {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.speed-label {
+  color: $fg-dim;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.speed-value {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.speed-value.download {
+  color: $green-bright;
+}
+
+.speed-value.upload {
+  color: $cyan-bright;
+}
+
+// ============================================================================
+// SYSTEM STATS
+// ============================================================================
+
+.stats-box {
+  border-color: $purple-bright;
+}
+
+.stats-box .section-header {
+  color: $purple-bright;
+}
+
+.stats-content {
+  padding: 10px;
+}
+
+.stat-row {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.stat-label {
+  color: $fg-dim;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  color: $fg;
+  font-size: 16px;
+  font-family: "JetBrains Mono", monospace;
+  margin-top: 8px;
+}
+
+.progress-container {
+  padding: 5px 20px;
+}
+
+// Progress bars (scales)
+scale {
+  min-height: 12px;
+  min-width: 200px;
+
+  trough {
+    background-color: $bg-dark;
+    border-radius: 6px;
+    min-height: 12px;
+  }
+
+  highlight {
+    border-radius: 6px;
+    min-height: 12px;
+  }
+}
+
+.cpu-bar {
+  trough {
+    background-color: $bg-dark;
+  }
+  highlight {
+    background: linear-gradient(to right, $green, $yellow, $red);
+  }
+}
+
+.mem-bar {
+  trough {
+    background-color: $bg-dark;
+  }
+  highlight {
+    background: linear-gradient(to right, $blue-bright, $purple-bright);
+  }
+}
+
+// ============================================================================
+// CLOCK
+// ============================================================================
+
+.clock-box {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.clock-time {
+  font-size: 72px;
+  font-weight: bold;
+  color: $fg;
+  font-family: "JetBrains Mono Nerd Font", monospace;
+  letter-spacing: 4px;
+}
+
+.clock-date {
+  font-size: 18px;
+  color: $fg-dim;
+  margin-top: 10px;
+}
+
+// ============================================================================
+// POWER BUTTONS
+// ============================================================================
+
+.power-box {
+  padding: 20px 100px;
+}
+
+.power-btn {
+  background-color: rgba(26, 26, 26, 0.9);
+  border: 2px solid $border;
+  border-radius: 15px;
+  padding: 25px 50px;
+  margin: 0 20px;
+  transition: all 200ms ease;
+
+  &:hover {
+    background-color: $bg-light;
+    border-color: $accent;
+  }
+
+  &:active {
+    background-color: $border;
+  }
+}
+
+.power-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.power-label {
+  font-size: 14px;
+  color: $fg-dim;
+}
+
+// Lock button
+.lock-btn {
+  border-color: $blue-bright;
+
+  .power-icon {
+    color: $blue-bright;
+  }
+
+  &:hover {
+    border-color: $blue-bright;
+    background-color: rgba(69, 133, 136, 0.2);
+  }
+}
+
+// Logout button
+.logout-btn {
+  border-color: $yellow;
+
+  .power-icon {
+    color: $yellow;
+  }
+
+  &:hover {
+    border-color: $yellow;
+    background-color: rgba(215, 153, 33, 0.2);
+  }
+}
+
+// Reboot button
+.reboot-btn {
+  border-color: $orange-bright;
+
+  .power-icon {
+    color: $orange-bright;
+  }
+
+  &:hover {
+    border-color: $orange-bright;
+    background-color: rgba(254, 128, 25, 0.2);
+  }
+}
+
+// Shutdown button
+.shutdown-btn {
+  border-color: $red-bright;
+
+  .power-icon {
+    color: $red-bright;
+  }
+
+  &:hover {
+    border-color: $red-bright;
+    background-color: rgba(251, 73, 52, 0.2);
+  }
 }

@@ -1,44 +1,176 @@
-;; Variables and listeners/polls
-(deflisten title_listener
-  :initial ""
-  "hyprctl activewindow -j | jq -r '.title // \"\"'")
+; Eww Dashboard Configuration - Full Screen Widget
+; Layout: Cava (top 20%) | Network Info | Network Speed | System Stats | Power Buttons (bottom 20%)
 
-(deflisten ws_data "hyprland-workspaces eDP-1")
+; ============================================================================
+; VARIABLES - Polling system information
+; ============================================================================
 
-(defpoll volume :interval "2s" "pamixer --get-volume-human")
+; Network interfaces and IPs
+(defpoll network_info :interval "5s" "~/.config/eww/scripts/network-info.sh")
 
-(defpoll battery :interval "30s" "printf \"%s%%\" \"$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 || echo 0)\"")
+; WiFi SSID
+(defpoll wifi_ssid :interval "5s" "~/.config/eww/scripts/wifi-ssid.sh")
 
-(defpoll network :interval "10s" "nmcli -t -f active,ssid dev wifi | grep '^yes:' | cut -d':' -f2 || echo 'disconnected'")
+; VPN status (Surfshark/OpenVPN)
+(defpoll vpn_status :interval "5s" "~/.config/eww/scripts/vpn-status.sh")
 
-;; Widgets
-(defwidget workspaces-widget []
-  (box :class "workspaces" :orientation "h" :spacing 15
-    (eventbox :onscroll "hyprctl dispatch workspace {{echo {} | sed 's/up/e+/' | sed 's/down/e-/'}}1"
-      (for ws in ws_data
-        (button :onclick "hyprctl dispatch workspace ${ws.id}"
-                :class "${ws.class} ws-button"
-                "${ws.id}")))))
+; Network speed
+(defpoll net_upload :interval "1s" "~/.config/eww/scripts/net-speed.sh up")
+(defpoll net_download :interval "1s" "~/.config/eww/scripts/net-speed.sh down")
 
-(defwidget rightbox []
-  (box :class "right" :halign "end" :spacing 15
-    (label :class "volume" :text " ${volume}")
-    (label :class "battery" :text " ${battery}")
-    (label :class "network" :text " ${network}")
-    (label :class "clock" :text " ${strftime("%H:%M")}")))
+; CPU usage
+(defpoll cpu_usage :interval "1s" "~/.config/eww/scripts/cpu-usage.sh")
 
-;; Main window
-(defwindow bar
+; Memory usage
+(defpoll mem_usage :interval "2s" "~/.config/eww/scripts/mem-usage.sh")
+(defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
+(defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
+
+; Time
+(defpoll time_hour :interval "1s" "date '+%H'")
+(defpoll time_min :interval "1s" "date '+%M'")
+(defpoll time_sec :interval "1s" "date '+%S'")
+(defpoll date_full :interval "60s" "date '+%A, %B %d'")
+
+; ============================================================================
+; WIDGETS
+; ============================================================================
+
+; Cava audio visualizer (embedded terminal)
+(defwidget cava-widget []
+  (box :class "cava-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
+    (box :class "cava-label" :halign "center"
+      (label :text "  AUDIO SPECTRUM"))
+    (box :class "cava-terminal" :halign "center" :valign "center"
+      (label :text "Launch: kitty --class cava-float cava" :class "cava-hint"))))
+
+; Network information widget
+(defwidget network-info []
+  (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
+    (box :class "section-header" :halign "center"
+      (label :text "  NETWORK"))
+    (box :class "info-content" :orientation "v" :space-evenly false
+      (label :text "─────────────────────" :class "divider")
+      (box :class "info-row" :orientation "v" :space-evenly false
+        (label :text "Interfaces & IPs" :class "info-label")
+        (label :text network_info :class "info-value mono"))
+      (label :text "" :class "spacer")
+      (box :class "info-row"
+        (label :text "  WiFi: " :class "info-label")
+        (label :text wifi_ssid :class "info-value"))
+      (box :class "info-row"
+        (label :text "󰖂  VPN: " :class "info-label")
+        (label :text vpn_status :class "info-value vpn-status")))))
+
+; Network speed widget
+(defwidget network-speed []
+  (box :class "info-box speed-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
+    (box :class "section-header" :halign "center"
+      (label :text "󰓅  NETWORK SPEED"))
+    (box :class "speed-content" :orientation "v" :space-evenly true
+      (label :text "─────────────────────" :class "divider")
+      (box :class "speed-row" :orientation "v" :valign "center"
+        (label :text "  DOWNLOAD" :class "speed-label")
+        (label :text net_download :class "speed-value download"))
+      (label :text "" :class "spacer")
+      (box :class "speed-row" :orientation "v" :valign "center"
+        (label :text "  UPLOAD" :class "speed-label")
+        (label :text net_upload :class "speed-value upload")))))
+
+; System stats widget (CPU + Memory)
+(defwidget system-stats []
+  (box :class "info-box stats-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
+    (box :class "section-header" :halign "center"
+      (label :text "  SYSTEM"))
+    (box :class "stats-content" :orientation "v" :space-evenly false
+      (label :text "─────────────────────" :class "divider")
+      ; CPU
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "  CPU" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value cpu_usage :orientation "h" :class "cpu-bar"))
+        (label :text "${cpu_usage}%" :class "stat-value"))
+      (label :text "" :class "spacer")
+      ; Memory
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "  RAM" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value mem_usage :orientation "h" :class "mem-bar"))
+        (label :text "${mem_used} / ${mem_total}" :class "stat-value")))))
+
+; Power buttons widget
+(defwidget power-buttons []
+  (box :class "power-box" :orientation "h" :space-evenly true :halign "center" :valign "center"
+    ; Lock button
+    (button :class "power-btn lock-btn"
+            :onclick "eww close dashboard && hyprlock"
+            :tooltip "Lock Screen"
+      (box :orientation "v" :space-evenly false
+        (label :text "" :class "power-icon")
+        (label :text "Lock" :class "power-label")))
+    ; Logout button
+    (button :class "power-btn logout-btn"
+            :onclick "eww close dashboard && hyprctl dispatch exit"
+            :tooltip "Logout to SDDM"
+      (box :orientation "v" :space-evenly false
+        (label :text "󰍃" :class "power-icon")
+        (label :text "Logout" :class "power-label")))
+    ; Reboot button
+    (button :class "power-btn reboot-btn"
+            :onclick "eww close dashboard && systemctl reboot"
+            :tooltip "Reboot System"
+      (box :orientation "v" :space-evenly false
+        (label :text "" :class "power-icon")
+        (label :text "Reboot" :class "power-label")))
+    ; Shutdown button
+    (button :class "power-btn shutdown-btn"
+            :onclick "eww close dashboard && systemctl poweroff"
+            :tooltip "Shutdown System"
+      (box :orientation "v" :space-evenly false
+        (label :text "" :class "power-icon")
+        (label :text "Shutdown" :class "power-label")))))
+
+; Clock widget (center decoration)
+(defwidget clock-widget []
+  (box :class "clock-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
+    (label :text "${time_hour}:${time_min}" :class "clock-time")
+    (label :text date_full :class "clock-date")))
+
+; ============================================================================
+; MAIN DASHBOARD LAYOUT
+; ============================================================================
+
+(defwidget dashboard-layout []
+  (box :class "dashboard" :orientation "v" :space-evenly false
+    ; TOP 20% - Cava / Audio Section
+    (box :class "top-section" :orientation "v" :space-evenly false :vexpand false
+      (cava-widget))
+
+    ; MIDDLE 60% - Info Panels
+    (box :class "middle-section" :orientation "h" :space-evenly true :vexpand true
+      ; Left - Network Info
+      (box :class "panel left-panel" :halign "center" :valign "center"
+        (network-info))
+      ; Center - Clock + Network Speed
+      (box :class "panel center-panel" :orientation "v" :halign "center" :valign "center" :space-evenly false
+        (clock-widget)
+        (network-speed))
+      ; Right - System Stats
+      (box :class "panel right-panel" :halign "center" :valign "center"
+        (system-stats)))
+
+    ; BOTTOM 20% - Power Buttons
+    (box :class "bottom-section" :orientation "v" :space-evenly false :vexpand false
+      (power-buttons))))
+
+; ============================================================================
+; WINDOW DEFINITION
+; ============================================================================
+
+(defwindow dashboard
   :monitor 0
-  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
-  :stacking "fg"
-  :reserve (struts :distance "40px" :side "top")
-  :windowtype "dock"
-  :exclusive true
-  (box :class "bar" :orientation "h" :space-evenly false
-    (workspaces-widget)
-    (centerbox
-     (box :halign "start" :hexpand true)
-     (label :class "title" :text "${title_listener}" :limit-width 80 :halign "center")
-     (box :halign "end" :hexpand true)
-    )))
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "100%" :anchor "center center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable true
+  (dashboard-layout))
