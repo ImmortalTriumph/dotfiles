@@ -3,38 +3,46 @@
     highlight: bold italic;
     scrollbar: true;
 
-    dark-bg0:                  #00000099;
-    dark-bg0-soft:             #11111199;
-    dark-fg0:                  #ffffff99;
-    gray:                      #808080;
+    /* Gruvbox Dark Theme (matching zsh/nvim/neofetch) */
+    bg:                          #1a1a1a;
+    bg-soft:                     #252525;
+    fg:                          #d9d9d9;
+    gray:                        #808080;
+    red:                         #fb4934;
+    green:                       #b8bb26;
+    yellow:                      #fabd2f;
+    blue:                        #83a598;
+    purple:                      #d3869b;
+    cyan:                        #8ec07c;
+    orange:                      #fe8019;
 
-    background:                  @dark-bg0;
+    background:                  @bg;
     background-color:            @background;
-    foreground:                  @dark-fg0;
+    foreground:                  @fg;
     border-color:                @gray;
     separatorcolor:              @border-color;
     scrollbar-handle:            @border-color;
 
-    normal-background:           @background;
-    normal-foreground:           @foreground;
-    alternate-normal-background: @dark-bg0-soft;
-    alternate-normal-foreground: @foreground;
-    selected-normal-background:  @gray;
-    selected-normal-foreground:  @dark-fg0;
+    normal-background:           @bg;
+    normal-foreground:           @fg;
+    alternate-normal-background: @bg-soft;
+    alternate-normal-foreground: @fg;
+    selected-normal-background:  @blue;
+    selected-normal-foreground:  @bg;
 
-    active-background:           @gray;
-    active-foreground:           @background;
+    active-background:           @cyan;
+    active-foreground:           @bg;
     alternate-active-background: @active-background;
     alternate-active-foreground: @active-foreground;
-    selected-active-background:  @gray;
-    selected-active-foreground:  @active-foreground;
+    selected-active-background:  @green;
+    selected-active-foreground:  @bg;
 
-    urgent-background:           @gray;
-    urgent-foreground:           @background;
+    urgent-background:           @red;
+    urgent-foreground:           @bg;
     alternate-urgent-background: @urgent-background;
     alternate-urgent-foreground: @urgent-foreground;
-    selected-urgent-background:  @gray;
-    selected-urgent-foreground:  @urgent-foreground;
+    selected-urgent-background:  @orange;
+    selected-urgent-foreground:  @bg;
 }
 
 window {

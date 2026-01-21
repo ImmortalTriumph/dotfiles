@@ -142,9 +142,8 @@ zstyle ':vcs_info:*' unstagedstr '%F{red}*%f'
 zstyle ':vcs_info:git:*' formats '%F{cyan}(%b%c%u%F{cyan})%f '
 zstyle ':vcs_info:git:*' actionformats '%F{cyan}(%b|%F{red}%a%F{cyan}%c%u)%f '
 
-# Prompt (two-line minimal)
-PROMPT='%F{blue}%~%f ${vcs_info_msg_0_}
-%F{cyan}❯%f '
+# Prompt (bash-like: user@host:path)
+PROMPT='%F{blue}%n%f@%F{yellow}%m%f:%F{cyan}%~%f ${vcs_info_msg_0_}$ '
 
 # Right prompt - show exit code if non-zero
 RPROMPT='%(?.%F{gray}%T%f.%F{red}✗ %?%f)'
