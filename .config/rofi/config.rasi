@@ -1,62 +1,13 @@
-* {
-    font: "JetBrainsMono Nerd Font 16";
-    highlight: bold italic;
-    scrollbar: true;
-
-    /* Gruvbox Dark Theme (matching zsh/nvim/neofetch) */
-    bg:                          #1a1a1a;
-    bg-soft:                     #252525;
-    fg:                          #d9d9d9;
-    gray:                        #808080;
-    red:                         #fb4934;
-    green:                       #b8bb26;
-    yellow:                      #fabd2f;
-    blue:                        #83a598;
-    purple:                      #d3869b;
-    cyan:                        #8ec07c;
-    orange:                      #fe8019;
-
-    background:                  @bg;
-    background-color:            @background;
-    foreground:                  @fg;
-    border-color:                @gray;
-    separatorcolor:              @border-color;
-    scrollbar-handle:            @border-color;
-
-    normal-background:           @bg;
-    normal-foreground:           @fg;
-    alternate-normal-background: @bg-soft;
-    alternate-normal-foreground: @fg;
-    selected-normal-background:  @blue;
-    selected-normal-foreground:  @bg;
-
-    active-background:           @cyan;
-    active-foreground:           @bg;
-    alternate-active-background: @active-background;
-    alternate-active-foreground: @active-foreground;
-    selected-active-background:  @green;
-    selected-active-foreground:  @bg;
-
-    urgent-background:           @red;
-    urgent-foreground:           @bg;
-    alternate-urgent-background: @urgent-background;
-    alternate-urgent-foreground: @urgent-foreground;
-    selected-urgent-background:  @orange;
-    selected-urgent-foreground:  @bg;
+configuration {
+    modi: "drun,run";
+    show-icons: true;
+    font: "JetBrainsMono Nerd Font 12";
+    display-drun: "";
+    display-run: "";
+    drun-display-format: "{name}";
+    scroll-method: 0;
+    disable-history: false;
+    sidebar-mode: false;
 }
 
-window {
-    transparency: "real";
-    border: 2px;
-    border-radius: 10px;
-    width: 600px;
-    padding: 10px;
-}
-
-element {
-    padding: 8px;
-}
-
-element selected {
-    border-radius: 5px;
-}
+@theme "~/.config/rofi/theme.rasi"

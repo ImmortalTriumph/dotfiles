@@ -1,0 +1,155 @@
+* {
+    font: "JetBrainsMono Nerd Font 14";
+    highlight: bold italic;
+    scrollbar: true;
+
+    /* Gruvbox Dark Theme (unified with system) */
+    bg:                          #1a1a1a;
+    bg-soft:                     #252525;
+    fg:                          #d9d9d9;
+    border:                      #4d4d4d;
+    accent:                      #b3b3b3;
+    red:                         #fb4934;
+    green:                       #b8bb26;
+    yellow:                      #fabd2f;
+    blue:                        #83a598;
+    purple:                      #d3869b;
+    cyan:                        #8ec07c;
+    orange:                      #fe8019;
+
+    background-color:            transparent;
+    text-color:                  @fg;
+}
+
+window {
+    border:                      2px solid;
+    border-color:                @border;
+    border-radius:               6px;
+    background-color:            rgb(26, 26, 26, 0.98);
+    width:                       500px;
+    padding:                     15px;
+}
+
+mainbox {
+    children:                    [ inputbar, icon-banner, message, listview ];
+    background-color:            transparent;
+    padding:			 0px;
+    spacing:                     0px;
+}
+
+icon-banner {
+    filename:                    "~/.config/rofi/image.jpg";
+    size:                        0px 500px;
+    padding: 			 0px;
+}
+
+inputbar {
+    background-color:            @bg-soft;
+    border-radius:               6px;
+    padding:                     10px 15px;
+    spacing:                     10px;
+    children:                    [ prompt, entry ];
+}
+
+prompt {
+    text-color:                  @accent;
+}
+
+entry {
+    background-color:            transparent;
+    text-color:                  @fg;
+    placeholder:                 "Search...";
+    placeholder-color:           @border;
+}
+
+message {
+    background-color:            transparent;
+    border:                      0;
+}
+
+textbox {
+    background-color:            @bg-soft;
+    text-color:                  @fg;
+    padding:                     10px 15px;
+    border-radius:               6px;
+}
+
+listview {
+    background-color:            transparent;
+    lines:                       8;
+    columns:                     1;
+    fixed-height:                true;
+    scrollbar:                   true;
+    spacing:                     5px;
+}
+
+scrollbar {
+    background-color:            @bg-soft;
+    handle-color:                @border;
+    handle-width:                4px;
+    border-radius:               2px;
+}
+
+element {
+    background-color:            transparent;
+    text-color:                  @fg;
+    padding:                     10px 15px;
+    border-radius:               5px;
+    spacing:                     10px;
+}
+
+element-icon {
+    background-color:            transparent;
+    size:                        24px;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  @fg;
+}
+
+element alternate.normal {
+    background-color:            transparent;
+    text-color:                  @fg;
+}
+
+element selected.normal {
+    background-color:            @orange;
+    text-color:                  @bg;
+}
+
+element normal.active {
+    background-color:            transparent;
+    text-color:                  @blue;
+}
+
+element alternate.active {
+    background-color:            transparent;
+    text-color:                  @green;
+}
+
+element selected.active {
+    background-color:            @green;
+    text-color:                  @bg;
+}
+
+element normal.urgent {
+    background-color:            transparent;
+    text-color:                  @red;
+}
+
+element alternate.urgent {
+    background-color:            transparent;
+    text-color:                  @red;
+}
+
+element selected.urgent {
+    background-color:            @red;
+    text-color:                  @bg;
+}
