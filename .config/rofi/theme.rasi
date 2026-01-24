@@ -26,15 +26,29 @@ window {
     border-color:                @border;
     border-radius:               6px;
     background-color:            rgb(26, 26, 26, 0.98);
-    width:                       500px;
+    width:                       1000px;
     padding:                     15px;
 }
 
 mainbox {
-    children:                    [ inputbar, icon-banner, message, listview ];
+    orientation:		 horizontal;
+    children:                    [ left, right ];
     background-color:            transparent;
     padding:			 0px;
-    spacing:                     0px;
+    spacing:                     15px;
+}
+
+left {
+    orientation:		 vertical;
+    children:                    [ inputbar, icon-banner ];
+    background-color:            transparent;
+    spacing:                     15px;
+}
+
+right {
+    orientation:		 vertical;
+    children:                    [ message, listview ];
+    background-color:            transparent;
 }
 
 icon-banner {
