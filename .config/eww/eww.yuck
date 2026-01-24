@@ -1,5 +1,4 @@
 ; Eww Dashboard Configuration - Full Screen Widget
-; Layout: Cava + Spotify/Volume (top 20%) | Network Info | Network Speed | System Stats | Power Buttons (bottom)
 
 ; ============================================================================
 ; VARIABLES - Polling system information
@@ -139,19 +138,19 @@
             :tooltip "Close Dashboard"
       (label :text "󰅖" :class "power-icon"))
     (button :class "power-btn lock-btn"
-            :onclick "eww close dashboard && sleep 0.5 && hyprlock"
+            :onclick "hyprlock & eww close dashboard"
             :tooltip "Lock Screen"
       (label :text "󰌾" :class "power-icon"))
     (button :class "power-btn logout-btn"
-            :onclick "eww close dashboard && sleep 0.5 && hyprctl dispatch exit"
+            :onclick "eww close dashboard; hyprctl dispatch exit"
             :tooltip "Logout"
       (label :text "󰍃" :class "power-icon"))
     (button :class "power-btn reboot-btn"
-            :onclick "systemctl reboot"
+            :onclick "sudo systemctl reboot"
             :tooltip "Reboot"
       (label :text "󰜉" :class "power-icon"))
     (button :class "power-btn shutdown-btn"
-            :onclick "systemctl poweroff"
+            :onclick "sudo systemctl poweroff"
             :tooltip "Shutdown"
       (label :text "󰐥" :class "power-icon"))))
 
