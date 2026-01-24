@@ -2,7 +2,9 @@
 
 [general]
 framerate = 60
-bars = 50
+bars = 60
+bar_width = 1
+bar_spacing = 0
 
 [input]
 method = pipewire
@@ -12,6 +14,7 @@ source = auto
 method = raw
 raw_target = /tmp/cava.raw
 data_format = ascii
+ascii_max_range = 8
 
 [smoothing]
 monstercat = 0

@@ -1,19 +1,19 @@
-// Eww Dashboard Styling - Gruvbox Dark Theme
-// Matching Hyprland/Waybar aesthetic
+// Eww Dashboard Styling - Matching Hyprland/Waybar Theme
+// Colors from kitty.conf and waybar/style.css
 
 // ============================================================================
-// COLOR VARIABLES
+// COLOR VARIABLES (matching system theme)
 // ============================================================================
 
 $bg: #1a1a1a;
-$bg-dark: #0d0d0d;
+$bg-dark: #121212;
 $bg-light: #252525;
 $fg: #d9d9d9;
 $fg-dim: #808080;
-$border: #4d4d4d;
+$border: #333333;
 $accent: #b3b3b3;
 
-// Gruvbox accent colors
+// Gruvbox accent colors (from kitty.conf)
 $red: #cc241d;
 $red-bright: #fb4934;
 $green: #98971a;
@@ -36,7 +36,7 @@ $cyan-bright: #8ec07c;
 * {
   all: unset;
   font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", "Noto Sans Mono CJK SC", monospace;
-  font-size: 14px;
+  font-size: 16px;
   color: $fg;
 }
 
@@ -45,117 +45,155 @@ $cyan-bright: #8ec07c;
 // ============================================================================
 
 .dashboard {
-  background-color: rgba(13, 13, 13, 0.95);
-  padding: 20px;
-}
-
-// Top section (20% height for cava)
-.top-section {
-  min-height: 150px;
-  padding: 10px;
-}
-
-// Middle section (60% height for info panels)
-.middle-section {
-  min-height: 400px;
+  background-color: rgba(18, 18, 18, 0.95);
   padding: 20px 40px;
 }
 
-// Bottom section (20% height for power buttons)
+// Top section: 20% height for cava + spotify/volume
+.top-section {
+  min-height: 220px;
+  padding: 15px 80px;
+}
+
+// Middle section: 65-70% height for info panels
+.middle-section {
+  min-height: 700px;
+  padding: 20px 80px;
+}
+
+// Bottom section: power buttons with extra padding
 .bottom-section {
-  min-height: 150px;
-  padding: 10px;
+  min-height: 100px;
+  padding: 20px 80px;
 }
 
 // ============================================================================
-// CAVA SECTION
+// CAVA VISUALIZER (wider, 20% height coverage)
 // ============================================================================
 
 .cava-box {
-  background-color: rgba(26, 26, 26, 0.8);
-  border: 2px solid $border;
-  border-radius: 10px;
-  padding: 20px;
-  min-width: 800px;
-  min-height: 120px;
-}
-
-.cava-header {
-  margin-bottom: 10px;
-}
-
-.cava-label {
-  font-size: 18px;
-  font-weight: bold;
-  color: $cyan-bright;
-}
-
-.cava-separator {
-  font-size: 18px;
-  color: $border;
-}
-
-.cava-status {
-  font-size: 12px;
-  color: $fg-dim;
-  font-style: italic;
-}
-
-.cava-terminal {
-  padding: 10px;
-}
-
-.cava-hint {
-  font-size: 12px;
-  color: $fg-dim;
-  font-style: italic;
+  background-color: transparent;
+  padding: 10px 40px;
+  min-height: 140px;
 }
 
 .visualizer-text {
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
   color: $cyan-bright;
-  letter-spacing: 1px;
+  letter-spacing: 0px;
 }
 
 // ============================================================================
-// INFO PANELS
+// SPOTIFY + VOLUME
+// ============================================================================
+
+.spotify-volume-box {
+  background-color: rgba(26, 26, 26, 0.6);
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 10px 30px;
+  min-width: 800px;
+  margin-top: 10px;
+}
+
+.spotify-info {
+  padding: 6px;
+}
+
+.spotify-icon {
+  font-size: 18px;
+  color: $green-bright;
+  margin-right: 12px;
+}
+
+.spotify-text {
+  font-size: 14px;
+  color: $fg;
+}
+
+.volume-info {
+  padding: 6px;
+}
+
+.volume-icon {
+  font-size: 18px;
+  color: $cyan-bright;
+  margin-right: 12px;
+}
+
+.volume-bar {
+  min-width: 150px;
+  margin-right: 10px;
+
+  trough {
+    background-color: $bg-dark;
+    border-radius: 3px;
+    min-height: 8px;
+  }
+
+  highlight {
+    background-color: $cyan-bright;
+    border-radius: 3px;
+    min-height: 8px;
+  }
+
+  slider {
+    background-color: $fg;
+    border-radius: 50%;
+    min-width: 12px;
+    min-height: 12px;
+  }
+}
+
+.volume-text {
+  font-size: 12px;
+  color: $fg-dim;
+  min-width: 40px;
+}
+
+// ============================================================================
+// INFO PANELS (same height for all three)
 // ============================================================================
 
 .panel {
-  padding: 10px;
-  min-width: 280px;
+  padding: 15px;
+  min-width: 450px;
 }
 
 .info-box {
   background-color: rgba(26, 26, 26, 0.9);
-  border: 2px solid $border;
-  border-radius: 10px;
+  border: 1px solid $border;
+  border-radius: 8px;
   padding: 20px;
-  min-width: 300px;
-  min-height: 300px;
+  min-width: 480px;
+  min-height: 500px;
 }
 
 .section-header {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   color: $accent;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   padding-bottom: 10px;
+  letter-spacing: 2px;
+  min-width: 200px;
 }
 
-.divider {
-  color: $border;
-  margin: 5px 0;
-  font-size: 10px;
+.section-header label {
+  min-width: 150px;
 }
 
-.spacer {
-  min-height: 15px;
+.spacer-sm {
+  min-height: 10px;
+}
+
+.spacer-md {
+  min-height: 20px;
 }
 
 // ============================================================================
-// NETWORK INFO
+// NETWORK INFO (title: value format)
 // ============================================================================
 
 .network-box {
@@ -176,21 +214,38 @@ $cyan-bright: #8ec07c;
 
 .info-label {
   color: $fg-dim;
-  font-size: 13px;
+  font-size: 18px;
+  margin-right: 8px;
 }
 
 .info-value {
   color: $fg;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .info-value.mono {
   font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .vpn-status {
   color: $green-bright;
+}
+
+.info-btn {
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin: 4px 0;
+  transition: all 200ms ease;
+
+  &:hover {
+    background-color: rgba(131, 165, 152, 0.15);
+  }
+
+  &:active {
+    background-color: rgba(131, 165, 152, 0.25);
+  }
 }
 
 // ============================================================================
@@ -199,7 +254,6 @@ $cyan-bright: #8ec07c;
 
 .speed-box {
   border-color: $orange-bright;
-  min-height: 200px;
 }
 
 .speed-box .section-header {
@@ -207,7 +261,7 @@ $cyan-bright: #8ec07c;
 }
 
 .speed-content {
-  padding: 15px;
+  padding: 18px;
 }
 
 .speed-row {
@@ -216,8 +270,9 @@ $cyan-bright: #8ec07c;
 
 .speed-label {
   color: $fg-dim;
-  font-size: 12px;
-  margin-bottom: 5px;
+  font-size: 16px;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
 }
 
 .speed-value {
@@ -234,6 +289,44 @@ $cyan-bright: #8ec07c;
   color: $cyan-bright;
 }
 
+.speedtest-btn {
+  background-color: rgba(254, 128, 25, 0.1);
+  border: 1px solid $orange-bright;
+  border-radius: 6px;
+  padding: 12px 24px;
+  margin: 15px 0;
+  transition: all 200ms ease;
+
+  &:hover {
+    background-color: rgba(254, 128, 25, 0.25);
+  }
+
+  &:active {
+    background-color: rgba(254, 128, 25, 0.4);
+  }
+}
+
+.speedtest-label {
+  font-size: 13px;
+  color: $orange-bright;
+  font-weight: bold;
+}
+
+.speed-row-small {
+  margin-top: 15px;
+}
+
+.ping-label {
+  font-size: 12px;
+  color: $fg-dim;
+}
+
+.ping-value {
+  font-size: 12px;
+  color: $yellow-bright;
+  font-family: "JetBrains Mono", monospace;
+}
+
 // ============================================================================
 // SYSTEM STATS
 // ============================================================================
@@ -248,101 +341,95 @@ $cyan-bright: #8ec07c;
 
 .stats-content {
   padding: 10px;
+  min-width: 400px;
 }
 
 .stat-row {
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 .stat-label {
   color: $fg-dim;
-  font-size: 14px;
-  margin-bottom: 8px;
+  font-size: 16px;
+  margin-bottom: 6px;
+  min-width: 150px;
 }
 
 .stat-value {
   color: $fg;
-  font-size: 16px;
+  font-size: 15px;
   font-family: "JetBrains Mono", monospace;
-  margin-top: 8px;
+  margin-top: 4px;
+}
+
+.stat-value.download {
+  color: $green-bright;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.stat-value.upload {
+  color: $cyan-bright;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.stat-value.vpn-status {
+  color: $green-bright;
 }
 
 .progress-container {
-  padding: 5px 20px;
+  padding: 2px 15px;
 }
 
-// Progress bars (scales)
 scale {
-  min-height: 12px;
+  min-height: 10px;
   min-width: 200px;
 
   trough {
     background-color: $bg-dark;
-    border-radius: 6px;
-    min-height: 12px;
+    border-radius: 5px;
+    min-height: 10px;
   }
 
   highlight {
-    border-radius: 6px;
-    min-height: 12px;
+    border-radius: 5px;
+    min-height: 10px;
   }
 }
 
-.cpu-bar {
-  trough {
-    background-color: $bg-dark;
-  }
-  highlight {
-    background: linear-gradient(to right, $green, $yellow, $red);
-  }
+.cpu-bar highlight {
+  background: linear-gradient(to right, $green, $yellow, $red);
 }
 
-.mem-bar {
-  trough {
-    background-color: $bg-dark;
-  }
-  highlight {
-    background: linear-gradient(to right, $blue-bright, $purple-bright);
-  }
+.mem-bar highlight {
+  background: linear-gradient(to right, $blue-bright, $purple-bright);
+}
+
+.swap-bar highlight {
+  background: linear-gradient(to right, $cyan, $cyan-bright);
+}
+
+.disk-bar highlight {
+  background: linear-gradient(to right, $yellow, $orange-bright);
 }
 
 // ============================================================================
-// CLOCK
-// ============================================================================
-
-.clock-box {
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.clock-time {
-  font-size: 72px;
-  font-weight: bold;
-  color: $fg;
-  font-family: "JetBrains Mono Nerd Font", monospace;
-  letter-spacing: 4px;
-}
-
-.clock-date {
-  font-size: 18px;
-  color: $fg-dim;
-  margin-top: 10px;
-}
-
-// ============================================================================
-// POWER BUTTONS
+// POWER BUTTONS (Compact Square/Rectangle Style with More Padding)
 // ============================================================================
 
 .power-box {
-  padding: 20px 100px;
+  padding: 20px 150px;
 }
 
 .power-btn {
   background-color: rgba(26, 26, 26, 0.9);
   border: 2px solid $border;
-  border-radius: 15px;
-  padding: 25px 50px;
+  border-radius: 8px;
+  padding: 14px 28px;
   margin: 0 20px;
+  min-width: 50px;
+  min-height: 50px;
   transition: all 200ms ease;
 
   &:hover {
@@ -356,118 +443,51 @@ scale {
 }
 
 .power-icon {
-  font-size: 36px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.power-label {
-  font-size: 14px;
-  color: $fg-dim;
-}
-
-// Lock button
-.lock-btn {
-  border-color: $blue-bright;
-
-  .power-icon {
-    color: $blue-bright;
-  }
-
-  &:hover {
-    border-color: $blue-bright;
-    background-color: rgba(69, 133, 136, 0.2);
-  }
-}
-
-// Logout button
-.logout-btn {
-  border-color: $yellow;
-
-  .power-icon {
-    color: $yellow;
-  }
-
-  &:hover {
-    border-color: $yellow;
-    background-color: rgba(215, 153, 33, 0.2);
-  }
-}
-
-// Reboot button
-.reboot-btn {
-  border-color: $orange-bright;
-
-  .power-icon {
-    color: $orange-bright;
-  }
-
-  &:hover {
-    border-color: $orange-bright;
-    background-color: rgba(254, 128, 25, 0.2);
-  }
-}
-
-// Shutdown button
-.shutdown-btn {
-  border-color: $red-bright;
-
-  .power-icon {
-    color: $red-bright;
-  }
-
-  &:hover {
-    border-color: $red-bright;
-    background-color: rgba(251, 73, 52, 0.2);
-  }
-}
-
-// Exit button
 .exit-btn {
   border-color: $fg-dim;
-
-  .power-icon {
-    color: $fg-dim;
-  }
-
+  .power-icon { color: $fg-dim; }
   &:hover {
     border-color: $fg;
     background-color: rgba(128, 128, 128, 0.2);
   }
 }
 
-// ============================================================================
-// CLOSE BUTTON
-// ============================================================================
-
-.close-box {
-  padding: 10px 0;
-  margin-top: 10px;
-}
-
-.close-btn {
-  background-color: rgba(26, 26, 26, 0.7);
-  border: 1px solid $border;
-  border-radius: 8px;
-  padding: 10px 30px;
-  transition: all 200ms ease;
-
+.lock-btn {
+  border-color: $blue-bright;
+  .power-icon { color: $blue-bright; }
   &:hover {
-    background-color: $bg-light;
-    border-color: $fg-dim;
-  }
-
-  &:active {
-    background-color: $border;
+    border-color: $blue-bright;
+    background-color: rgba(69, 133, 136, 0.2);
   }
 }
 
-.close-icon {
-  font-size: 16px;
-  color: $fg-dim;
-  margin-right: 8px;
+.logout-btn {
+  border-color: $yellow;
+  .power-icon { color: $yellow; }
+  &:hover {
+    border-color: $yellow;
+    background-color: rgba(215, 153, 33, 0.2);
+  }
 }
 
-.close-label {
-  font-size: 13px;
-  color: $fg-dim;
+.reboot-btn {
+  border-color: $orange-bright;
+  .power-icon { color: $orange-bright; }
+  &:hover {
+    border-color: $orange-bright;
+    background-color: rgba(254, 128, 25, 0.2);
+  }
+}
+
+.shutdown-btn {
+  border-color: $red-bright;
+  .power-icon { color: $red-bright; }
+  &:hover {
+    border-color: $red-bright;
+    background-color: rgba(251, 73, 52, 0.2);
+  }
 }

@@ -1,155 +1,159 @@
 ; Eww Dashboard Configuration - Full Screen Widget
-; Layout: Cava (top 20%) | Network Info | Network Speed | System Stats | Power Buttons (bottom 20%)
+; Layout: Cava + Spotify/Volume (top 20%) | Network Info | Network Speed | System Stats | Power Buttons (bottom)
 
 ; ============================================================================
 ; VARIABLES - Polling system information
 ; ============================================================================
 
-; Network interfaces and IPs
-(defpoll network_info :interval "5s" "~/.config/eww/scripts/network-info.sh")
+; --- Network ---
+(defpoll network_info :interval "5s" "~/.config/eww/scripts/network/network-info.sh")
+(defpoll wifi_ssid :interval "5s" "~/.config/eww/scripts/network/wifi-ssid.sh")
+(defpoll vpn_status :interval "5s" "~/.config/eww/scripts/network/vpn-status.sh")
+(defpoll bluetooth_status :interval "5s" "~/.config/eww/scripts/network/bluetooth-status.sh")
+(defpoll net_upload :interval "1s" "~/.config/eww/scripts/network/net-speed.sh up")
+(defpoll net_download :interval "1s" "~/.config/eww/scripts/network/net-speed.sh down")
 
-; WiFi SSID
-(defpoll wifi_ssid :interval "5s" "~/.config/eww/scripts/wifi-ssid.sh")
-
-; VPN status (Surfshark/OpenVPN)
-(defpoll vpn_status :interval "5s" "~/.config/eww/scripts/vpn-status.sh")
-
-; Network speed
-(defpoll net_upload :interval "1s" "~/.config/eww/scripts/net-speed.sh up")
-(defpoll net_download :interval "1s" "~/.config/eww/scripts/net-speed.sh down")
-
-; CPU usage
-(defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/cpu-usage.sh")
-
-; Memory usage
-(defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/mem-usage.sh")
+; --- System ---
+(defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/system/cpu-usage.sh")
+(defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/system/mem-usage.sh")
 (defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
 (defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
+(defpoll swap_usage :interval "5s" :initial "0" "~/.config/eww/scripts/system/swap-usage.sh")
+(defpoll swap_total :interval "60s" "free -h | awk '/Swap:/ {print $2}'")
+(defpoll swap_used :interval "5s" "free -h | awk '/Swap:/ {print $3}'")
+(defpoll disk_root_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh root-percent")
+(defpoll disk_root_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh root")
+(defpoll disk_home_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh home-percent")
+(defpoll disk_home_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh home")
 
-; Time
-(defpoll time_hour :interval "1s" "date '+%H'")
-(defpoll time_min :interval "1s" "date '+%M'")
-(defpoll time_sec :interval "1s" "date '+%S'")
-(defpoll date_full :interval "60s" "date '+%A, %B %d'")
+; --- Media ---
+(defpoll spotify_info :interval "2s" "~/.config/eww/scripts/media/spotify-info.sh")
+(defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/volume-info.sh")
+(defpoll visualizer_content :interval "0.05s" :initial "" "cat /tmp/visualizer.txt 2>/dev/null || echo ''")
 
-; Audio visualizer (reads from cava-viz output)
-(defpoll visualizer_content :interval "0.05s" :initial "[ AUDIO VISUALIZER - STANDBY ]" "cat /tmp/visualizer.txt 2>/dev/null || echo '[ AUDIO VISUALIZER - STANDBY ]'")
-
-; Audio status indicator
-(defpoll audio_status :interval "2s" :initial "Standby" "~/.config/eww/scripts/audio/audio_cava_status.sh 2>/dev/null || echo 'Standby'")
+; --- Speedtest (manual trigger with results stored separately) ---
+(defvar speedtest_running false)
+(defvar speedtest_download "-- Mbps")
+(defvar speedtest_upload "-- Mbps")
+(defvar speedtest_ping "-- ms")
 
 ; ============================================================================
 ; WIDGETS
 ; ============================================================================
 
-; Cava audio visualizer (ASCII from cava-viz)
+; Cava audio visualizer (pure ASCII, no labels, wider display)
 (defwidget cava-widget []
   (box :class "cava-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
-    (box :class "cava-header" :orientation "h" :space-evenly false :halign "center"
-      (label :text "  AUDIO SPECTRUM" :class "cava-label")
-      (label :text " | " :class "cava-separator")
-      (label :text audio_status :class "cava-status"))
-    (box :class "cava-terminal" :halign "center" :valign "center"
-      (label :text visualizer_content :class "visualizer-text"))))
+    (label :text visualizer_content :class "visualizer-text")))
 
-; Network information widget
+; Spotify + Volume widget
+(defwidget spotify-volume []
+  (box :class "spotify-volume-box" :orientation "h" :space-evenly false :halign "center" :valign "center"
+    (box :class "spotify-info" :orientation "h" :space-evenly false :halign "start"
+      (label :text "" :class "spotify-icon")
+      (label :text spotify_info :class "spotify-text"))
+    (box :hexpand true)
+    (box :class "volume-info" :orientation "h" :space-evenly false :halign "end"
+      (label :text "󰕾" :class "volume-icon")
+      (scale :min 0 :max 100 :value volume_percent :orientation "h" :class "volume-bar"
+             :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+      (label :text "${volume_percent}%" :class "volume-text"))))
+
+; Network information widget (formatted like system stats)
 (defwidget network-info []
   (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
     (box :class "section-header" :halign "center"
-      (label :text "  NETWORK"))
-    (box :class "info-content" :orientation "v" :space-evenly false
-      (label :text "─────────────────────" :class "divider")
-      (box :class "info-row" :orientation "v" :space-evenly false
-        (label :text "Interfaces & IPs" :class "info-label")
-        (label :text network_info :class "info-value mono"))
-      (label :text "" :class "spacer")
-      (box :class "info-row"
-        (label :text "  WiFi: " :class "info-label")
-        (label :text wifi_ssid :class "info-value"))
-      (box :class "info-row"
-        (label :text "󰖂  VPN: " :class "info-label")
-        (label :text vpn_status :class "info-value vpn-status")))))
+      (label :text "NETWORK"))
+    (box :class "stats-content" :orientation "v" :space-evenly false
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Interfaces" :class "stat-label")
+        (label :text network_info :class "stat-value mono"))
+      (button :class "info-btn" :onclick "kitty -e nmtui &"
+        (box :class "stat-row" :orientation "v" :space-evenly false
+          (label :text "WiFi" :class "stat-label")
+          (label :text wifi_ssid :class "stat-value")))
+      (button :class "info-btn" :onclick "blueman-manager &"
+        (box :class "stat-row" :orientation "v" :space-evenly false
+          (label :text "Bluetooth" :class "stat-label")
+          (label :text bluetooth_status :class "stat-value")))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "VPN" :class "stat-label")
+        (label :text vpn_status :class "stat-value vpn-status")))))
 
-; Network speed widget
+; Network speed widget (formatted like system stats)
 (defwidget network-speed []
   (box :class "info-box speed-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
     (box :class "section-header" :halign "center"
-      (label :text "󰓅  NETWORK SPEED"))
-    (box :class "speed-content" :orientation "v" :space-evenly true
-      (label :text "─────────────────────" :class "divider")
-      (box :class "speed-row" :orientation "v" :valign "center"
-        (label :text "  DOWNLOAD" :class "speed-label")
-        (label :text net_download :class "speed-value download"))
-      (label :text "" :class "spacer")
-      (box :class "speed-row" :orientation "v" :valign "center"
-        (label :text "  UPLOAD" :class "speed-label")
-        (label :text net_upload :class "speed-value upload")))))
+      (label :text "SPEED"))
+    (box :class "stats-content" :orientation "v" :space-evenly false
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Download" :class "stat-label")
+        (label :text {speedtest_running ? "Testing..." : (speedtest_download == "-- Mbps" ? net_download : speedtest_download)} :class "stat-value download"))
+      (button :class "speedtest-btn"
+              :onclick "eww update speedtest_running=true && result=$(~/.config/eww/scripts/network/speedtest.sh) && dl=$(echo \"$result\" | grep -oP '(?<=↓ )[^ |]+' | head -1) && ul=$(echo \"$result\" | grep -oP '(?<=↑ )[^ |]+' | head -1) && ping=$(echo \"$result\" | grep -oP '[0-9.]+ ms' | head -1) && eww update speedtest_download=\"$dl Mbps\" && eww update speedtest_upload=\"$ul Mbps\" && eww update speedtest_ping=\"$ping\" && eww update speedtest_running=false"
+        (label :text {speedtest_running ? "Testing..." : "Run Speedtest"} :class "speedtest-label"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Upload" :class "stat-label")
+        (label :text {speedtest_running ? "Testing..." : (speedtest_upload == "-- Mbps" ? net_upload : speedtest_upload)} :class "stat-value upload"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Ping" :class "stat-label")
+        (label :text speedtest_ping :class "stat-value")))))
 
-; System stats widget (CPU + Memory)
+; System stats widget
 (defwidget system-stats []
   (box :class "info-box stats-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
     (box :class "section-header" :halign "center"
-      (label :text "  SYSTEM"))
+      (label :text "SYSTEM"))
     (box :class "stats-content" :orientation "v" :space-evenly false
-      (label :text "─────────────────────" :class "divider")
-      ; CPU
       (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "  CPU" :class "stat-label")
+        (label :text "CPU" :class "stat-label")
         (box :class "progress-container"
           (scale :min 0 :max 100 :value cpu_usage :orientation "h" :class "cpu-bar"))
         (label :text "${cpu_usage}%" :class "stat-value"))
-      (label :text "" :class "spacer")
-      ; Memory
       (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "  RAM" :class "stat-label")
+        (label :text "RAM" :class "stat-label")
         (box :class "progress-container"
           (scale :min 0 :max 100 :value mem_usage :orientation "h" :class "mem-bar"))
-        (label :text "${mem_used} / ${mem_total}" :class "stat-value")))))
+        (label :text "${mem_used} / ${mem_total}" :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Swap" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value swap_usage :orientation "h" :class "swap-bar"))
+        (label :text "${swap_used} / ${swap_total}" :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Root" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value disk_root_percent :orientation "h" :class "disk-bar"))
+        (label :text disk_root_info :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Home" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value disk_home_percent :orientation "h" :class "disk-bar"))
+        (label :text disk_home_info :class "stat-value")))))
 
-; Power buttons widget with Exit button
+; Power buttons widget (compact with symbols)
 (defwidget power-buttons []
-  (box :class "power-box" :orientation "h" :space-evenly true :halign "center" :valign "center"
-    ; Exit/Close button
+  (box :class "power-box" :orientation "h" :space-evenly false :halign "center" :valign "center"
     (button :class "power-btn exit-btn"
             :onclick "eww close dashboard"
             :tooltip "Close Dashboard"
-      (box :orientation "v" :space-evenly false
-        (label :text "󰅖" :class "power-icon")
-        (label :text "Exit" :class "power-label")))
-    ; Lock button
+      (label :text "󰅖" :class "power-icon"))
     (button :class "power-btn lock-btn"
-            :onclick "eww close dashboard && hyprlock"
+            :onclick "eww close dashboard && sleep 0.5 && hyprlock"
             :tooltip "Lock Screen"
-      (box :orientation "v" :space-evenly false
-        (label :text "" :class "power-icon")
-        (label :text "Lock" :class "power-label")))
-    ; Logout button
+      (label :text "󰌾" :class "power-icon"))
     (button :class "power-btn logout-btn"
-            :onclick "eww close dashboard && hyprctl dispatch exit"
-            :tooltip "Logout to SDDM"
-      (box :orientation "v" :space-evenly false
-        (label :text "󰍃" :class "power-icon")
-        (label :text "Logout" :class "power-label")))
-    ; Reboot button
+            :onclick "eww close dashboard && sleep 0.5 && hyprctl dispatch exit"
+            :tooltip "Logout"
+      (label :text "󰍃" :class "power-icon"))
     (button :class "power-btn reboot-btn"
-            :onclick "eww close dashboard && systemctl reboot"
-            :tooltip "Reboot System"
-      (box :orientation "v" :space-evenly false
-        (label :text "" :class "power-icon")
-        (label :text "Reboot" :class "power-label")))
-    ; Shutdown button
+            :onclick "systemctl reboot"
+            :tooltip "Reboot"
+      (label :text "󰜉" :class "power-icon"))
     (button :class "power-btn shutdown-btn"
-            :onclick "eww close dashboard && systemctl poweroff"
-            :tooltip "Shutdown System"
-      (box :orientation "v" :space-evenly false
-        (label :text "" :class "power-icon")
-        (label :text "Shutdown" :class "power-label")))))
-
-; Clock widget (center decoration)
-(defwidget clock-widget []
-  (box :class "clock-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
-    (label :text "${time_hour}:${time_min}" :class "clock-time")
-    (label :text date_full :class "clock-date")))
+            :onclick "systemctl poweroff"
+            :tooltip "Shutdown"
+      (label :text "󰐥" :class "power-icon"))))
 
 ; ============================================================================
 ; MAIN DASHBOARD LAYOUT
@@ -157,24 +161,21 @@
 
 (defwidget dashboard-layout []
   (box :class "dashboard" :orientation "v" :space-evenly false
-    ; TOP 20% - Cava / Audio Section
+    ; TOP 20% - Cava + Spotify/Volume
     (box :class "top-section" :orientation "v" :space-evenly false :vexpand false
-      (cava-widget))
+      (cava-widget)
+      (spotify-volume))
 
-    ; MIDDLE 60% - Info Panels
+    ; MIDDLE 65-70% - Info Panels
     (box :class "middle-section" :orientation "h" :space-evenly true :vexpand true
-      ; Left - Network Info
-      (box :class "panel left-panel" :halign "center" :valign "center"
+      (box :class "panel" :halign "center" :valign "center"
         (network-info))
-      ; Center - Clock + Network Speed
-      (box :class "panel center-panel" :orientation "v" :halign "center" :valign "center" :space-evenly false
-        (clock-widget)
+      (box :class "panel" :halign "center" :valign "center"
         (network-speed))
-      ; Right - System Stats
-      (box :class "panel right-panel" :halign "center" :valign "center"
+      (box :class "panel" :halign "center" :valign "center"
         (system-stats)))
 
-    ; BOTTOM 20% - Power Buttons
+    ; BOTTOM - Power Buttons (compact with padding)
     (box :class "bottom-section" :orientation "v" :space-evenly false :vexpand false
       (power-buttons))))
 

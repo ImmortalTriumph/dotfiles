@@ -12,8 +12,8 @@ import os
 # Configuration
 RAW_INPUT = "/tmp/cava.raw"
 OUTPUT_FILE = "/tmp/visualizer.txt"
-NUM_BARS = 50
-HEIGHT = 8
+NUM_BARS = 60
+HEIGHT = 10
 
 # ASCII characters for bar heights (from empty to full)
 BAR_CHARS = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]

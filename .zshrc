@@ -158,7 +158,6 @@ alias activate='source ./venv/bin/activate'
 # ;)
 # -----------------------------------------------------------------------------
 
-alias dash='~/.config/eww/scripts/start-dashboard.sh &>/dev/null'
 alias neofetch='fastfetch'
 
 # -----------------------------------------------------------------------------
