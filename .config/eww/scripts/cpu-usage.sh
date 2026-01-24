@@ -2,7 +2,7 @@
 # CPU usage percentage
 
 # Using /proc/stat for accurate measurement
-read -r cpu user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat
+read -r cpu user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat 2>/dev/null || { echo "0"; exit 0; }
 
 # Get previous values from cache
 cache_file="/tmp/eww_cpu_cache"
@@ -39,4 +39,4 @@ elif [[ $cpu_usage -gt 100 ]]; then
     cpu_usage=100
 fi
 
-echo "$cpu_usage"
+echo "${cpu_usage:-0}"

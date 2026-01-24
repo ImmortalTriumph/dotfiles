@@ -1,5 +1,5 @@
 * {
-    font: "JetBrains Mono 16";
+    font: "JetBrainsMono Nerd Font 16";
     highlight: bold italic;
     scrollbar: true;
 

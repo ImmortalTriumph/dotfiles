@@ -19,10 +19,10 @@
 (defpoll net_download :interval "1s" "~/.config/eww/scripts/net-speed.sh down")
 
 ; CPU usage
-(defpoll cpu_usage :interval "1s" "~/.config/eww/scripts/cpu-usage.sh")
+(defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/cpu-usage.sh")
 
 ; Memory usage
-(defpoll mem_usage :interval "2s" "~/.config/eww/scripts/mem-usage.sh")
+(defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/mem-usage.sh")
 (defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
 (defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
 
@@ -32,17 +32,25 @@
 (defpoll time_sec :interval "1s" "date '+%S'")
 (defpoll date_full :interval "60s" "date '+%A, %B %d'")
 
+; Audio visualizer (reads from cava-viz output)
+(defpoll visualizer_content :interval "0.05s" :initial "[ AUDIO VISUALIZER - STANDBY ]" "cat /tmp/visualizer.txt 2>/dev/null || echo '[ AUDIO VISUALIZER - STANDBY ]'")
+
+; Audio status indicator
+(defpoll audio_status :interval "2s" :initial "Standby" "~/.config/eww/scripts/audio/audio_cava_status.sh 2>/dev/null || echo 'Standby'")
+
 ; ============================================================================
 ; WIDGETS
 ; ============================================================================
 
-; Cava audio visualizer (embedded terminal)
+; Cava audio visualizer (ASCII from cava-viz)
 (defwidget cava-widget []
   (box :class "cava-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
-    (box :class "cava-label" :halign "center"
-      (label :text "  AUDIO SPECTRUM"))
+    (box :class "cava-header" :orientation "h" :space-evenly false :halign "center"
+      (label :text "  AUDIO SPECTRUM" :class "cava-label")
+      (label :text " | " :class "cava-separator")
+      (label :text audio_status :class "cava-status"))
     (box :class "cava-terminal" :halign "center" :valign "center"
-      (label :text "Launch: kitty --class cava-float cava" :class "cava-hint"))))
+      (label :text visualizer_content :class "visualizer-text"))))
 
 ; Network information widget
 (defwidget network-info []
@@ -98,9 +106,16 @@
           (scale :min 0 :max 100 :value mem_usage :orientation "h" :class "mem-bar"))
         (label :text "${mem_used} / ${mem_total}" :class "stat-value")))))
 
-; Power buttons widget
+; Power buttons widget with Exit button
 (defwidget power-buttons []
   (box :class "power-box" :orientation "h" :space-evenly true :halign "center" :valign "center"
+    ; Exit/Close button
+    (button :class "power-btn exit-btn"
+            :onclick "eww close dashboard"
+            :tooltip "Close Dashboard"
+      (box :orientation "v" :space-evenly false
+        (label :text "󰅖" :class "power-icon")
+        (label :text "Exit" :class "power-label")))
     ; Lock button
     (button :class "power-btn lock-btn"
             :onclick "eww close dashboard && hyprlock"
@@ -169,8 +184,9 @@
 
 (defwindow dashboard
   :monitor 0
-  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "100%" :anchor "center center")
+  :geometry (geometry :x "0px" :y "0px" :width "1920px" :height "1200px" :anchor "top left")
   :stacking "overlay"
   :exclusive false
   :focusable true
+  :namespace "eww-dashboard"
   (dashboard-layout))

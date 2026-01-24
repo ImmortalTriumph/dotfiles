@@ -3,9 +3,12 @@
     "exclusive": true,
     "passthrough": false,
     "position": "top",
-    "height": 36,
-    "spacing": 3,
+    "height": 40,
+    "spacing": 0,
     "fixed-center": true,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
 
     "modules-left": ["hyprland/workspaces", "mpris"],
     "modules-center": ["clock"],
@@ -13,61 +16,97 @@
 
     "hyprland/workspaces": {
         "format": "{icon}",
-	"active-only": true,
         "on-click": "activate",
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1",
         "persistent-workspaces": {
-             "eDP-1": 5
+            "*": 5
         },
         "sort-by": "number"
     },
 
     "pulseaudio": {
-    	"format": "{icon} {volume}%",
-    	"format-muted": "󰖁 {volume}%",
-    	"format-icons": {
-        	"headphone": "",
-        	"default": ["", "", ""]
-    	},
-    	"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-    	"on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-    	"on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-    	"scroll-step": 5,
-    	"tooltip-format": "{desc} - {volume}%"
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰖁  muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+        "scroll-step": 5,
+        "tooltip-format": "{desc}\n{volume}%"
     },
 
     "mpris": {
-    	"format": " {status_icon} {artist} - {title}",
-    	"format-paused": "  {artist} - {title}",
-    	"max-length": 50,
-    	"player-icons": {
-        	"spotify": ""
-    	},
-    	"status-icons": {
-        	"playing": "▶",
-        	"paused": "",
-        	"stopped": ""
-    	},
-    	"ignored-players": ["firefox"],
-    	"on-click": "playerctl play-pause",
-    	"on-scroll-up": "playerctl next",
-    	"on-scroll-down": "playerctl previous"
+        "format": "{status_icon}  {artist} - {title}",
+        "format-paused": "{status_icon}  {artist} - {title}",
+        "format-stopped": "",
+        "max-length": 45,
+        "status-icons": {
+            "playing": "󰐊",
+            "paused": "󰏤",
+            "stopped": "󰓛"
+        },
+        "ignored-players": ["firefox"],
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "tooltip-format": "{player}: {title}\n{album}"
     },
 
     "clock": {
-        "format": "{:%H:%M}",
-	"format-alt": "{:%A, %B %d, %Y}",      
-    	"tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+        "format": "󰅐  {:%H:%M}",
+        "format-alt": "󰃭  {:%a, %b %d}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "left",
+            "format": {
+                "months": "<span font_family='JetBrains Mono Nerd Font' color='#b3b3b3'><b>{}</b></span>",
+                "weeks": "<span font_family='JetBrains Mono Nerd Font' color='#808080'>W{}</span>",
+                "weekdays": "<span font_family='JetBrains Mono Nerd Font' color='#808080'>{}</span>",
+                "today": "<span font_family='JetBrains Mono Nerd Font' color='#ffffff'><b>{}</b></span>"
+            }
+        }
+    },
+
+    "cpu": {
+        "format": "󰻠  {usage}%",
+        "interval": 2,
+        "tooltip-format": "CPU: {usage}%\n{avg_frequency} GHz"
+    },
+
+    "memory": {
+        "format": "󰍛  {percentage}%",
+        "interval": 2,
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G"
+    },
+
+    "network": {
+        "format-wifi": "󰤨  {signalStrength}%",
+        "format-ethernet": "󰈀  {ipaddr}",
+        "format-disconnected": "󰤭  off",
+        "tooltip-format-wifi": "{essid}\n{ipaddr}\n󰇚 {bandwidthDownBits}  󰕒 {bandwidthUpBits}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}\n󰇚 {bandwidthDownBits}  󰕒 {bandwidthUpBits}",
+        "on-click": "kitty -e nmtui"
     },
 
     "battery": {
-	"format": "{capacity}%",
-        "format-plugged": "{capacity}%"
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "tooltip-format": "{timeTo}\n{power:.1f}W"
     },
 
     "tray": {
-        "spacing": 10
+        "icon-size": 16,
+        "spacing": 8
     }
-
 }

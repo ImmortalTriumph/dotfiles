@@ -1,0 +1,174 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "/home/immortaltriumph/dotfiles/.config/fastfetch/image.txt",
+        "type": "file",
+        "padding": {
+            "top": 2,
+            "left": 1,
+            "right": 4
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "yellow",
+            "output": "white"
+        },
+        "key": {
+            "width": 10
+        }
+    },
+    "modules": [
+	{
+	    "type": "title",
+	    "color": {
+              "user": "blue",
+              "host": "cyan"
+           }
+	},
+        "separator",
+	"break",
+        {
+            "type": "custom",
+            "format": "── {#2}system{#} ──────────────────────────"
+        },
+        {
+            "type": "os",
+            "key": "      os"
+        },
+        {
+            "type": "host",
+            "key": "    host"
+        },
+        {
+            "type": "kernel",
+            "key": "     ker"
+        },
+        {
+            "type": "uptime",
+            "key": "      up"
+        },
+        {
+            "type": "packages",
+            "key": "     pkg"
+        },
+        {
+            "type": "locale",
+            "key": "     loc"
+        },
+	"break",
+        {
+            "type": "custom",
+            "format": "── {#2}desktop{#} ─────────────────────────"
+        },
+        {
+            "type": "display",
+            "key": "    disp"
+        },
+        {
+            "type": "de",
+            "key": "      de"
+        },
+        {
+            "type": "wm",
+            "key": "      wm"
+        },
+        {
+            "type": "lm",
+            "key": "      lm"
+        },
+        {
+            "type": "wmtheme",
+            "key": "    wmth"
+        },
+        {
+            "type": "theme",
+            "key": "   theme"
+        },
+        {
+            "type": "icons",
+            "key": "   icons"
+        },
+	"break",
+        {
+            "type": "custom",
+            "format": "── {#2}terminal{#} ────────────────────────"
+        },
+        {
+            "type": "shell",
+            "key": "      sh"
+        },
+        {
+            "type": "terminal",
+            "key": "    term"
+        },
+        {
+            "type": "terminalfont",
+            "key": "    font"
+        },
+	"break",
+        {
+            "type": "custom",
+            "format": "── {#2}hardware{#} ────────────────────────"
+        },
+        {
+            "type": "cpu",
+            "key": "     cpu"
+        },
+        {
+            "type": "gpu",
+            "key": "     gpu"
+        },
+        {
+            "type": "memory",
+            "key": "     ram"
+        },
+        {
+            "type": "swap",
+            "key": "    swap"
+        },
+        {
+            "type": "disk",
+            "key": "    disk"
+        },
+        {
+            "type": "battery",
+            "key": "     bat"
+        },
+        {
+            "type": "poweradapter",
+            "key": "     pwr"
+        },
+	"break",
+        {
+            "type": "custom",
+            "format": "── {#2}network{#} ─────────────────────────"
+        },
+        {
+            "type": "wifi",
+            "key": "    wifi"
+        },
+        {
+            "type": "bluetooth",
+            "key": "      bt"
+        },
+	"break",
+        {
+            "type": "custom",
+            "format": "── {#2}media{#2} ───────────────────────────"
+        },	
+        {
+            "type": "sound",
+            "key": "     vol"
+        },
+        {
+            "type": "media",
+            "key": "    play",
+            "player": "spotify"
+        },
+        "break",
+        "break",
+        "colors"
+    ]
+}

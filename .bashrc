@@ -1,6 +1,3 @@
-
-export QT_QPA_PLATFORMTHEME=qt5ct
-
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
@@ -25,10 +22,15 @@ FG_FG="\[\e[38;2;217;217;217m\]"
 # PS1 prompt (matching zsh style: user@host:path)
 PS1="${FG_BLUE}\u${RESET}@${FG_ORANGE}\h${RESET}:${FG_CYAN}\w${RESET}\$ "
 
-# Git integration
-if command -v __git_ps1 >/dev/null; then
-    GIT_PS1_SHOWDIRTYSTATE=1
-    GIT_PS1_SHOWSTASHSTATE=1
-    GIT_PS1_SHOWUNTRACKEDFILES=1
-    PS1="${FG_BLUE}\u${RESET}@${FG_ORANGE}\h${RESET}:${FG_CYAN}\w${RESET} ${FG_GREEN}\$(__git_ps1 '(%s)')${RESET}\$ "
-fi
+# Git branch function - only shows when in a git repo
+git_branch() {
+    if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then
+        local branch=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --exact-match 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+        local dirty=""
+        [ -n "$(git status --porcelain 2>/dev/null)" ] && dirty="*"
+        echo " (${branch}${dirty})"
+    fi
+}
+
+# PS1 with git branch
+PS1="${FG_BLUE}\u${RESET}@${FG_ORANGE}\h${RESET}:${FG_CYAN}\w${RESET}${FG_GREEN}\$(git_branch)${RESET}\$ "

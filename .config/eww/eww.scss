@@ -45,29 +45,25 @@ $cyan-bright: #8ec07c;
 // ============================================================================
 
 .dashboard {
-  height: 100%
-  width: 100%
   background-color: rgba(13, 13, 13, 0.95);
   padding: 20px;
 }
 
 // Top section (20% height for cava)
 .top-section {
-  min-height: 18vh;
-  max-height: 20vh;
+  min-height: 150px;
   padding: 10px;
 }
 
 // Middle section (60% height for info panels)
 .middle-section {
-  min-height: 55vh;
+  min-height: 400px;
   padding: 20px 40px;
 }
 
 // Bottom section (20% height for power buttons)
 .bottom-section {
-  min-height: 18vh;
-  max-height: 20vh;
+  min-height: 150px;
   padding: 10px;
 }
 
@@ -80,14 +76,29 @@ $cyan-bright: #8ec07c;
   border: 2px solid $border;
   border-radius: 10px;
   padding: 20px;
-  min-width: 600px;
+  min-width: 800px;
+  min-height: 120px;
+}
+
+.cava-header {
+  margin-bottom: 10px;
 }
 
 .cava-label {
   font-size: 18px;
   font-weight: bold;
   color: $cyan-bright;
-  margin-bottom: 10px;
+}
+
+.cava-separator {
+  font-size: 18px;
+  color: $border;
+}
+
+.cava-status {
+  font-size: 12px;
+  color: $fg-dim;
+  font-style: italic;
 }
 
 .cava-terminal {
@@ -98,6 +109,13 @@ $cyan-bright: #8ec07c;
   font-size: 12px;
   color: $fg-dim;
   font-style: italic;
+}
+
+.visualizer-text {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: $cyan-bright;
+  letter-spacing: 1px;
 }
 
 // ============================================================================
@@ -169,8 +187,6 @@ $cyan-bright: #8ec07c;
 .info-value.mono {
   font-family: "JetBrains Mono", monospace;
   font-size: 12px;
-  white-space: pre-wrap;
-  line-height: 1.6;
 }
 
 .vpn-status {
@@ -196,7 +212,6 @@ $cyan-bright: #8ec07c;
 
 .speed-row {
   margin: 10px 0;
-  text-align: center;
 }
 
 .speed-label {
@@ -237,7 +252,6 @@ $cyan-bright: #8ec07c;
 
 .stat-row {
   margin: 15px 0;
-  text-align: center;
 }
 
 .stat-label {
@@ -405,4 +419,55 @@ scale {
     border-color: $red-bright;
     background-color: rgba(251, 73, 52, 0.2);
   }
+}
+
+// Exit button
+.exit-btn {
+  border-color: $fg-dim;
+
+  .power-icon {
+    color: $fg-dim;
+  }
+
+  &:hover {
+    border-color: $fg;
+    background-color: rgba(128, 128, 128, 0.2);
+  }
+}
+
+// ============================================================================
+// CLOSE BUTTON
+// ============================================================================
+
+.close-box {
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.close-btn {
+  background-color: rgba(26, 26, 26, 0.7);
+  border: 1px solid $border;
+  border-radius: 8px;
+  padding: 10px 30px;
+  transition: all 200ms ease;
+
+  &:hover {
+    background-color: $bg-light;
+    border-color: $fg-dim;
+  }
+
+  &:active {
+    background-color: $border;
+  }
+}
+
+.close-icon {
+  font-size: 16px;
+  color: $fg-dim;
+  margin-right: 8px;
+}
+
+.close-label {
+  font-size: 13px;
+  color: $fg-dim;
 }
