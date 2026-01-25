@@ -18,7 +18,8 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="${reset} "
 ZSH_THEME_GIT_PROMPT_DIRTY=" %F{167}●${reset}"
 ZSH_THEME_GIT_PROMPT_CLEAN=" %F{142}●${reset}"
 
-PROMPT='[${aqua}%n${dim}@${green}%m${reset}] ${pathname}%1~${pathreset} $(git_prompt_info)${yellow}
+PROMPT='
+[${aqua}%n${dim}@${green}%m${reset}] ${pathname}%1~${pathreset} $(git_prompt_info)${yellow}
 ->${reset} '
 
 RPROMPT='%(?.%F{gray}%T%f.%F{red}✗ %?%f)'
