@@ -1,0 +1,22 @@
+; ╔══════════════════════════════════════════════════════════════════════════════╗
+; ║                         NETWORK INFO WIDGET                                  ║
+; ║                      Interfaces, WiFi, Bluetooth, VPN                        ║
+; ╚══════════════════════════════════════════════════════════════════════════════╝
+
+(defwidget network-info []
+ (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
+  (box :class "section-header" :halign "center"
+   (label :text "NETWORK"))
+  (box :class "stats-content" :orientation "v" :space-evenly false
+   (box :class "stat-row" :orientation "v" :space-evenly false
+    (label :text "Interfaces" :class "stat-label")
+    (label :text network_info :class "stat-value mono"))
+   (box :class "stat-row" :orientation "v" :space-evenly false
+    (label :text "WiFi" :class "stat-label")
+    (label :text wifi_ssid :class "stat-value"))
+  (box :class "stat-row" :orientation "v" :space-evenly false
+   (label :text "Bluetooth" :class "stat-label")
+   (label :text bluetooth_status :class "stat-value"))
+ (box :class "stat-row" :orientation "v" :space-evenly false
+  (label :text "VPN" :class "stat-label")
+  (label :text vpn_status :class "stat-value vpn-status")))))

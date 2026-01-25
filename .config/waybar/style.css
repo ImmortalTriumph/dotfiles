@@ -133,3 +133,16 @@ tooltip label {
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
 }
+
+#custom-bluetooth {
+    padding: 4px 14px;
+    margin: 4px 2px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    color: #999999;
+}
+
+#custom-bluetooth:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #83a598;
+}

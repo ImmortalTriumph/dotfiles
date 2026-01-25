@@ -1,0 +1,95 @@
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║                          SYSTEM STATS STYLES                                 ║
+// ║                      CPU, RAM, Swap, Disk Usage                              ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
+
+.stats-box {
+  border-color: rgba(211, 134, 155, 0.3);
+}
+
+.stats-box .section-header {
+  color: $purple-bright;
+  border-bottom-color: rgba(211, 134, 155, 0.2);
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Stats Content                                                              │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.stats-content {
+  padding: 8px 0;
+}
+
+.stat-row {
+  margin: 14px 0;
+}
+
+.stat-label {
+  color: $fg-dim;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  color: $fg;
+  font-size: 16px;
+  font-family: "JetBrains Mono", monospace;
+  margin-top: 6px;
+}
+
+.stat-value.download {
+  color: $green-bright;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.stat-value.upload {
+  color: $cyan-bright;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.stat-value.vpn-status {
+  color: $green-bright;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Progress Bars                                                              │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.progress-container {
+  padding: 4px 0;
+}
+
+scale {
+  min-height: 10px;
+  min-width: 340px;
+
+  trough {
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 5px;
+    min-height: 10px;
+  }
+
+  highlight {
+    border-radius: 5px;
+    min-height: 10px;
+  }
+}
+
+.cpu-bar highlight {
+  background: linear-gradient(to right, $green, $yellow, $red);
+}
+
+.mem-bar highlight {
+  background: linear-gradient(to right, $blue-bright, $purple-bright);
+}
+
+.swap-bar highlight {
+  background: linear-gradient(to right, $cyan, $cyan-bright);
+}
+
+.disk-bar highlight {
+  background: linear-gradient(to right, $yellow, $orange-bright);
+}

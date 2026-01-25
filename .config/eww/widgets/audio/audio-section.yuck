@@ -1,0 +1,27 @@
+; ╔══════════════════════════════════════════════════════════════════════════════╗
+; ║                              TOP WIDGETS                                     ║
+; ║                     Cava Visualizer + Media Controls                         ║
+; ╚══════════════════════════════════════════════════════════════════════════════╝
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Cava Audio Visualizer                                                      │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defwidget cava-widget []
+  (box :class "cava-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
+    (label :markup visualizer_content :class "visualizer-text")))
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Spotify + Volume Controls                                                  │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defwidget spotify-volume []
+  (box :class "spotify-volume-box" :orientation "h" :space-evenly false :halign "center" :valign "center"
+    (box :class "spotify-info" :orientation "h" :space-evenly false :halign "start"
+      (label :text spotify_info :class "spotify-text"))
+    (box :hexpand true)
+    (box :class "volume-info" :orientation "h" :space-evenly false :halign "end"
+      (label :text "󰕾" :class "volume-icon")
+      (scale :min 0 :max 100 :value volume_percent :orientation "h" :class "volume-bar"
+             :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+      (label :text "${volume_percent}%" :class "volume-text"))))

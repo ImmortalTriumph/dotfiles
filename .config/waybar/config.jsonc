@@ -12,7 +12,7 @@
 
     "modules-left": ["hyprland/workspaces", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "network", "battery", "tray"],
+    "modules-right": ["cpu", "memory", "pulseaudio", "network", "custom/bluetooth", "battery", "tray"],
 
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -90,7 +90,13 @@
         "format-disconnected": "󰤭  off",
         "tooltip-format-wifi": "{essid}\n{ipaddr}\n󰇚 {bandwidthDownBits}  󰕒 {bandwidthUpBits}",
         "tooltip-format-ethernet": "{ifname}\n{ipaddr}\n󰇚 {bandwidthDownBits}  󰕒 {bandwidthUpBits}",
-        "on-click": "kitty -e nmtui"
+        "on-click": "nm-connection-editor"
+    },
+
+    "custom/bluetooth": {
+        "format": "󰂯",
+        "tooltip-format": "Bluetooth Settings",
+        "on-click": "blueman-manager"
     },
 
     "battery": {

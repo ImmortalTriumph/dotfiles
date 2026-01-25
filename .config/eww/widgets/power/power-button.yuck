@@ -1,0 +1,31 @@
+; ╔══════════════════════════════════════════════════════════════════════════════╗
+; ║                            BOTTOM WIDGETS                                    ║
+; ║                             Power Controls                                   ║
+; ╚══════════════════════════════════════════════════════════════════════════════╝
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Power Buttons                                                              │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defwidget power-buttons []
+  (box :class "power-box" :orientation "h" :space-evenly false :halign "center" :valign "center"
+    (button :class "power-btn exit-btn"
+            :onclick "eww close dashboard"
+            :tooltip "Close Dashboard"
+      (label :text "󰅖" :class "power-icon"))
+    (button :class "power-btn lock-btn"
+            :onclick "hyprlock & eww close dashboard"
+            :tooltip "Lock Screen"
+      (label :text "󰌾" :class "power-icon"))
+    (button :class "power-btn logout-btn"
+            :onclick "eww close dashboard; hyprctl dispatch exit"
+            :tooltip "Logout"
+      (label :text "󰍃" :class "power-icon"))
+    (button :class "power-btn reboot-btn"
+            :onclick "sudo systemctl reboot"
+            :tooltip "Reboot"
+      (label :text "󰜉" :class "power-icon"))
+    (button :class "power-btn shutdown-btn"
+            :onclick "sudo systemctl poweroff"
+            :tooltip "Shutdown"
+      (label :text "󰐥" :class "power-icon"))))

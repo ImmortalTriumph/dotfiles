@@ -1,192 +1,54 @@
-; Eww Dashboard Configuration - Full Screen Widget
+; ╔══════════════════════════════════════════════════════════════════════════════╗
+; ║                        EWW DASHBOARD CONFIGURATION                           ║
+; ╚══════════════════════════════════════════════════════════════════════════════╝
 
-; ============================================================================
-; VARIABLES - Polling system information
-; ============================================================================
 
-; --- Network ---
-(defpoll network_info :interval "5s" "~/.config/eww/scripts/network/network-info.sh")
-(defpoll wifi_ssid :interval "5s" "~/.config/eww/scripts/network/wifi-ssid.sh")
-(defpoll vpn_status :interval "5s" "~/.config/eww/scripts/network/vpn-status.sh")
-(defpoll bluetooth_status :interval "5s" "~/.config/eww/scripts/network/bluetooth-status.sh")
-(defpoll net_upload :interval "1s" "~/.config/eww/scripts/network/net-speed.sh up")
-(defpoll net_download :interval "1s" "~/.config/eww/scripts/network/net-speed.sh down")
+; ╭──────────────────────────────────────────────────────────────────────────────╮
+; │                                   WIDGET                                     │
+; ╰──────────────────────────────────────────────────────────────────────────────╯
 
-; --- System ---
-(defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/system/cpu-usage.sh")
-(defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/system/mem-usage.sh")
-(defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
-(defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
-(defpoll swap_usage :interval "5s" :initial "0" "~/.config/eww/scripts/system/swap-usage.sh")
-(defpoll swap_total :interval "60s" "free -h | awk '/Swap:/ {print $2}'")
-(defpoll swap_used :interval "5s" "free -h | awk '/Swap:/ {print $3}'")
-(defpoll disk_root_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh root-percent")
-(defpoll disk_root_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh root")
-(defpoll disk_home_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh home-percent")
-(defpoll disk_home_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh home")
+(include "./widgets/variables.yuck")
+(include "./widgets/audio/audio-section.yuck")
+(include "./widgets/net/network-info.yuck")
+(include "./widgets/speed/network-speed.yuck")
+(include "./widgets/sys/system-stats.yuck")
+(include "./widgets/power/power-button.yuck")
 
-; --- Media ---
-(defpoll spotify_info :interval "2s" "~/.config/eww/scripts/media/spotify-info.sh")
-(defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/volume-info.sh")
-(defpoll visualizer_content :interval "0.05s" :initial "" "cat /tmp/visualizer.txt 2>/dev/null || echo ''")
 
-; --- Speedtest (manual trigger with results stored separately) ---
-(defvar speedtest_running false)
-(defvar speedtest_download "-- Mbps")
-(defvar speedtest_upload "-- Mbps")
-(defvar speedtest_ping "-- ms")
+; ╭──────────────────────────────────────────────────────────────────────────────╮
+; │                                   LAYOUT                                     │
+; ╰──────────────────────────────────────────────────────────────────────────────╯
 
-; ============================================================================
-; WIDGETS
-; ============================================================================
-
-; Cava audio visualizer (pure ASCII, no labels, wider display)
-(defwidget cava-widget []
-  (box :class "cava-box" :orientation "v" :space-evenly false :halign "center" :valign "center"
-    (label :text visualizer_content :class "visualizer-text")))
-
-; Spotify + Volume widget
-(defwidget spotify-volume []
-  (box :class "spotify-volume-box" :orientation "h" :space-evenly false :halign "center" :valign "center"
-    (box :class "spotify-info" :orientation "h" :space-evenly false :halign "start"
-      (label :text "" :class "spotify-icon")
-      (label :text spotify_info :class "spotify-text"))
-    (box :hexpand true)
-    (box :class "volume-info" :orientation "h" :space-evenly false :halign "end"
-      (label :text "󰕾" :class "volume-icon")
-      (scale :min 0 :max 100 :value volume_percent :orientation "h" :class "volume-bar"
-             :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
-      (label :text "${volume_percent}%" :class "volume-text"))))
-
-; Network information widget (formatted like system stats)
-(defwidget network-info []
-  (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
-    (box :class "section-header" :halign "center"
-      (label :text "NETWORK"))
-    (box :class "stats-content" :orientation "v" :space-evenly false
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Interfaces" :class "stat-label")
-        (label :text network_info :class "stat-value mono"))
-      (button :class "info-btn" :onclick "kitty -e nmtui &"
-        (box :class "stat-row" :orientation "v" :space-evenly false
-          (label :text "WiFi" :class "stat-label")
-          (label :text wifi_ssid :class "stat-value")))
-      (button :class "info-btn" :onclick "blueman-manager &"
-        (box :class "stat-row" :orientation "v" :space-evenly false
-          (label :text "Bluetooth" :class "stat-label")
-          (label :text bluetooth_status :class "stat-value")))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "VPN" :class "stat-label")
-        (label :text vpn_status :class "stat-value vpn-status")))))
-
-; Network speed widget (formatted like system stats)
-(defwidget network-speed []
-  (box :class "info-box speed-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
-    (box :class "section-header" :halign "center"
-      (label :text "SPEED"))
-    (box :class "stats-content" :orientation "v" :space-evenly false
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Download" :class "stat-label")
-        (label :text {speedtest_running ? "Testing..." : (speedtest_download == "-- Mbps" ? net_download : speedtest_download)} :class "stat-value download"))
-      (button :class "speedtest-btn"
-              :onclick "eww update speedtest_running=true && result=$(~/.config/eww/scripts/network/speedtest.sh) && dl=$(echo \"$result\" | grep -oP '(?<=↓ )[^ |]+' | head -1) && ul=$(echo \"$result\" | grep -oP '(?<=↑ )[^ |]+' | head -1) && ping=$(echo \"$result\" | grep -oP '[0-9.]+ ms' | head -1) && eww update speedtest_download=\"$dl Mbps\" && eww update speedtest_upload=\"$ul Mbps\" && eww update speedtest_ping=\"$ping\" && eww update speedtest_running=false"
-        (label :text {speedtest_running ? "Testing..." : "Run Speedtest"} :class "speedtest-label"))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Upload" :class "stat-label")
-        (label :text {speedtest_running ? "Testing..." : (speedtest_upload == "-- Mbps" ? net_upload : speedtest_upload)} :class "stat-value upload"))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Ping" :class "stat-label")
-        (label :text speedtest_ping :class "stat-value")))))
-
-; System stats widget
-(defwidget system-stats []
-  (box :class "info-box stats-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
-    (box :class "section-header" :halign "center"
-      (label :text "SYSTEM"))
-    (box :class "stats-content" :orientation "v" :space-evenly false
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "CPU" :class "stat-label")
-        (box :class "progress-container"
-          (scale :min 0 :max 100 :value cpu_usage :orientation "h" :class "cpu-bar"))
-        (label :text "${cpu_usage}%" :class "stat-value"))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "RAM" :class "stat-label")
-        (box :class "progress-container"
-          (scale :min 0 :max 100 :value mem_usage :orientation "h" :class "mem-bar"))
-        (label :text "${mem_used} / ${mem_total}" :class "stat-value"))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Swap" :class "stat-label")
-        (box :class "progress-container"
-          (scale :min 0 :max 100 :value swap_usage :orientation "h" :class "swap-bar"))
-        (label :text "${swap_used} / ${swap_total}" :class "stat-value"))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Root" :class "stat-label")
-        (box :class "progress-container"
-          (scale :min 0 :max 100 :value disk_root_percent :orientation "h" :class "disk-bar"))
-        (label :text disk_root_info :class "stat-value"))
-      (box :class "stat-row" :orientation "v" :space-evenly false
-        (label :text "Home" :class "stat-label")
-        (box :class "progress-container"
-          (scale :min 0 :max 100 :value disk_home_percent :orientation "h" :class "disk-bar"))
-        (label :text disk_home_info :class "stat-value")))))
-
-; Power buttons widget (compact with symbols)
-(defwidget power-buttons []
-  (box :class "power-box" :orientation "h" :space-evenly false :halign "center" :valign "center"
-    (button :class "power-btn exit-btn"
-            :onclick "eww close dashboard"
-            :tooltip "Close Dashboard"
-      (label :text "󰅖" :class "power-icon"))
-    (button :class "power-btn lock-btn"
-            :onclick "hyprlock & eww close dashboard"
-            :tooltip "Lock Screen"
-      (label :text "󰌾" :class "power-icon"))
-    (button :class "power-btn logout-btn"
-            :onclick "eww close dashboard; hyprctl dispatch exit"
-            :tooltip "Logout"
-      (label :text "󰍃" :class "power-icon"))
-    (button :class "power-btn reboot-btn"
-            :onclick "sudo systemctl reboot"
-            :tooltip "Reboot"
-      (label :text "󰜉" :class "power-icon"))
-    (button :class "power-btn shutdown-btn"
-            :onclick "sudo systemctl poweroff"
-            :tooltip "Shutdown"
-      (label :text "󰐥" :class "power-icon"))))
-
-; ============================================================================
-; MAIN DASHBOARD LAYOUT
-; ============================================================================
-
-(defwidget dashboard-layout []
-  (box :class "dashboard" :orientation "v" :space-evenly false
-    ; TOP 20% - Cava + Spotify/Volume
-    (box :class "top-section" :orientation "v" :space-evenly false :vexpand false
+(defwidget layout []
+  (box :class "dashboard" :orientation "v" :space-evenly false :halign "fill" :valign "fill"
+    ; TOP - Cava + Spotify/Volume
+    (box :class "top-section" :orientation "v" :space-evenly false :vexpand false :halign "center"
       (cava-widget)
       (spotify-volume))
 
-    ; MIDDLE 65-70% - Info Panels
-    (box :class "middle-section" :orientation "h" :space-evenly true :vexpand true
-      (box :class "panel" :halign "center" :valign "center"
+    ; MIDDLE - Info Panels (3 equal columns)
+    (box :class "middle-section" :orientation "h" :space-evenly true :vexpand true :halign "center" :valign "center"
+      (box :class "panel" :halign "center" :valign "start"
         (network-info))
-      (box :class "panel" :halign "center" :valign "center"
+      (box :class "panel" :halign "center" :valign "start"
         (network-speed))
-      (box :class "panel" :halign "center" :valign "center"
+      (box :class "panel" :halign "center" :valign "start"
         (system-stats)))
 
-    ; BOTTOM - Power Buttons (compact with padding)
-    (box :class "bottom-section" :orientation "v" :space-evenly false :vexpand false
+    ; BOTTOM - Power Buttons
+    (box :class "bottom-section" :orientation "h" :space-evenly false :vexpand false :halign "center" :valign "end"
       (power-buttons))))
 
-; ============================================================================
-; WINDOW DEFINITION
-; ============================================================================
+
+; ╭──────────────────────────────────────────────────────────────────────────────╮
+; │                                   WINDOW                                     │
+; ╰──────────────────────────────────────────────────────────────────────────────╯
 
 (defwindow dashboard
   :monitor 0
-  :geometry (geometry :x "0px" :y "0px" :width "1920px" :height "1200px" :anchor "top left")
+  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "100%" :anchor "center")
   :stacking "overlay"
-  :exclusive false
+  :exclusive true
   :focusable true
   :namespace "eww-dashboard"
-  (dashboard-layout))
+  (layout))

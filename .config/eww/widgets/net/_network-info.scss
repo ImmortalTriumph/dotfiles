@@ -1,0 +1,46 @@
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║                         NETWORK INFO STYLES                                  ║
+// ║                      Interfaces, WiFi, Bluetooth, VPN                        ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
+
+.network-box {
+  border-color: rgba(131, 165, 152, 0.3);
+}
+
+.network-box .section-header {
+  color: $blue-bright;
+  border-bottom-color: rgba(131, 165, 152, 0.2);
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Info Content                                                               │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.info-content {
+  padding: 14px 0;
+}
+
+.info-row {
+  margin: 14px 0;
+}
+
+.info-label {
+  color: $fg-dim;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.info-value {
+  color: $fg;
+  font-size: 18px;
+}
+
+.info-value.mono {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px;
+}
+
+.vpn-status {
+  color: $green-bright;
+}

@@ -13,21 +13,44 @@ wg_status=$(ip link show type wireguard 2>/dev/null | grep -oP '^\d+: \K[^:]+')
 # Check NetworkManager VPN connections
 nm_vpn=$(nmcli -t -f TYPE,STATE,NAME con show --active 2>/dev/null | grep "vpn:activated" | cut -d: -f3)
 
+# Function to get country from IP
+get_country() {
+    country=$(curl -s --max-time 2 ifconfig.co/country 2>/dev/null)
+    if [[ -n "$country" && "$country" != *"error"* ]]; then
+        echo "$country"
+    else
+        echo ""
+    fi
+}
+
 if [[ -n "$nm_vpn" ]]; then
-    # Get VPN server location from connection name
-    echo "$nm_vpn"
+    country=$(get_country)
+    if [[ -n "$country" ]]; then
+        echo "Connected ($country)"
+    else
+        echo "$nm_vpn"
+    fi
 elif [[ -n "$wg_status" ]]; then
-    echo "WireGuard ($wg_status)"
+    country=$(get_country)
+    if [[ -n "$country" ]]; then
+        echo "WireGuard ($country)"
+    else
+        echo "WireGuard ($wg_status)"
+    fi
 elif [[ -n "$openvpn_status" ]]; then
-    # Try to get server from openvpn config
-    server=$(ps aux | grep openvpn | grep -oP '(?<=--remote )[^ ]+' | head -1)
-    if [[ -n "$server" ]]; then
-        echo "OpenVPN ($server)"
+    country=$(get_country)
+    if [[ -n "$country" ]]; then
+        echo "OpenVPN ($country)"
     else
         echo "OpenVPN (Active)"
     fi
 elif [[ "$surfshark_status" == "active" ]]; then
-    echo "Surfshark (Active)"
+    country=$(get_country)
+    if [[ -n "$country" ]]; then
+        echo "Surfshark ($country)"
+    else
+        echo "Surfshark (Active)"
+    fi
 else
     echo "Disconnected"
 fi

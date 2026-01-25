@@ -1,0 +1,104 @@
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║                            BOTTOM WIDGETS                                    ║
+// ║                             Power Controls                                   ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
+
+.power-box {
+  padding: 10px 0;
+  margin-top: 5px;
+}
+
+.power-btn {
+  background-color: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(80, 80, 80, 0.5);
+  border-radius: 6px;
+  padding: 15px 15px;
+  margin: 0 40px;
+  min-width: 20px;
+  min-height: 20px;
+
+  &:hover {
+    background-color: rgba(50, 50, 50, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(40, 40, 40, 0.5);
+  }
+}
+
+.power-icon {
+  font-size: 14px;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Power Button Variants                                                      │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.exit-btn {
+  border-color: rgba(128, 128, 128, 0.4);
+
+  .power-icon {
+    color: $fg-dim;
+  }
+
+  &:hover {
+    border-color: $fg-dim;
+    background-color: rgba(128, 128, 128, 0.15);
+  }
+}
+
+.lock-btn {
+  border-color: rgba(131, 165, 152, 0.4);
+
+  .power-icon {
+    color: $blue-bright;
+  }
+
+  &:hover {
+    border-color: $blue-bright;
+    background-color: rgba(131, 165, 152, 0.15);
+  }
+}
+
+.logout-btn {
+  border-color: rgba(215, 153, 33, 0.4);
+
+  .power-icon {
+    color: $yellow;
+  }
+
+  &:hover {
+    border-color: $yellow;
+    background-color: rgba(215, 153, 33, 0.15);
+  }
+}
+
+.reboot-btn {
+  border-color: rgba(254, 128, 25, 0.4);
+
+  .power-icon {
+    color: $orange-bright;
+  }
+
+  &:hover {
+    border-color: $orange-bright;
+    background-color: rgba(254, 128, 25, 0.15);
+  }
+}
+
+.shutdown-btn {
+  border-color: rgba(251, 73, 52, 0.4);
+
+  .power-icon {
+    color: $red-bright;
+  }
+
+  &:hover {
+    border-color: $red-bright;
+    background-color: rgba(251, 73, 52, 0.15);
+  }
+}
+
+tooltip {
+  background-color: $bg-dark;
+}

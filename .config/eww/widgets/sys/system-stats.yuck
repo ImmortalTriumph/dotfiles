@@ -1,0 +1,35 @@
+; ╔══════════════════════════════════════════════════════════════════════════════╗
+; ║                          SYSTEM STATS WIDGET                                 ║
+; ║                      CPU, RAM, Swap, Disk Usage                              ║
+; ╚══════════════════════════════════════════════════════════════════════════════╝
+
+(defwidget system-stats []
+  (box :class "info-box stats-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
+    (box :class "section-header" :halign "center"
+      (label :text "SYSTEM"))
+    (box :class "stats-content" :orientation "v" :space-evenly false
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "CPU" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value cpu_usage :orientation "h" :class "cpu-bar"))
+        (label :text "${cpu_usage}%" :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "RAM" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value mem_usage :orientation "h" :class "mem-bar"))
+        (label :text "${mem_used} / ${mem_total}" :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Swap" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value swap_usage :orientation "h" :class "swap-bar"))
+        (label :text "${swap_used} / ${swap_total}" :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Root" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value disk_root_percent :orientation "h" :class "disk-bar"))
+        (label :text disk_root_info :class "stat-value"))
+      (box :class "stat-row" :orientation "v" :space-evenly false
+        (label :text "Home" :class "stat-label")
+        (box :class "progress-container"
+          (scale :min 0 :max 100 :value disk_home_percent :orientation "h" :class "disk-bar"))
+        (label :text disk_home_info :class "stat-value")))))

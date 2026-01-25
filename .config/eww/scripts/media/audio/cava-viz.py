@@ -2,7 +2,7 @@
 """
 Cava visualizer - converts raw cava output to ASCII art for eww dashboard.
 Reads from /tmp/cava.raw (FIFO with semicolon-separated ASCII values)
-Writes to /tmp/visualizer.txt (ASCII art visualization)
+Writes to /tmp/visualizer.txt (Pango markup visualization with gruvbox colors)
 """
 
 import signal
@@ -12,11 +12,21 @@ import os
 # Configuration
 RAW_INPUT = "/tmp/cava.raw"
 OUTPUT_FILE = "/tmp/visualizer.txt"
-NUM_BARS = 60
-HEIGHT = 10
+NUM_BARS = 180
+HEIGHT = 14
 
-# ASCII characters for bar heights (from empty to full)
+# ASCII characters for bar heights (index 0 = empty, higher = more filled)
+# Vertical block gradient for height display
 BAR_CHARS = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+
+# Gruvbox color gradient (bottom to top) - bright yellow to red fading
+GRUVBOX_COLORS = [
+    "#fabd2f",  # bright yellow (bottom/low)
+    "#f9a825",  # yellow-orange
+    "#fe8019",  # bright orange
+    "#f4511e",  # orange-red
+    "#fb4934",  # bright red (top/high)
+]
 
 # Decay factor for smooth animation (0-1, higher = slower decay)
 DECAY = 0.7
@@ -77,24 +87,45 @@ def apply_decay(current, previous):
     return result
 
 
+def get_color_for_row(row):
+    """Get gruvbox color based on row height (0 = bottom, HEIGHT-1 = top)."""
+    if HEIGHT <= 1:
+        return GRUVBOX_COLORS[0]
+    # Map row to color index
+    color_idx = int((row / (HEIGHT - 1)) * (len(GRUVBOX_COLORS) - 1))
+    return GRUVBOX_COLORS[min(color_idx, len(GRUVBOX_COLORS) - 1)]
+
+
+def escape_pango(text):
+    """Escape special characters for Pango markup."""
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
 def values_to_ascii(values):
-    """Convert normalized values to ASCII art."""
+    """Convert normalized values to Pango markup with gruvbox gradient colors."""
     lines = []
 
     for row in range(HEIGHT - 1, -1, -1):
         line = ""
         threshold = row / HEIGHT
+        color = get_color_for_row(row)
 
         for val in values:
             if val <= threshold:
+                # Below threshold - empty space
                 line += " "
+            elif val >= (row + 1) / HEIGHT:
+                # Fully above this row - full block
+                line += BAR_CHARS[-1]
             else:
-                # Calculate which character to use based on position within cell
+                # Partially filled - calculate which character
                 cell_fill = (val - threshold) * HEIGHT
-                char_idx = min(len(BAR_CHARS) - 1, int(cell_fill * len(BAR_CHARS)))
+                char_idx = min(len(BAR_CHARS) - 1, max(1, int(cell_fill * (len(BAR_CHARS) - 1))))
                 line += BAR_CHARS[char_idx]
 
-        lines.append(line)
+        # Escape and wrap line with Pango color span
+        escaped_line = escape_pango(line)
+        lines.append(f'<span foreground="{color}">{escaped_line}</span>')
 
     return "\n".join(lines)
 

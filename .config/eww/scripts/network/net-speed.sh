@@ -1,5 +1,5 @@
 #!/bin/bash
-# Network speed monitor
+# Network speed monitor using /proc/net/dev (no bc dependency)
 # Usage: net-speed.sh [up|down]
 
 direction="$1"
@@ -12,61 +12,47 @@ if [[ -z "$iface" ]]; then
     exit 0
 fi
 
-# Read bytes
-rx_file="/sys/class/net/$iface/statistics/rx_bytes"
-tx_file="/sys/class/net/$iface/statistics/tx_bytes"
-
-if [[ ! -f "$rx_file" || ! -f "$tx_file" ]]; then
-    echo "N/A"
-    exit 0
-fi
-
 # Cache file for previous values
 cache_dir="/tmp/eww_net_speed"
 mkdir -p "$cache_dir"
 
-rx1=$(cat "$rx_file")
-tx1=$(cat "$tx_file")
+# Read current bytes from /proc/net/dev
+# Format: iface: rx_bytes rx_packets ... tx_bytes tx_packets ...
+read_bytes() {
+    awk -v iface="$iface" '$1 ~ iface {gsub(":", "", $1); print $2, $10}' /proc/net/dev
+}
+
+current=$(read_bytes)
+rx1=$(echo "$current" | awk '{print $1}')
+tx1=$(echo "$current" | awk '{print $2}')
 
 # Get previous values
 rx0=$(cat "$cache_dir/rx" 2>/dev/null || echo "$rx1")
 tx0=$(cat "$cache_dir/tx" 2>/dev/null || echo "$tx1")
-time0=$(cat "$cache_dir/time" 2>/dev/null || date +%s%N)
-time1=$(date +%s%N)
 
 # Save current values
 echo "$rx1" > "$cache_dir/rx"
 echo "$tx1" > "$cache_dir/tx"
-echo "$time1" > "$cache_dir/time"
 
-# Calculate time difference in seconds
-time_diff=$(echo "scale=3; ($time1 - $time0) / 1000000000" | bc)
-
-if [[ $(echo "$time_diff < 0.1" | bc) -eq 1 ]]; then
-    time_diff="1"
-fi
-
-# Calculate speed in bytes per second
-rx_speed=$(echo "scale=0; ($rx1 - $rx0) / $time_diff" | bc)
-tx_speed=$(echo "scale=0; ($tx1 - $tx0) / $time_diff" | bc)
+# Calculate speed (bytes per second, assuming 1s poll interval)
+rx_speed=$((rx1 - rx0))
+tx_speed=$((tx1 - tx0))
 
 # Ensure non-negative
-rx_speed=${rx_speed#-}
-tx_speed=${tx_speed#-}
+[[ $rx_speed -lt 0 ]] && rx_speed=0
+[[ $tx_speed -lt 0 ]] && tx_speed=0
 
-# Format function
+# Format function using awk for floating point
 format_speed() {
     local bytes=$1
-    if [[ -z "$bytes" || "$bytes" -lt 0 ]]; then
-        bytes=0
-    fi
+    [[ -z "$bytes" || "$bytes" -lt 0 ]] && bytes=0
 
     if [[ $bytes -ge 1073741824 ]]; then
-        echo "$(echo "scale=2; $bytes / 1073741824" | bc) GB/s"
+        awk "BEGIN {printf \"%.2f GB/s\", $bytes / 1073741824}"
     elif [[ $bytes -ge 1048576 ]]; then
-        echo "$(echo "scale=2; $bytes / 1048576" | bc) MB/s"
+        awk "BEGIN {printf \"%.2f MB/s\", $bytes / 1048576}"
     elif [[ $bytes -ge 1024 ]]; then
-        echo "$(echo "scale=2; $bytes / 1024" | bc) KB/s"
+        awk "BEGIN {printf \"%.1f KB/s\", $bytes / 1024}"
     else
         echo "$bytes B/s"
     fi

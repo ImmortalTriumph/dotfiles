@@ -1,0 +1,50 @@
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║                         NETWORK SPEED STYLES                                 ║
+// ║                      Download, Upload, Ping (Realtime)                       ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
+
+.speed-box {
+  border-color: rgba(254, 128, 25, 0.3);
+}
+
+.speed-box .section-header {
+  color: $orange-bright;
+  border-bottom-color: rgba(254, 128, 25, 0.2);
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Speed Content                                                              │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.speed-content {
+  padding: 8px 0;
+}
+
+.speed-row {
+  margin: 14px 0;
+}
+
+.speed-label {
+  color: $fg-dim;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.speed-value {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.speed-value.download {
+  color: $green-bright;
+}
+
+.speed-value.upload {
+  color: $cyan-bright;
+}
+
+.speed-value.ping {
+  color: $yellow-bright;
+}

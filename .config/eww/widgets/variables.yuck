@@ -1,0 +1,45 @@
+; ╔══════════════════════════════════════════════════════════════════════════════╗
+; ║                              VARIABLES                                       ║
+; ║                     Polling & State Variables                                ║
+; ╚══════════════════════════════════════════════════════════════════════════════╝
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Network Variables                                                          │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defpoll network_info :interval "5s" "~/.config/eww/scripts/network/network-info.sh")
+(defpoll wifi_ssid :interval "5s" "~/.config/eww/scripts/network/wifi-ssid.sh")
+(defpoll vpn_status :interval "5s" "~/.config/eww/scripts/network/vpn-status.sh")
+(defpoll bluetooth_status :interval "5s" "~/.config/eww/scripts/network/bluetooth-status.sh")
+(defpoll net_upload :interval "1s" "~/.config/eww/scripts/network/net-speed.sh up")
+(defpoll net_download :interval "1s" "~/.config/eww/scripts/network/net-speed.sh down")
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ System Variables                                                           │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/system/cpu-usage.sh")
+(defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/system/mem-usage.sh")
+(defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
+(defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
+(defpoll swap_usage :interval "5s" :initial "0" "~/.config/eww/scripts/system/swap-usage.sh")
+(defpoll swap_total :interval "60s" "free -h | awk '/Swap:/ {print $2}'")
+(defpoll swap_used :interval "5s" "free -h | awk '/Swap:/ {print $3}'")
+(defpoll disk_root_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh root-percent")
+(defpoll disk_root_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh root")
+(defpoll disk_home_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh home-percent")
+(defpoll disk_home_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh home")
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Media Variables                                                            │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defpoll spotify_info :interval "2s" "~/.config/eww/scripts/media/spotify-info.sh")
+(defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/volume-info.sh")
+(defpoll visualizer_content :interval "0.05s" :initial "" "cat /tmp/visualizer.txt 2>/dev/null || echo ''")
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Ping Variable (realtime)                                                   │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defpoll net_ping :interval "2s" "~/.config/eww/scripts/network/net-ping.sh")

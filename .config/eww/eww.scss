@@ -1,9 +1,11 @@
-// Eww Dashboard Styling - Matching Hyprland/Waybar Theme
-// Colors from kitty.conf and waybar/style.css
+// ╔══════════════════════════════════════════════════════════════════════════════╗
+// ║                        EWW DASHBOARD STYLING                                 ║
+// ╚══════════════════════════════════════════════════════════════════════════════╝
 
-// ============================================================================
-// COLOR VARIABLES (matching system theme)
-// ============================================================================
+
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                                  COLORS                                      │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
 
 $bg: #1a1a1a;
 $bg-dark: #121212;
@@ -13,7 +15,6 @@ $fg-dim: #808080;
 $border: #333333;
 $accent: #b3b3b3;
 
-// Gruvbox accent colors (from kitty.conf)
 $red: #cc241d;
 $red-bright: #fb4934;
 $green: #98971a;
@@ -29,465 +30,87 @@ $purple-bright: #d3869b;
 $cyan: #689d6a;
 $cyan-bright: #8ec07c;
 
-// ============================================================================
-// BASE STYLES
-// ============================================================================
+
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                                   BASE                                       │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
 
 * {
   all: unset;
   font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", "Noto Sans Mono CJK SC", monospace;
-  font-size: 16px;
+  font-size: 18px;
   color: $fg;
+  background-color: transparent;
 }
 
-// ============================================================================
-// DASHBOARD LAYOUT
-// ============================================================================
+
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                                  LAYOUT                                      │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
 
 .dashboard {
-  background-color: rgba(18, 18, 18, 0.95);
-  padding: 20px 40px;
+  background-color: rgba(12, 12, 12, 0.8);
+  padding: 40px 50px;
 }
 
-// Top section: 20% height for cava + spotify/volume
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Section Containers                                                         │
+// └────────────────────────────────────────────────────────────────────────────┘
+
 .top-section {
-  min-height: 220px;
-  padding: 15px 80px;
-}
-
-// Middle section: 65-70% height for info panels
-.middle-section {
-  min-height: 700px;
-  padding: 20px 80px;
-}
-
-// Bottom section: power buttons with extra padding
-.bottom-section {
-  min-height: 100px;
-  padding: 20px 80px;
-}
-
-// ============================================================================
-// CAVA VISUALIZER (wider, 20% height coverage)
-// ============================================================================
-
-.cava-box {
   background-color: transparent;
-  padding: 10px 40px;
-  min-height: 140px;
+  padding: 10px 0 20px 0;
 }
 
-.visualizer-text {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12px;
-  color: $cyan-bright;
-  letter-spacing: 0px;
+.middle-section {
+  background-color: transparent;
+  padding: 20px 0 10px;
 }
 
-// ============================================================================
-// SPOTIFY + VOLUME
-// ============================================================================
-
-.spotify-volume-box {
-  background-color: rgba(26, 26, 26, 0.6);
-  border: 1px solid $border;
-  border-radius: 6px;
-  padding: 10px 30px;
-  min-width: 800px;
-  margin-top: 10px;
+.bottom-section {
+  background-color: transparent;
+  padding: 5px 0 10px 0;
 }
 
-.spotify-info {
-  padding: 6px;
-}
-
-.spotify-icon {
-  font-size: 18px;
-  color: $green-bright;
-  margin-right: 12px;
-}
-
-.spotify-text {
-  font-size: 14px;
-  color: $fg;
-}
-
-.volume-info {
-  padding: 6px;
-}
-
-.volume-icon {
-  font-size: 18px;
-  color: $cyan-bright;
-  margin-right: 12px;
-}
-
-.volume-bar {
-  min-width: 150px;
-  margin-right: 10px;
-
-  trough {
-    background-color: $bg-dark;
-    border-radius: 3px;
-    min-height: 8px;
-  }
-
-  highlight {
-    background-color: $cyan-bright;
-    border-radius: 3px;
-    min-height: 8px;
-  }
-
-  slider {
-    background-color: $fg;
-    border-radius: 50%;
-    min-width: 12px;
-    min-height: 12px;
-  }
-}
-
-.volume-text {
-  font-size: 12px;
-  color: $fg-dim;
-  min-width: 40px;
-}
-
-// ============================================================================
-// INFO PANELS (same height for all three)
-// ============================================================================
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Panel Container                                                            │
+// └────────────────────────────────────────────────────────────────────────────┘
 
 .panel {
-  padding: 15px;
-  min-width: 450px;
+  padding: 0 20px;
 }
 
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Info Box (shared base for all 3 panels)                                    │
+// └────────────────────────────────────────────────────────────────────────────┘
+
 .info-box {
-  background-color: rgba(26, 26, 26, 0.9);
-  border: 1px solid $border;
-  border-radius: 8px;
-  padding: 20px;
-  min-width: 480px;
-  min-height: 500px;
+  background-color: transparent;
+  border: 1px solid rgba(60, 60, 60, 0.6);
+  border-radius: 12px;
+  padding: 24px 28px;
+  min-width: 420px;
+  min-height: 600px;
 }
 
 .section-header {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
-  color: $accent;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  letter-spacing: 2px;
-  min-width: 200px;
-}
-
-.section-header label {
-  min-width: 150px;
-}
-
-.spacer-sm {
-  min-height: 10px;
-}
-
-.spacer-md {
-  min-height: 20px;
-}
-
-// ============================================================================
-// NETWORK INFO (title: value format)
-// ============================================================================
-
-.network-box {
-  border-color: $blue-bright;
-}
-
-.network-box .section-header {
-  color: $blue-bright;
-}
-
-.info-content {
-  padding: 10px;
-}
-
-.info-row {
-  margin: 8px 0;
-}
-
-.info-label {
   color: $fg-dim;
-  font-size: 18px;
-  margin-right: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  letter-spacing: 3px;
+  border-bottom: 1px solid rgba(60, 60, 60, 0.4);
+  min-width: 380px;
 }
 
-.info-value {
-  color: $fg;
-  font-size: 16px;
-}
 
-.info-value.mono {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 15px;
-}
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                                  WIDGETS                                     │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
 
-.vpn-status {
-  color: $green-bright;
-}
-
-.info-btn {
-  background-color: transparent;
-  border-radius: 4px;
-  padding: 6px 8px;
-  margin: 4px 0;
-  transition: all 200ms ease;
-
-  &:hover {
-    background-color: rgba(131, 165, 152, 0.15);
-  }
-
-  &:active {
-    background-color: rgba(131, 165, 152, 0.25);
-  }
-}
-
-// ============================================================================
-// NETWORK SPEED
-// ============================================================================
-
-.speed-box {
-  border-color: $orange-bright;
-}
-
-.speed-box .section-header {
-  color: $orange-bright;
-}
-
-.speed-content {
-  padding: 18px;
-}
-
-.speed-row {
-  margin: 10px 0;
-}
-
-.speed-label {
-  color: $fg-dim;
-  font-size: 16px;
-  margin-bottom: 6px;
-  letter-spacing: 1px;
-}
-
-.speed-value {
-  font-size: 24px;
-  font-weight: bold;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.speed-value.download {
-  color: $green-bright;
-}
-
-.speed-value.upload {
-  color: $cyan-bright;
-}
-
-.speedtest-btn {
-  background-color: rgba(254, 128, 25, 0.1);
-  border: 1px solid $orange-bright;
-  border-radius: 6px;
-  padding: 12px 24px;
-  margin: 15px 0;
-  transition: all 200ms ease;
-
-  &:hover {
-    background-color: rgba(254, 128, 25, 0.25);
-  }
-
-  &:active {
-    background-color: rgba(254, 128, 25, 0.4);
-  }
-}
-
-.speedtest-label {
-  font-size: 13px;
-  color: $orange-bright;
-  font-weight: bold;
-}
-
-.speed-row-small {
-  margin-top: 15px;
-}
-
-.ping-label {
-  font-size: 12px;
-  color: $fg-dim;
-}
-
-.ping-value {
-  font-size: 12px;
-  color: $yellow-bright;
-  font-family: "JetBrains Mono", monospace;
-}
-
-// ============================================================================
-// SYSTEM STATS
-// ============================================================================
-
-.stats-box {
-  border-color: $purple-bright;
-}
-
-.stats-box .section-header {
-  color: $purple-bright;
-}
-
-.stats-content {
-  padding: 10px;
-  min-width: 400px;
-}
-
-.stat-row {
-  margin: 10px 0;
-}
-
-.stat-label {
-  color: $fg-dim;
-  font-size: 16px;
-  margin-bottom: 6px;
-  min-width: 150px;
-}
-
-.stat-value {
-  color: $fg;
-  font-size: 15px;
-  font-family: "JetBrains Mono", monospace;
-  margin-top: 4px;
-}
-
-.stat-value.download {
-  color: $green-bright;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.stat-value.upload {
-  color: $cyan-bright;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.stat-value.vpn-status {
-  color: $green-bright;
-}
-
-.progress-container {
-  padding: 2px 15px;
-}
-
-scale {
-  min-height: 10px;
-  min-width: 200px;
-
-  trough {
-    background-color: $bg-dark;
-    border-radius: 5px;
-    min-height: 10px;
-  }
-
-  highlight {
-    border-radius: 5px;
-    min-height: 10px;
-  }
-}
-
-.cpu-bar highlight {
-  background: linear-gradient(to right, $green, $yellow, $red);
-}
-
-.mem-bar highlight {
-  background: linear-gradient(to right, $blue-bright, $purple-bright);
-}
-
-.swap-bar highlight {
-  background: linear-gradient(to right, $cyan, $cyan-bright);
-}
-
-.disk-bar highlight {
-  background: linear-gradient(to right, $yellow, $orange-bright);
-}
-
-// ============================================================================
-// POWER BUTTONS (Compact Square/Rectangle Style with More Padding)
-// ============================================================================
-
-.power-box {
-  padding: 20px 150px;
-}
-
-.power-btn {
-  background-color: rgba(26, 26, 26, 0.9);
-  border: 2px solid $border;
-  border-radius: 8px;
-  padding: 14px 28px;
-  margin: 0 20px;
-  min-width: 50px;
-  min-height: 50px;
-  transition: all 200ms ease;
-
-  &:hover {
-    background-color: $bg-light;
-    border-color: $accent;
-  }
-
-  &:active {
-    background-color: $border;
-  }
-}
-
-.power-icon {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.exit-btn {
-  border-color: $fg-dim;
-  .power-icon { color: $fg-dim; }
-  &:hover {
-    border-color: $fg;
-    background-color: rgba(128, 128, 128, 0.2);
-  }
-}
-
-.lock-btn {
-  border-color: $blue-bright;
-  .power-icon { color: $blue-bright; }
-  &:hover {
-    border-color: $blue-bright;
-    background-color: rgba(69, 133, 136, 0.2);
-  }
-}
-
-.logout-btn {
-  border-color: $yellow;
-  .power-icon { color: $yellow; }
-  &:hover {
-    border-color: $yellow;
-    background-color: rgba(215, 153, 33, 0.2);
-  }
-}
-
-.reboot-btn {
-  border-color: $orange-bright;
-  .power-icon { color: $orange-bright; }
-  &:hover {
-    border-color: $orange-bright;
-    background-color: rgba(254, 128, 25, 0.2);
-  }
-}
-
-.shutdown-btn {
-  border-color: $red-bright;
-  .power-icon { color: $red-bright; }
-  &:hover {
-    border-color: $red-bright;
-    background-color: rgba(251, 73, 52, 0.2);
-  }
-}
+@import "widgets/audio/audio-section";
+@import "widgets/net/network-info";
+@import "widgets/speed/network-speed";
+@import "widgets/sys/system-stats";
+@import "widgets/power/power-button";
