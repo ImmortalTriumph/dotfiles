@@ -15,9 +15,7 @@ OUTPUT_FILE = "/tmp/visualizer.txt"
 NUM_BARS = 180
 HEIGHT = 14
 
-# ASCII characters for bar heights (index 0 = empty, higher = more filled)
-# Vertical block gradient for height display
-BAR_CHARS = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+BAR_CHARS = [" ", ".", ":", "·", "•", "•"]
 
 # Gruvbox color gradient (bottom to top) - bright yellow to red fading
 GRUVBOX_COLORS = [

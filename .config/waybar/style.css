@@ -1,66 +1,66 @@
 * {
-    border: none;
-    font-family: JetBrains Mono Nerd Font, Noto Sans CJK SC;
-    font-size: 16px;
-    color: #d9d9d9;
+  border: none;
+  font-family: JetBrains Mono Nerd Font, Noto Sans CJK SC;
+  font-size: 16px;
+  color: #d9d9d9;
 }
 
 window#waybar {
-    background: rgba(18, 18, 18, 0.9);
-    border-radius: 6px;
-    border: 1px solid #333333;
+  background: rgba(18, 18, 18, 0.9);
+  border-radius: 6px;
+  border: 1px solid #333333;
 }
 
 tooltip {
-    background: #1a1a1a;
-    border: 1px solid #333333;
-    border-radius: 8px;
+  background: #1a1a1a;
+  border: 1px solid #333333;
+  border-radius: 8px;
 }
 
 tooltip label {
-    color: #b3b3b3;
-    padding: 4px;
-    font-family: JetBrains Mono Nerd Font;
+  color: #b3b3b3;
+  padding: 4px;
+  font-family: JetBrains Mono Nerd Font;
 }
 
 #workspaces {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 #workspaces button {
-    padding: 4px 12px;
-    margin: 4px 2px;
-    color: #666666;
-    background: transparent;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+  padding: 4px 12px;
+  margin: 4px 2px;
+  color: #666666;
+  background: transparent;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 #workspaces button:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: #999999;
+  background: rgba(255, 255, 255, 0.05);
+  color: #999999;
 }
 
 #workspaces button.active {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 #workspaces button.urgent {
-    color: #ff6666;
+  color: #ff6666;
 }
 
 #mpris {
-    padding: 0 20px;
-    color: #999999;
+  padding: 0 20px;
+  color: #999999;
 }
 
 #mpris.playing {
-    color: #b3b3b3;
+  color: #b3b3b3;
 }
 
 #mpris.paused {
-    color: #666666;
+  color: #666666;
 }
 
 #clock,
@@ -70,79 +70,79 @@ tooltip label {
 #battery,
 #pulseaudio,
 #tray {
-    padding: 4px 14px;
-    margin: 4px 2px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
+  padding: 4px 14px;
+  margin: 4px 2px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
 }
 
 #clock {
-    margin-right: 8px;
-    color: #b3b3b3;
+  margin-right: 8px;
+  color: #b3b3b3;
 }
 
 #cpu {
-    color: #999999;
+  color: #999999;
 }
 
 #memory {
-    color: #999999;
+  color: #999999;
 }
 
 #pulseaudio {
-    color: #999999;
+  color: #999999;
 }
 
 #pulseaudio.muted {
-    color: #555555;
+  color: #555555;
 }
 
 #network {
-    color: #999999;
+  color: #999999;
 }
 
 #network.disconnected {
-    color: #555555;
+  color: #555555;
 }
 
 #battery {
-    color: #999999;
+  color: #999999;
 }
 
 #battery.warning {
-    color: #cccccc;
+  color: #cccccc;
 }
 
 #battery.critical {
-    color: #ff6666;
+  color: #ff6666;
 }
 
 #battery.charging,
 #battery.plugged {
-    color: #88cc88;
+  color: #88cc88;
 }
 
 #tray {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
-#tray > .passive {
-    -gtk-icon-effect: dim;
+#tray>.passive {
+  -gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
 }
 
-#custom-bluetooth {
-    padding: 4px 14px;
-    margin: 4px 2px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 6px;
-    color: #999999;
+#bluetooth {
+  padding: 4px 14px;
+  margin: 4px 2px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  color: #999999;
 }
 
-#custom-bluetooth:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #83a598;
+#bluetooth:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #83a598;
 }

@@ -1,4 +1,3 @@
--- ImmortalTriumph's Neovim Configuration
 -- Gruvbox Dark aesthetic matching Hyprland rice
 
 -- Bootstrap lazy.nvim
@@ -28,7 +27,7 @@ require("config.keymaps")
 -- Load plugins
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
-  install = { colorscheme = { "gruvbox" } },
+  install = { colorscheme = { "gruvbox-material" } },
   checker = { enabled = false },
   performance = {
     rtp = {
@@ -47,4 +46,4 @@ require("lazy").setup("plugins", {
 })
 
 -- Set colorscheme after plugins load
-vim.cmd.colorscheme("gruvbox")
+vim.cmd.colorscheme("gruvbox-material")

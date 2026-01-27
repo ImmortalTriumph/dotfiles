@@ -50,6 +50,10 @@
             "key": "      up"
         },
         {
+            "type": "battery",
+            "key": "     bat"
+        },
+        {
             "type": "packages",
             "key": "     pkg"
         },
@@ -110,46 +114,8 @@
 	"break",
         {
             "type": "custom",
-            "format": "── {#2}hardware{#} ────────────────────────"
-        },
-        {
-            "type": "cpu",
-            "key": "     cpu"
-        },
-        {
-            "type": "gpu",
-            "key": "     gpu"
-        },
-        {
-            "type": "memory",
-            "key": "     ram"
-        },
-        {
-            "type": "swap",
-            "key": "    swap"
-        },
-        {
-            "type": "battery",
-            "key": "     bat"
-        },
-	"break",
-        {
-            "type": "custom",
-            "format": "── {#2}network{#} ─────────────────────────"
-        },
-        {
-            "type": "wifi",
-            "key": "    wifi"
-        },
-        {
-            "type": "bluetooth",
-            "key": "      bt"
-        },
-	"break",
-        {
-            "type": "custom",
             "format": "── {#2}media{#2} ───────────────────────────"
-        },	
+        },
         {
             "type": "sound",
             "key": "     vol"

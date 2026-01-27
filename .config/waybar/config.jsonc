@@ -12,10 +12,11 @@
 
     "modules-left": ["hyprland/workspaces", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "network", "custom/bluetooth", "battery", "tray"],
+    "modules-right": ["cpu", "memory", "pulseaudio", "network", "bluetooth", "battery", "tray"],
 
     "hyprland/workspaces": {
         "format": "{icon}",
+        "active-only": true,
         "on-click": "activate",
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1",
@@ -93,8 +94,8 @@
         "on-click": "nm-connection-editor"
     },
 
-    "custom/bluetooth": {
-        "format": "󰂯",
+    "bluetooth": {
+        "format": "󰂯  {status}",
         "tooltip-format": "Bluetooth Settings",
         "on-click": "blueman-manager"
     },

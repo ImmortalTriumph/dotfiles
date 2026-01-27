@@ -1,13 +1,10 @@
--- Gruvbox colorscheme matching your rice
--- Background: #1a1a1a, Foreground: #d9d9d9
-
 return {
   {
-    "ellisonleao/gruvbox.nvim",
+    "f4z3r/gruvbox-material.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("gruvbox").setup({
+      require("gruvbox-material").setup({
         terminal_colors = true,
         undercurl = true,
         underline = true,

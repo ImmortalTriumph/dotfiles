@@ -127,7 +127,7 @@ alias ....='cd ../../..'
 alias ~='cd ~'
 alias -- -='cd -'
 
-alias ls='ls --color=auto -a'
+alias ls='ls --color=auto'
 alias ll='ls -lAh'
 alias la='ls -A'
 
