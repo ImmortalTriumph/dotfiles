@@ -19,15 +19,20 @@
 ; └────────────────────────────────────────────────────────────────────────────┘
 
 (defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/system/cpu-usage.sh")
+(defpoll cpu_bar :interval "1s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/cpu-usage.sh) 40")
 (defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/system/mem-usage.sh")
+(defpoll mem_bar :interval "2s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/mem-usage.sh) 40")
 (defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
 (defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
 (defpoll swap_usage :interval "5s" :initial "0" "~/.config/eww/scripts/system/swap-usage.sh")
+(defpoll swap_bar :interval "5s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/swap-usage.sh) 40")
 (defpoll swap_total :interval "60s" "free -h | awk '/Swap:/ {print $2}'")
 (defpoll swap_used :interval "5s" "free -h | awk '/Swap:/ {print $3}'")
 (defpoll disk_root_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh root-percent")
+(defpoll disk_root_bar :interval "30s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/disk-usage.sh root-percent) 40")
 (defpoll disk_root_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh root")
 (defpoll disk_home_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh home-percent")
+(defpoll disk_home_bar :interval "30s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/disk-usage.sh home-percent) 40")
 (defpoll disk_home_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh home")
 
 ; ┌────────────────────────────────────────────────────────────────────────────┐

@@ -142,7 +142,9 @@ tooltip label {
   color: #999999;
 }
 
-#bluetooth:hover {
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #83a598;
 }

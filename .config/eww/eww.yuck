@@ -10,7 +10,6 @@
 (include "./widgets/variables.yuck")
 (include "./widgets/audio/audio-section.yuck")
 (include "./widgets/net/network-info.yuck")
-(include "./widgets/speed/network-speed.yuck")
 (include "./widgets/sys/system-stats.yuck")
 (include "./widgets/power/power-button.yuck")
 
@@ -26,12 +25,10 @@
       (cava-widget)
       (spotify-volume))
 
-    ; MIDDLE - Info Panels (3 equal columns)
+    ; MIDDLE - Info Panels
     (box :class "middle-section" :orientation "h" :space-evenly true :vexpand true :halign "center" :valign "center"
       (box :class "panel" :halign "center" :valign "start"
         (network-info))
-      (box :class "panel" :halign "center" :valign "start"
-        (network-speed))
       (box :class "panel" :halign "center" :valign "start"
         (system-stats)))
 

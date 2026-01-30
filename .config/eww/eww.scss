@@ -89,7 +89,7 @@ $cyan-bright: #8ec07c;
   border: 1px solid rgba(60, 60, 60, 0.6);
   border-radius: 12px;
   padding: 24px 28px;
-  min-width: 420px;
+  min-width: 630px;
   min-height: 600px;
 }
 
@@ -111,6 +111,5 @@ $cyan-bright: #8ec07c;
 
 @import "widgets/audio/audio-section";
 @import "widgets/net/network-info";
-@import "widgets/speed/network-speed";
 @import "widgets/sys/system-stats";
 @import "widgets/power/power-button";

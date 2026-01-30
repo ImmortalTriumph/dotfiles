@@ -1,22 +1,33 @@
 ; ╔══════════════════════════════════════════════════════════════════════════════╗
 ; ║                         NETWORK INFO WIDGET                                  ║
-; ║                      Interfaces, WiFi, Bluetooth, VPN                        ║
+; ║              Interfaces, WiFi, Bluetooth, VPN + Speed/Ping                   ║
 ; ╚══════════════════════════════════════════════════════════════════════════════╝
 
 (defwidget network-info []
- (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
-  (box :class "section-header" :halign "center"
-   (label :text "NETWORK"))
-  (box :class "stats-content" :orientation "v" :space-evenly false
-   (box :class "stat-row" :orientation "v" :space-evenly false
-    (label :text "Interfaces" :class "stat-label")
-    (label :text network_info :class "stat-value mono"))
-   (box :class "stat-row" :orientation "v" :space-evenly false
-    (label :text "WiFi" :class "stat-label")
-    (label :text wifi_ssid :class "stat-value"))
-  (box :class "stat-row" :orientation "v" :space-evenly false
-   (label :text "Bluetooth" :class "stat-label")
-   (label :text bluetooth_status :class "stat-value"))
- (box :class "stat-row" :orientation "v" :space-evenly false
-  (label :text "VPN" :class "stat-label")
-  (label :text vpn_status :class "stat-value vpn-status")))))
+  (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
+    (box :class "section-header" :halign "center"
+      (label :text "NETWORK"))
+    (box :class "stats-content" :orientation "v" :space-evenly false
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "    iface" :class "info-key")
+        (label :text network_info :class "info-value mono"))
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "     wifi" :class "info-key")
+        (label :text wifi_ssid :class "info-value"))
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "       bt" :class "info-key")
+        (label :text bluetooth_status :class "info-value"))
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "      vpn" :class "info-key")
+        (label :text vpn_status :class "info-value vpn-status"))
+
+      (label :text "" :class "spacer")
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "     down" :class "info-key")
+        (label :text net_download :class "info-value download"))
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "       up" :class "info-key")
+        (label :text net_upload :class "info-value upload"))
+      (box :class "info-row" :orientation "h" :space-evenly false
+        (label :text "     ping" :class "info-key")
+        (label :text net_ping :class "info-value ping")))))

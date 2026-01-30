@@ -17,79 +17,63 @@
 // └────────────────────────────────────────────────────────────────────────────┘
 
 .stats-content {
-  padding: 8px 0;
+  padding: 14px 0;
 }
 
-.stat-row {
-  margin: 14px 0;
+.stats-row {
+  margin: 2px 0;
 }
 
-.stat-label {
-  color: $fg-dim;
-  font-size: 16px;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+.stats-key {
+  font-size: 18px;
+  color: $yellow;
+  min-width: 90px;
+  margin-right: 8px;
 }
 
-.stat-value {
+.stats-value {
   color: $fg;
-  font-size: 16px;
-  font-family: "JetBrains Mono", monospace;
-  margin-top: 6px;
+  font-size: 18px;
 }
 
-.stat-value.download {
+.spacer {
+  min-height: 12px;
+}
+
+.stats-value.download {
   color: $green-bright;
   font-size: 18px;
   font-weight: bold;
 }
 
-.stat-value.upload {
+.stats-value.upload {
   color: $cyan-bright;
   font-size: 18px;
   font-weight: bold;
 }
 
-.stat-value.vpn-status {
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                              ASCII BARS                                      │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
+
+.ascii-bar {
+  font-size: 14px;
+  font-family: "JetBrains Mono Nerd Font", monospace;
+  letter-spacing: 0;
+}
+
+.cpu-color {
   color: $green-bright;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Progress Bars                                                              │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.progress-container {
-  padding: 4px 0;
+.mem-color {
+  color: $blue-bright;
 }
 
-scale {
-  min-height: 10px;
-  min-width: 340px;
-
-  trough {
-    background-color: rgba(30, 30, 30, 0.9);
-    border-radius: 5px;
-    min-height: 10px;
-  }
-
-  highlight {
-    border-radius: 5px;
-    min-height: 10px;
-  }
+.swap-color {
+  color: $yellow-bright;
 }
 
-.cpu-bar highlight {
-  background: linear-gradient(to right, $green, $yellow, $red);
-}
-
-.mem-bar highlight {
-  background: linear-gradient(to right, $blue-bright, $purple-bright);
-}
-
-.swap-bar highlight {
-  background: linear-gradient(to right, $cyan, $cyan-bright);
-}
-
-.disk-bar highlight {
-  background: linear-gradient(to right, $yellow, $orange-bright);
+.disk-color {
+  color: $cyan-bright;
 }

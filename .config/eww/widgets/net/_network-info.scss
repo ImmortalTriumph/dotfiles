@@ -21,14 +21,14 @@
 }
 
 .info-row {
-  margin: 14px 0;
+  margin: 2px 0;
 }
 
-.info-label {
-  color: $fg-dim;
-  font-size: 16px;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
+.info-key {
+  font-size: 18px;
+  color: $yellow;
+  min-width: 90px;
+  margin-right: 8px;
 }
 
 .info-value {
@@ -36,9 +36,8 @@
   font-size: 18px;
 }
 
-.info-value.mono {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 16px;
+.spacer {
+  min-height: 12px;
 }
 
 .vpn-status {
