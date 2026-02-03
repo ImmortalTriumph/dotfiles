@@ -158,8 +158,8 @@ alias activate='source ./venv/bin/activate'
 # ;)
 # -----------------------------------------------------------------------------
 
-alias dash='eww open dashboard'
 alias neofetch='fastfetch'
+alias dash='eww open dashboard'
 
 # -----------------------------------------------------------------------------
 # Functions

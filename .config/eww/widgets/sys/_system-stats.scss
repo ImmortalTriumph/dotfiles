@@ -1,79 +1,92 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║                          SYSTEM STATS STYLES                                 ║
-// ║                      CPU, RAM, Swap, Disk Usage                              ║
+// ║                     Hacker Terminal Aesthetic                                ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 .stats-box {
-  border-color: rgba(211, 134, 155, 0.3);
+  border-color: rgba($purple, 0.25);
 }
 
-.stats-box .section-header {
+// Headers - gruvbox bright colors with subtle glow
+.header-purple {
   color: $purple-bright;
-  border-bottom-color: rgba(211, 134, 155, 0.2);
+  text-shadow: 0 0 2px rgba($purple, 0.2);
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Stats Content                                                              │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.stats-content {
-  padding: 14px 0;
+.sys-header {
+  margin-bottom: 10px;
 }
 
-.stats-row {
-  margin: 2px 0;
+.sys-content {
+  padding: 4px 0;
 }
 
-.stats-key {
+.sys-row {
+  margin: 1px 0;
+}
+
+.sys-detail {
+  margin-bottom: 4px;
+}
+
+// Primary text - match waybar grays
+.sys-key {
   font-size: 18px;
-  color: $yellow;
-  min-width: 90px;
-  margin-right: 8px;
+  color: $fg-dim;  // Match waybar module text (#999999)
+  min-width: 80px;
 }
 
-.stats-value {
-  color: $fg;
-  font-size: 18px;
-}
-
-.spacer {
-  min-height: 12px;
-}
-
-.stats-value.download {
-  color: $green-bright;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.stats-value.upload {
-  color: $cyan-bright;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                              ASCII BARS                                      │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
-.ascii-bar {
+.sys-bar {
   font-size: 14px;
-  font-family: "JetBrains Mono Nerd Font", monospace;
-  letter-spacing: 0;
+  letter-spacing: -1px;
 }
 
-.cpu-color {
+.sys-bar-cpu {
   color: $green-bright;
 }
 
-.mem-color {
+.sys-bar-mem {
   color: $blue-bright;
 }
 
-.swap-color {
+.sys-bar-swap {
   color: $yellow-bright;
 }
 
-.disk-color {
+.sys-bar-disk {
   color: $cyan-bright;
+}
+
+.sys-percent {
+  font-size: 18px;
+  color: $fg-normal;  // Match waybar clock text (#b3b3b3)
+  min-width: 50px;
+}
+
+.sys-info {
+  font-size: 14px;
+  color: $fg-dim;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Subsections                                                                │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.sys-subsection {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding-top: 6px;
+  border-top: 1px solid $fg-border;
+}
+
+.sys-memory {
+  padding: 4px 0;
+}
+
+.sys-disk {
+  padding: 4px 0;
+}
+
+.sys-footer {
+  margin-top: 8px;
 }

@@ -1,104 +1,149 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║                            BOTTOM WIDGETS                                    ║
-// ║                             Power Controls                                   ║
+// ║                            POWER CONTROLS                                    ║
+// ║                     Hacker Terminal Aesthetic                                ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
-.power-box {
+// Headers - gruvbox bright colors with subtle glow
+.header-red {
+  color: $red-bright;
+  text-shadow: 0 0 2px rgba($red, 0.2);
+}
+
+.power-header {
+  margin-bottom: 12px;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Power Buttons Row                                                          │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.power-row {
   padding: 10px 0;
-  margin-top: 5px;
 }
 
 .power-btn {
-  background-color: rgba(30, 30, 30, 0.9);
-  border: 1px solid rgba(80, 80, 80, 0.5);
-  border-radius: 6px;
-  padding: 15px 15px;
-  margin: 0 40px;
-  min-width: 20px;
-  min-height: 20px;
+  background-color: $bg-panel;  // Match waybar module bg
+  padding: 14px;
+  margin: 6px;
+  min-width: 32px;
+  min-height: 32px;
 
   &:hover {
-    background-color: rgba(50, 50, 50, 0.5);
+    background-color: $bg-hover;  // Match waybar hover
   }
 
   &:active {
-    background-color: rgba(40, 40, 40, 0.5);
+    background-color: $graphite-light;
   }
 }
 
 .power-icon {
-  font-size: 14px;
+  font-size: 24px;
+  color: $fg-dim;
 }
 
 // ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Power Button Variants                                                      │
+// │ Button Variants                                                            │
 // └────────────────────────────────────────────────────────────────────────────┘
 
-.exit-btn {
-  border-color: rgba(128, 128, 128, 0.4);
-
-  .power-icon {
-    color: $fg-dim;
-  }
+// Color reveals on hover (subtle glow)
+.btn-close {
+  border-color: rgba($fg-dim, 0.4);
 
   &:hover {
-    border-color: $fg-dim;
-    background-color: rgba(128, 128, 128, 0.15);
+    border-color: rgba($fg-normal, 0.6);
+    .power-icon { color: $fg-bright; }
   }
 }
 
-.lock-btn {
-  border-color: rgba(131, 165, 152, 0.4);
+.btn-lock {
+  border-color: rgba($blue, 0.4);
 
-  .power-icon {
-    color: $blue-bright;
-  }
+  .power-icon { color: $blue-bright; }
 
   &:hover {
-    border-color: $blue-bright;
-    background-color: rgba(131, 165, 152, 0.15);
+    border-color: rgba($blue-bright, 0.6);
+    box-shadow: 0 0 6px rgba($blue, 0.15);
+    background-color: rgba($blue, 0.15);
   }
 }
 
-.logout-btn {
-  border-color: rgba(215, 153, 33, 0.4);
+.btn-logout {
+  border-color: rgba($yellow, 0.4);
 
-  .power-icon {
-    color: $yellow;
-  }
+  .power-icon { color: $yellow; }
 
   &:hover {
-    border-color: $yellow;
-    background-color: rgba(215, 153, 33, 0.15);
+    border-color: rgba($yellow-bright, 0.6);
+    box-shadow: 0 0 6px rgba($yellow, 0.15);
+    background-color: rgba($yellow, 0.15);
   }
 }
 
-.reboot-btn {
-  border-color: rgba(254, 128, 25, 0.4);
+.btn-reboot {
+  border-color: rgba($orange, 0.4);
 
-  .power-icon {
-    color: $orange-bright;
-  }
+  .power-icon { color: $orange-bright; }
 
   &:hover {
-    border-color: $orange-bright;
-    background-color: rgba(254, 128, 25, 0.15);
+    border-color: rgba($orange-bright, 0.6);
+    box-shadow: 0 0 6px rgba($orange, 0.15);
+    background-color: rgba($orange, 0.15);
   }
 }
 
-.shutdown-btn {
-  border-color: rgba(251, 73, 52, 0.4);
+.btn-shutdown {
+  border-color: rgba($red, 0.4);
 
-  .power-icon {
-    color: $red-bright;
-  }
+  .power-icon { color: $red-bright; }
 
   &:hover {
-    border-color: $red-bright;
-    background-color: rgba(251, 73, 52, 0.15);
+    border-color: rgba($red-bright, 0.6);
+    box-shadow: 0 0 6px rgba($red, 0.15);
+    background-color: rgba($red, 0.15);
   }
 }
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Keybind Hints                                                              │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.power-hints {
+  padding: 8px 0;
+  margin-top: 6px;
+  border-top: 1px solid $fg-border;
+}
+
+.hint-key {
+  font-size: 11px;
+  font-weight: bold;
+  margin-right: 1px;
+}
+
+.hint-label {
+  font-size: 11px;
+  color: $fg-dim;
+  margin-right: 8px;
+}
+
+.hint-close { color: $fg-dim; }
+.hint-lock { color: $blue-bright; }
+.hint-logout { color: $yellow; }
+.hint-reboot { color: $orange-bright; }
+.hint-shutdown { color: $red-bright; }
+
+.power-footer {
+  margin-top: 8px;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Tooltip                                                                    │
+// └────────────────────────────────────────────────────────────────────────────┘
 
 tooltip {
-  background-color: $bg-dark;
+  background-color: $graphite-dark;
+  color: $fg-normal;
+  border: 1px solid $fg-border;
+  padding: 4px 8px;
+  font-size: 11px;
 }

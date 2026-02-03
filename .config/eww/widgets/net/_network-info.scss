@@ -1,45 +1,83 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║                         NETWORK INFO STYLES                                  ║
-// ║                      Interfaces, WiFi, Bluetooth, VPN                        ║
+// ║                     Hacker Terminal Aesthetic                                ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 .network-box {
-  border-color: rgba(131, 165, 152, 0.3);
+  border-color: rgba($cyan, 0.25);
 }
 
-.network-box .section-header {
-  color: $blue-bright;
-  border-bottom-color: rgba(131, 165, 152, 0.2);
+.net-header {
+  margin-bottom: 10px;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Info Content                                                               │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.info-content {
-  padding: 14px 0;
+.net-content {
+  padding: 4px 0;
 }
 
-.info-row {
+.net-row {
   margin: 2px 0;
 }
 
-.info-key {
+// Primary text - match waybar grays
+.net-key {
   font-size: 18px;
-  color: $yellow;
-  min-width: 90px;
-  margin-right: 8px;
+  color: $fg-dim;  // Match waybar module text (#999999)
+  min-width: 100px;
 }
 
-.info-value {
-  color: $fg;
+.net-dots {
   font-size: 18px;
+  color: $fg-border;
 }
 
-.spacer {
-  min-height: 12px;
+.net-value {
+  font-size: 18px;
+  color: $fg-normal;
 }
 
-.vpn-status {
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Value Colors                                                               │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.net-bt {
+  color: $blue-bright;
+}
+
+.net-vpn {
   color: $green-bright;
+  font-weight: bold;
+}
+
+.net-down {
+  color: $green-bright;
+  font-weight: bold;
+}
+
+.net-up {
+  color: $cyan-bright;
+  font-weight: bold;
+}
+
+.net-ping {
+  color: $fg-bright;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Subsection                                                                 │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.net-subsection {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  padding-top: 6px;
+  border-top: 1px solid $fg-border;
+}
+
+.net-traffic {
+  padding: 4px 0;
+}
+
+.net-footer {
+  margin-top: 8px;
 }

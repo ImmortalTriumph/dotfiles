@@ -1,19 +1,34 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
 // ║                        EWW DASHBOARD STYLING                                 ║
+// ║                     Hacker Terminal Aesthetic                                ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 
 // ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                                  COLORS                                      │
+// │                          TERMINAL MONOCHROME BASE                            │
+// │                     (matched to waybar/kitty theme)                          │
 // ╰──────────────────────────────────────────────────────────────────────────────╯
 
-$bg: #1a1a1a;
-$bg-dark: #121212;
-$bg-light: #252525;
-$fg: #d9d9d9;
-$fg-dim: #808080;
-$border: #333333;
-$accent: #b3b3b3;
+// Background with transparency for blur effect
+$bg-terminal: rgba(12, 12, 12, 0.8); // 80% opacity for blur visibility
+$bg-panel: rgba(255, 255, 255, 0.03); // Match waybar module bg
+$bg-hover: rgba(255, 255, 255, 0.08); // Match waybar hover
+
+$fg-bright: #d9d9d9; // Match kitty foreground
+$fg-normal: #b3b3b3; // Match waybar clock
+$fg-dim: #999999; // Match waybar modules
+$fg-muted: #666666; // Match waybar inactive
+$fg-border: #333333; // Match waybar border exactly
+
+// Graphite tones (from kitty selection)
+$graphite: #4d4d4d;
+$graphite-light: #555555;
+$graphite-dark: #1a1a1a; // Match kitty background
+
+
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                          GRUVBOX ACCENTS (MUTED)                             │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
 
 $red: #cc241d;
 $red-bright: #fb4934;
@@ -37,71 +52,90 @@ $cyan-bright: #8ec07c;
 
 * {
   all: unset;
-  font-family: "JetBrains Mono Nerd Font", "JetBrains Mono", "Noto Sans Mono CJK SC", monospace;
-  font-size: 18px;
-  color: $fg;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font", monospace;
+  font-size: 20px;
+  color: $fg-normal;
   background-color: transparent;
 }
 
 
 // ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                                  LAYOUT                                      │
+// │                              FULLSCREEN LAYOUT                               │
 // ╰──────────────────────────────────────────────────────────────────────────────╯
 
 .dashboard {
-  background-color: rgba(12, 12, 12, 0.8);
-  padding: 40px 50px;
+  background-color: $bg-terminal;
+  padding: 50px;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Section Containers                                                         │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.top-section {
-  background-color: transparent;
-  padding: 10px 0 20px 0;
+.section {
+  padding: 75px 0;
 }
-
-.middle-section {
-  background-color: transparent;
-  padding: 20px 0 10px;
-}
-
-.bottom-section {
-  background-color: transparent;
-  padding: 5px 0 10px 0;
-}
-
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Panel Container                                                            │
-// └────────────────────────────────────────────────────────────────────────────┘
 
 .panel {
   padding: 0 20px;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Info Box (shared base for all 3 panels)                                    │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.info-box {
-  background-color: transparent;
-  border: 1px solid rgba(60, 60, 60, 0.6);
-  border-radius: 12px;
-  padding: 24px 28px;
-  min-width: 630px;
-  min-height: 600px;
+.panel-left {
+  margin-right: 10px;
 }
 
-.section-header {
-  font-size: 16px;
-  font-weight: bold;
-  color: $fg-dim;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  letter-spacing: 3px;
-  border-bottom: 1px solid rgba(60, 60, 60, 0.4);
+.panel-center {
+  margin: 0 10px;
+}
+
+.panel-right {
+  margin-left: 10px;
+}
+
+
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                          TERMINAL BOX STYLING                                │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
+
+// Match waybar module styling: rgba(255,255,255,0.03) bg, #333333 border, 6px radius
+.terminal-box,
+.info-box {
+  background-color: $bg-panel; // Match waybar modules
+  border: 1px solid $fg-border;
+  border-radius: 6px; // Match waybar border-radius
+  padding: 16px 20px;
+}
+
+.info-box {
   min-width: 380px;
+}
+
+// Subtle color-tinted borders (minimal Gruvbox accents)
+.cava-box {
+  border-color: rgba($green, 0.25);
+}
+
+.media-box {
+  border-color: rgba($cyan, 0.25);
+}
+
+.network-box {
+  border-color: rgba($cyan, 0.25);
+}
+
+.power-box {
+  border-color: rgba($red, 0.25);
+}
+
+.stats-box {
+  border-color: rgba($purple, 0.25);
+}
+
+
+
+
+// ╭──────────────────────────────────────────────────────────────────────────────╮
+// │                               UTILITIES                                      │
+// ╰──────────────────────────────────────────────────────────────────────────────╯
+
+.spacer {
+  min-height: 8px;
 }
 
 

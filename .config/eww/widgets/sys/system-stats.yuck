@@ -1,46 +1,50 @@
 ; ╔══════════════════════════════════════════════════════════════════════════════╗
 ; ║                          SYSTEM STATS WIDGET                                 ║
-; ║                      CPU, RAM, Swap, Disk Usage                              ║
+; ║                     Hacker Terminal Aesthetic                                ║
 ; ╚══════════════════════════════════════════════════════════════════════════════╝
 
 (defwidget system-stats []
-  (box :class "info-box stats-box" :orientation "v" :space-evenly false :halign "fill" :valign "center"
-    (box :class "section-header" :halign "center"
-      (label :text "SYSTEM"))
-    (box :class "stats-content" :orientation "v" :space-evenly false
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "      cpu" :class "stats-key")
-        (label :text cpu_bar :class "ascii-bar cpu-color")
-        (label :text " ${cpu_usage}%" :class "stats-value"))
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "      ram" :class "stats-key")
-        (label :text mem_bar :class "ascii-bar mem-color")
-        (label :text " ${mem_usage}%" :class "stats-value"))
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "     swap" :class "stats-key")
-        (label :text swap_bar :class "ascii-bar swap-color")
-        (label :text " ${swap_usage}%" :class "stats-value"))
+  (box :class "info-box stats-box" :orientation "v" :space-evenly false :halign "fill" :valign "start"
 
-      (label :text "" :class "spacer")
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "      ram" :class "stats-key")
-        (label :text "${mem_used} / ${mem_total}" :class "stats-value"))
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "     swap" :class "stats-key")
-        (label :text "${swap_used} / ${swap_total}" :class "stats-value"))
+    (box :class "sys-content" :orientation "v" :space-evenly false
+      ; CPU
+      (box :class "sys-row" :orientation "h" :space-evenly false
+        (label :text " cpu" :class "sys-key")
+        (label :text " ${cpu_stats.bar}" :class "sys-bar sys-bar-cpu")
+        (label :text " ${cpu_stats.percent}%" :class "sys-percent")))
 
-      (label :text "" :class "spacer")
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "     root" :class "stats-key")
-        (label :text disk_root_bar :class "ascii-bar disk-color")
-        (label :text " ${disk_root_percent}%" :class "stats-value"))
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "     home" :class "stats-key")
-        (label :text disk_home_bar :class "ascii-bar disk-color")
-        (label :text " ${disk_home_percent}%" :class "stats-value"))
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "     root" :class "stats-key")
-        (label :text disk_root_info :class "stats-value"))
-      (box :class "stats-row" :orientation "h" :space-evenly false
-        (label :text "     home" :class "stats-key")
-        (label :text disk_home_info :class "stats-value")))))
+    ; Memory section
+    (box :class "sys-memory" :orientation "v" :space-evenly false
+      ; RAM
+      (box :class "sys-row" :orientation "h" :space-evenly false
+        (label :text "󰘚 ram" :class "sys-key")
+        (label :text " ${mem_stats.bar}" :class "sys-bar sys-bar-mem")
+        (label :text " ${mem_stats.percent}%" :class "sys-percent"))
+      (box :class "sys-row sys-detail" :orientation "h" :space-evenly false
+        (label :text "     ${mem_stats.used} / ${mem_stats.total}" :class "sys-info"))
+
+      ; Swap
+      (box :class "sys-row" :orientation "h" :space-evenly false
+        (label :text "󰾴 swp" :class "sys-key")
+        (label :text " ${swap_stats.bar}" :class "sys-bar sys-bar-swap")
+        (label :text " ${swap_stats.percent}%" :class "sys-percent"))
+      (box :class "sys-row sys-detail" :orientation "h" :space-evenly false
+        (label :text "     ${swap_stats.used} / ${swap_stats.total}" :class "sys-info")))
+
+    ; Disk section
+    (box :class "sys-disk" :orientation "v" :space-evenly false
+      ; Root
+      (box :class "sys-row" :orientation "h" :space-evenly false
+        (label :text "󰉋 /" :class "sys-key")
+        (label :text "   ${disk_stats.root.bar}" :class "sys-bar sys-bar-disk")
+        (label :text " ${disk_stats.root.percent}%" :class "sys-percent"))
+      (box :class "sys-row sys-detail" :orientation "h" :space-evenly false
+        (label :text "     ${disk_stats.root.info}" :class "sys-info"))
+
+      ; Home
+      (box :class "sys-row" :orientation "h" :space-evenly false
+        (label :text "󰋜 ~" :class "sys-key")
+        (label :text "   ${disk_stats.home.bar}" :class "sys-bar sys-bar-disk")
+        (label :text " ${disk_stats.home.percent}%" :class "sys-percent"))
+      (box :class "sys-row sys-detail" :orientation "h" :space-evenly false
+        (label :text "     ${disk_stats.home.info}" :class "sys-info")))))

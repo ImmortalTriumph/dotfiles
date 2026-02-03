@@ -15,33 +15,39 @@
 (defpoll net_download :interval "1s" "~/.config/eww/scripts/network/net-speed.sh down")
 
 ; ┌────────────────────────────────────────────────────────────────────────────┐
-; │ System Variables                                                           │
+; │ System Variables (JSON - synchronized percent & bar)                       │
 ; └────────────────────────────────────────────────────────────────────────────┘
 
-(defpoll cpu_usage :interval "1s" :initial "0" "~/.config/eww/scripts/system/cpu-usage.sh")
-(defpoll cpu_bar :interval "1s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/cpu-usage.sh) 40")
-(defpoll mem_usage :interval "2s" :initial "0" "~/.config/eww/scripts/system/mem-usage.sh")
-(defpoll mem_bar :interval "2s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/mem-usage.sh) 40")
-(defpoll mem_total :interval "60s" "free -h | awk '/Mem:/ {print $2}'")
-(defpoll mem_used :interval "2s" "free -h | awk '/Mem:/ {print $3}'")
-(defpoll swap_usage :interval "5s" :initial "0" "~/.config/eww/scripts/system/swap-usage.sh")
-(defpoll swap_bar :interval "5s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/swap-usage.sh) 40")
-(defpoll swap_total :interval "60s" "free -h | awk '/Swap:/ {print $2}'")
-(defpoll swap_used :interval "5s" "free -h | awk '/Swap:/ {print $3}'")
-(defpoll disk_root_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh root-percent")
-(defpoll disk_root_bar :interval "30s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/disk-usage.sh root-percent) 40")
-(defpoll disk_root_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh root")
-(defpoll disk_home_percent :interval "30s" :initial "0" "~/.config/eww/scripts/system/disk-usage.sh home-percent")
-(defpoll disk_home_bar :interval "30s" :initial "[                                       ]" "~/.config/eww/scripts/system/ascii-bar.sh $(~/.config/eww/scripts/system/disk-usage.sh home-percent) 40")
-(defpoll disk_home_info :interval "30s" "~/.config/eww/scripts/system/disk-usage.sh home")
+(defpoll cpu_stats :interval "1s"
+  :initial '{"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]"}'
+  "~/.config/eww/scripts/system/cpu-stats.sh")
+
+(defpoll mem_stats :interval "2s"
+  :initial '{"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "used": "0B", "total": "0B"}'
+  "~/.config/eww/scripts/system/mem-stats.sh")
+
+(defpoll swap_stats :interval "5s"
+  :initial '{"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "used": "0B", "total": "0B"}'
+  "~/.config/eww/scripts/system/swap-stats.sh")
+
+(defpoll disk_stats :interval "30s"
+  :initial '{"root": {"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "info": "0B / 0B"}, "home": {"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "info": "0B / 0B"}}'
+  "~/.config/eww/scripts/system/disk-stats.sh")
 
 ; ┌────────────────────────────────────────────────────────────────────────────┐
 ; │ Media Variables                                                            │
 ; └────────────────────────────────────────────────────────────────────────────┘
 
 (defpoll spotify_info :interval "2s" "~/.config/eww/scripts/media/spotify-info.sh")
+(defpoll spotify_art :interval "2s" "~/.config/eww/scripts/media/spotify-art.sh")
 (defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/volume-info.sh")
 (defpoll visualizer_content :interval "0.05s" :initial "" "cat /tmp/visualizer.txt 2>/dev/null || echo ''")
+
+; ┌────────────────────────────────────────────────────────────────────────────┐
+; │ Brightness Variable                                                        │
+; └────────────────────────────────────────────────────────────────────────────┘
+
+(defpoll brightness_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/brightness-info.sh")
 
 ; ┌────────────────────────────────────────────────────────────────────────────┐
 ; │ Ping Variable (realtime)                                                   │

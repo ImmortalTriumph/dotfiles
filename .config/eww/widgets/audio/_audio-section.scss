@@ -1,6 +1,6 @@
 // ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║                              TOP WIDGETS                                     ║
-// ║                     Cava Visualizer + Media Controls                         ║
+// ║                              AUDIO WIDGETS                                   ║
+// ║                     Hacker Terminal Aesthetic                                ║
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 
 // ┌────────────────────────────────────────────────────────────────────────────┐
@@ -8,84 +8,152 @@
 // └────────────────────────────────────────────────────────────────────────────┘
 
 .cava-box {
-  background-color: transparent;
-  border: 1px solid rgba(60, 60, 60, 0.5);
-  border-radius: 12px;
-  padding: 20px 30px;
-  min-height: 180px;
-  min-width: 1400px;
+  border-color: rgba($green, 0.25);
+  min-width: 1100px;
+  min-height: 100px;
+  padding-top: 20px;
 }
 
+.cava-content {
+  padding: 8px 0;
+}
+
+// Visualizer - gruvbox green with subtle glow
 .visualizer-text {
-  font-family: "JetBrains Mono", monospace;
   font-size: 12px;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
+  color: $green-bright;
+  text-shadow: 0 0 2px rgba($green, 0.3);
 }
 
 // ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Spotify + Volume                                                           │
+// │ Media Box                                                                  │
 // └────────────────────────────────────────────────────────────────────────────┘
 
-.spotify-volume-box {
-  background-color: transparent;
-  border: 1px solid rgba(60, 60, 60, 0.5);
-  border-radius: 10px;
-  padding: 16px 30px;
-  margin-top: 16px;
-  min-width: 1400px;
+.media-box {
+  border-color: rgba($cyan, 0.25);
+  margin-top: 10px;
+  min-width: 1100px;
 }
 
-.spotify-info {
-  padding: 4px 8px;
+.media-content {
+  padding: 6px 0;
 }
 
-.spotify-icon {
-  font-size: 20px;
-  color: $green-bright;
-  margin-right: 12px;
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Album Art                                                                  │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.album-container {
+  margin-right: 16px;
+  margin-left: 8px;
 }
 
-.spotify-text {
+.album-border {
+  border: 1px solid $fg-border;
+  min-width: 64px;
+  min-height: 64px;
+  background-color: rgba(20, 20, 20, 0.5);
+}
+
+.track-info {
+  padding: 4px 0;
+}
+
+.track-text {
   font-size: 16px;
-  color: $fg;
+  color: $fg-bright;
 }
 
-.volume-info {
-  padding: 4px 8px;
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Controls Section                                                           │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+.controls-row {
+  padding: 6px 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid $fg-border;
 }
 
-.volume-icon {
-  font-size: 20px;
+.control-group {
+  margin-right: 8px;
+}
+
+.ctrl-label {
+  font-size: 16px;
+  color: $yellow;
+  min-width: 70px;
+}
+
+.ctrl-vol {
   color: $cyan-bright;
-  margin-right: 12px;
 }
 
-.volume-bar {
-  min-width: 160px;
-  margin-right: 12px;
+.ctrl-brt {
+  color: $yellow-bright;
+}
+
+.ctrl-bracket {
+  font-size: 16px;
+  color: $fg-dim;
+}
+
+.ctrl-value {
+  font-size: 16px;
+  color: $fg-normal;
+  min-width: 50px;
+}
+
+// ┌────────────────────────────────────────────────────────────────────────────┐
+// │ Interactive Sliders                                                        │
+// └────────────────────────────────────────────────────────────────────────────┘
+
+// Slider styling (graphite base, gruvbox highlights)
+.slider {
+  min-width: 180px;
+  min-height: 16px;
 
   trough {
-    background-color: rgba(30, 30, 30, 0.9);
-    border-radius: 5px;
-    min-height: 8px;
+    background-color: $graphite-dark;  // Match kitty bg
+    min-height: 4px;
+    border-radius: 2px;
   }
 
   highlight {
-    background-color: $cyan-bright;
-    border-radius: 5px;
-    min-height: 8px;
+    min-height: 4px;
+    border-radius: 2px;
   }
 
   slider {
-    background-color: $fg;
-    border-radius: 50%;
-    min-width: 12px;
-    min-height: 12px;
+    background-color: $fg-muted;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 5px;
+    margin: -3px 0;
+
+    &:hover {
+      background-color: $fg-dim;
+    }
   }
 }
 
-.volume-text {
-  font-size: 16px;
-  color: $fg-dim;
-  min-width: 50px;
+.volume-slider {
+  highlight {
+    background-color: $cyan-bright;
+  }
+
+  slider:hover {
+    background-color: $cyan-bright;
+  }
+}
+
+.brightness-slider {
+  highlight {
+    background-color: $yellow-bright;
+  }
+
+  slider:hover {
+    background-color: $yellow-bright;
+  }
 }

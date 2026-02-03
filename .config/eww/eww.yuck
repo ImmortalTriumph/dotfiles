@@ -1,10 +1,11 @@
 ; ╔══════════════════════════════════════════════════════════════════════════════╗
 ; ║                        EWW DASHBOARD CONFIGURATION                           ║
+; ║                     Hacker Terminal Aesthetic                                ║
 ; ╚══════════════════════════════════════════════════════════════════════════════╝
 
 
 ; ╭──────────────────────────────────────────────────────────────────────────────╮
-; │                                   WIDGET                                     │
+; │                                   IMPORTS                                    │
 ; ╰──────────────────────────────────────────────────────────────────────────────╯
 
 (include "./widgets/variables.yuck")
@@ -20,21 +21,24 @@
 
 (defwidget layout []
   (box :class "dashboard" :orientation "v" :space-evenly false :halign "fill" :valign "fill"
-    ; TOP - Cava + Spotify/Volume
-    (box :class "top-section" :orientation "v" :space-evenly false :vexpand false :halign "center"
+
+    ; TOP: Audio Visualizer + Media Controls
+    (box :class "section" :orientation "v" :space-evenly false :vexpand false :halign "center"
       (cava-widget)
-      (spotify-volume))
+      (media-controls))
 
-    ; MIDDLE - Info Panels
-    (box :class "middle-section" :orientation "h" :space-evenly true :vexpand true :halign "center" :valign "center"
-      (box :class "panel" :halign "center" :valign "start"
+    (box :class "section" :orientation "h" :space-evenly false :vexpand true :halign "center" :valign "center"
+      ; Left Panel - Network
+      (box :class "panel panel-left" :halign "end" :valign "start"
         (network-info))
-      (box :class "panel" :halign "center" :valign "start"
-        (system-stats)))
 
-    ; BOTTOM - Power Buttons
-    (box :class "bottom-section" :orientation "h" :space-evenly false :vexpand false :halign "center" :valign "end"
-      (power-buttons))))
+      ; Center Panel - Power Buttons
+      (box :class "panel panel-center" :halign "center" :valign "center"
+        (power-buttons))
+
+      ; Right Panel - System
+      (box :class "panel panel-right" :halign "start" :valign "start"
+        (system-stats)))))
 
 
 ; ╭──────────────────────────────────────────────────────────────────────────────╮
