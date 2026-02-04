@@ -1,24 +1,13 @@
-; ╔══════════════════════════════════════════════════════════════════════════════╗
-; ║                        EWW DASHBOARD CONFIGURATION                           ║
-; ║                     Hacker Terminal Aesthetic                                ║
-; ╚══════════════════════════════════════════════════════════════════════════════╝
+; === EWW DASHBOARD CONFIGURATION ===
 
-
-; ╭──────────────────────────────────────────────────────────────────────────────╮
-; │                                   IMPORTS                                    │
-; ╰──────────────────────────────────────────────────────────────────────────────╯
-
+; --- Imports ---
 (include "./widgets/variables.yuck")
 (include "./widgets/audio/audio-section.yuck")
 (include "./widgets/net/network-info.yuck")
 (include "./widgets/sys/system-stats.yuck")
 (include "./widgets/power/power-button.yuck")
 
-
-; ╭──────────────────────────────────────────────────────────────────────────────╮
-; │                                   LAYOUT                                     │
-; ╰──────────────────────────────────────────────────────────────────────────────╯
-
+; --- Layout ---
 (defwidget layout []
   (box :class "dashboard" :orientation "v" :space-evenly false :halign "fill" :valign "fill"
 
@@ -40,11 +29,7 @@
       (box :class "panel panel-right" :halign "start" :valign "start"
         (system-stats)))))
 
-
-; ╭──────────────────────────────────────────────────────────────────────────────╮
-; │                                   WINDOW                                     │
-; ╰──────────────────────────────────────────────────────────────────────────────╯
-
+; --- Window ---
 (defwindow dashboard
   :monitor 0
   :geometry (geometry :x "0px" :y "0px" :width "100%" :height "100%" :anchor "center")

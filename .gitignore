@@ -1,0 +1,41 @@
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+**/secrets/
+**/.private/
+credentials.json
+tokens.sh
+
+# Cache files
+**/__pycache__/
+*.pyc
+*.pyo
+/tmp/
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.bak
+
+# Oh-my-zsh internals
+.oh-my-zsh/cache/
+.oh-my-zsh/log/
+
+# Build artifacts
+*.o
+*.so
+*.a
+
+# Logs
+*.log

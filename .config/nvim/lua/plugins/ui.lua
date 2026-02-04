@@ -1,6 +1,19 @@
 -- UI plugins - File explorer, statusline, bufferline, etc.
 
 return {
+  -- Mini icons (alternative icon provider)
+  {
+    "echasnovski/mini.icons",
+    lazy = true,
+    opts = {},
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
+  },
+
   -- File Explorer
   {
     "nvim-tree/nvim-tree.lua",

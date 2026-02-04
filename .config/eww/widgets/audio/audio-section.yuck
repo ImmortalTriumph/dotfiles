@@ -1,40 +1,28 @@
-; ╔══════════════════════════════════════════════════════════════════════════════╗
-; ║                              AUDIO WIDGETS                                   ║
-; ║                     Cava Visualizer + Media Controls                         ║
-; ╚══════════════════════════════════════════════════════════════════════════════╝
+; === AUDIO WIDGETS ===
 
-; ┌────────────────────────────────────────────────────────────────────────────┐
-; │ Cava Audio Visualizer                                                      │
-; └────────────────────────────────────────────────────────────────────────────┘
-
+; --- Cava Visualizer ---
 (defwidget cava-widget []
   (box :class "cava-box terminal-box" :orientation "v" :space-evenly false :halign "center"
     (box :class "cava-content" :halign "center" :valign "center"
       (label :markup visualizer_content :class "visualizer-text"))))
 
-; ┌────────────────────────────────────────────────────────────────────────────┐
-; │ Media Controls: Spotify + Volume + Brightness                              │
-; └────────────────────────────────────────────────────────────────────────────┘
-
+; --- Media Controls ---
 (defwidget media-controls []
   (box :class "media-box terminal-box" :orientation "v" :space-evenly false :halign "center"
 
-    ; Content row: album art + track info
+    ; Album art + track info
     (box :class "media-content" :orientation "h" :space-evenly false
-      ; Album art (larger)
       (box :class "album-container"
         (box :class "album-border"
           (image :path {spotify_art != "" ? spotify_art : ""}
                  :image-width 96 :image-height 96
                  :visible {spotify_art != ""})))
-      ; Track info: title on top, artist below
       (box :class "track-info" :orientation "v" :space-evenly false :valign "center"
         (label :text {spotify_info.title} :class "track-title" :halign "start" :wrap true)
         (label :text {spotify_info.artist} :class "track-artist" :halign "start" :visible {spotify_info.artist != ""})))
 
     ; Volume and Brightness sliders
     (box :class "controls-row" :orientation "h" :space-evenly false
-      ; Volume
       (box :class "control-group" :orientation "h" :space-evenly false
         (label :text " 󰕾 vol" :class "ctrl-label ctrl-vol")
         (label :text " [" :class "ctrl-bracket")
@@ -46,7 +34,6 @@
 
       (label :text "    " :class "ctrl-spacer")
 
-      ; Brightness
       (box :class "control-group" :orientation "h" :space-evenly false
         (label :text "󰃟 brt" :class "ctrl-label ctrl-brt")
         (label :text " [" :class "ctrl-bracket")

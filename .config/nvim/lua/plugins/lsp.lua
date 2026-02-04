@@ -1,6 +1,15 @@
 -- LSP Configuration (Neovim 0.11+ compatible)
 
 return {
+  -- Java LSP (loaded by ftplugin/java.lua)
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+  },
+
   {
     "williamboman/mason.nvim",
     lazy = false,
@@ -41,13 +50,37 @@ return {
     end,
   },
   {
+    "jay-babu/mason-nvim-dap.nvim",
+    lazy = false,
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-nvim-dap").setup({
+        ensure_installed = {
+          "codelldb", -- C/C++/Rust debugger
+          "javadbg",  -- Java debug adapter
+          "javatest", -- Java test runner
+        },
+        automatic_installation = true,
+      })
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
-      { "j-hui/fidget.nvim", opts = {} },
+      {
+        "j-hui/fidget.nvim",
+        opts = {
+          notification = {
+            window = {
+              winblend = 0,
+            },
+          },
+        },
+      },
     },
     config = function()
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -141,12 +174,12 @@ return {
             },
           },
         },
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "jsx", "tsx" },
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
       })
 
       vim.lsp.config("emmet_ls", {
         capabilities = capabilities,
-        filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "jsx", "tsx" },
+        filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
         init_options = {
           html = {
             options = {
@@ -162,14 +195,20 @@ return {
         filetypes = { "c", "cpp", "objc", "objcpp" },
       })
 
+      -- yamlls with restricted filetypes (fixes checkhealth warnings)
+      vim.lsp.config("yamlls", {
+        capabilities = capabilities,
+        filetypes = { "yaml" },
+      })
+
       -- Simple servers with just capabilities
-      for _, server in ipairs({ "pyright", "bashls", "jsonls", "yamlls", "cssls", "html", "jdtls" }) do
+      for _, server in ipairs({ "pyright", "bashls", "jsonls", "cssls", "html" }) do
         vim.lsp.config(server, {
           capabilities = capabilities,
         })
       end
 
-      -- Enable all configured servers
+      -- Enable all configured servers (jdtls handled by nvim-jdtls in ftplugin)
       vim.lsp.enable({
         "lua_ls",
         "rust_analyzer",
@@ -182,7 +221,6 @@ return {
         "ts_ls",
         "emmet_ls",
         "clangd",
-        "jdtls",
       })
     end,
   },

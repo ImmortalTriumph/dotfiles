@@ -1,16 +1,7 @@
-// ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║                          SYSTEM STATS STYLES                                 ║
-// ║                     Hacker Terminal Aesthetic                                ║
-// ╚══════════════════════════════════════════════════════════════════════════════╝
+// === SYSTEM STATS STYLES ===
 
 .stats-box {
   border-color: rgba($purple, 0.25);
-}
-
-// Headers - gruvbox bright colors with subtle glow
-.header-purple {
-  color: $purple-bright;
-  text-shadow: 0 0 2px rgba($purple, 0.2);
 }
 
 .sys-header {
@@ -29,10 +20,9 @@
   margin-bottom: 4px;
 }
 
-// Primary text - match waybar grays
 .sys-key {
   font-size: 18px;
-  color: $fg-dim;  // Match waybar module text (#999999)
+  color: $fg-dim;
   min-width: 80px;
 }
 
@@ -59,7 +49,7 @@
 
 .sys-percent {
   font-size: 18px;
-  color: $fg-normal;  // Match waybar clock text (#b3b3b3)
+  color: $fg-normal;
   min-width: 50px;
 }
 
@@ -68,25 +58,10 @@
   color: $fg-dim;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Subsections                                                                │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.sys-subsection {
-  margin-top: 10px;
-  margin-bottom: 8px;
-  padding-top: 6px;
-  border-top: 1px solid $fg-border;
-}
-
 .sys-memory {
   padding: 4px 0;
 }
 
 .sys-disk {
   padding: 4px 0;
-}
-
-.sys-footer {
-  margin-top: 8px;
 }

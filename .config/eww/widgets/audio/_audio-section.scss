@@ -1,12 +1,6 @@
-// ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║                              AUDIO WIDGETS                                   ║
-// ║                     Hacker Terminal Aesthetic                                ║
-// ╚══════════════════════════════════════════════════════════════════════════════╝
+// === AUDIO WIDGETS ===
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Cava Visualizer                                                            │
-// └────────────────────────────────────────────────────────────────────────────┘
-
+// --- Cava Visualizer ---
 .cava-box {
   border-color: rgba($green, 0.25);
   min-width: 1100px;
@@ -18,7 +12,6 @@
   padding: 8px 0;
 }
 
-// Visualizer - gruvbox green with subtle glow
 .visualizer-text {
   font-size: 12px;
   letter-spacing: -1px;
@@ -26,10 +19,7 @@
   text-shadow: 0 0 2px rgba($green, 0.3);
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Media Box                                                                  │
-// └────────────────────────────────────────────────────────────────────────────┘
-
+// --- Media Box ---
 .media-box {
   border-color: rgba($cyan, 0.25);
   margin-top: 10px;
@@ -40,10 +30,7 @@
   padding: 6px 0;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Album Art                                                                  │
-// └────────────────────────────────────────────────────────────────────────────┘
-
+// --- Album Art ---
 .album-container {
   margin-right: 16px;
   margin-left: 8px;
@@ -73,10 +60,7 @@
   color: $fg-dim;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Controls Section                                                           │
-// └────────────────────────────────────────────────────────────────────────────┘
-
+// --- Controls ---
 .controls-row {
   padding: 6px 8px;
   margin-top: 10px;
@@ -113,17 +97,13 @@
   min-width: 50px;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Interactive Sliders                                                        │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-// Slider styling (graphite base, gruvbox highlights)
+// --- Sliders ---
 .slider {
   min-width: 180px;
   min-height: 16px;
 
   trough {
-    background-color: $graphite-dark;  // Match kitty bg
+    background-color: $graphite-dark;
     min-height: 4px;
     border-radius: 2px;
   }

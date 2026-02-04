@@ -24,6 +24,9 @@ require("config.options")
 -- Load keymaps
 require("config.keymaps")
 
+-- Load custom filetype detection
+require("config.filetype")
+
 -- Load plugins
 require("lazy").setup("plugins", {
   defaults = { lazy = true },

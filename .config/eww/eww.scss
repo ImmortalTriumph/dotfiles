@@ -1,35 +1,21 @@
-// ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║                        EWW DASHBOARD STYLING                                 ║
-// ║                     Hacker Terminal Aesthetic                                ║
-// ╚══════════════════════════════════════════════════════════════════════════════╝
+// === EWW DASHBOARD STYLING ===
 
+// --- Terminal Monochrome Base (matched to waybar/kitty) ---
+$bg-terminal: rgba(12, 12, 12, 0.8);
+$bg-panel: rgba(255, 255, 255, 0.03);
+$bg-hover: rgba(255, 255, 255, 0.08);
 
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                          TERMINAL MONOCHROME BASE                            │
-// │                     (matched to waybar/kitty theme)                          │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
+$fg-bright: #d9d9d9;
+$fg-normal: #b3b3b3;
+$fg-dim: #999999;
+$fg-muted: #666666;
+$fg-border: #333333;
 
-// Background with transparency for blur effect
-$bg-terminal: rgba(12, 12, 12, 0.8); // 80% opacity for blur visibility
-$bg-panel: rgba(255, 255, 255, 0.03); // Match waybar module bg
-$bg-hover: rgba(255, 255, 255, 0.08); // Match waybar hover
-
-$fg-bright: #d9d9d9; // Match kitty foreground
-$fg-normal: #b3b3b3; // Match waybar clock
-$fg-dim: #999999; // Match waybar modules
-$fg-muted: #666666; // Match waybar inactive
-$fg-border: #333333; // Match waybar border exactly
-
-// Graphite tones (from kitty selection)
 $graphite: #4d4d4d;
 $graphite-light: #555555;
-$graphite-dark: #1a1a1a; // Match kitty background
+$graphite-dark: #1a1a1a;
 
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                          GRUVBOX ACCENTS (MUTED)                             │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
+// --- Gruvbox Accents ---
 $red: #cc241d;
 $red-bright: #fb4934;
 $green: #98971a;
@@ -45,11 +31,7 @@ $purple-bright: #d3869b;
 $cyan: #689d6a;
 $cyan-bright: #8ec07c;
 
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                                   BASE                                       │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
+// --- Base ---
 * {
   all: unset;
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font", monospace;
@@ -58,11 +40,7 @@ $cyan-bright: #8ec07c;
   background-color: transparent;
 }
 
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                              FULLSCREEN LAYOUT                               │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
+// --- Layout ---
 .dashboard {
   background-color: $bg-terminal;
   padding: 50px;
@@ -88,17 +66,12 @@ $cyan-bright: #8ec07c;
   margin-left: 10px;
 }
 
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                          TERMINAL BOX STYLING                                │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
-// Match waybar module styling: rgba(255,255,255,0.03) bg, #333333 border, 6px radius
+// --- Box Styling ---
 .terminal-box,
 .info-box {
-  background-color: $bg-panel; // Match waybar modules
+  background-color: $bg-panel;
   border: 1px solid $fg-border;
-  border-radius: 6px; // Match waybar border-radius
+  border-radius: 6px;
   padding: 16px 20px;
 }
 
@@ -106,7 +79,6 @@ $cyan-bright: #8ec07c;
   min-width: 380px;
 }
 
-// Subtle color-tinted borders (minimal Gruvbox accents)
 .cava-box {
   border-color: rgba($green, 0.25);
 }
@@ -127,22 +99,12 @@ $cyan-bright: #8ec07c;
   border-color: rgba($purple, 0.25);
 }
 
-
-
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                               UTILITIES                                      │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
+// --- Utilities ---
 .spacer {
   min-height: 8px;
 }
 
-
-// ╭──────────────────────────────────────────────────────────────────────────────╮
-// │                                  WIDGETS                                     │
-// ╰──────────────────────────────────────────────────────────────────────────────╯
-
+// --- Widget Imports ---
 @import "widgets/audio/audio-section";
 @import "widgets/net/network-info";
 @import "widgets/sys/system-stats";

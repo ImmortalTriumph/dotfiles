@@ -3,6 +3,10 @@
 
 local opt = vim.opt
 
+-- Disable unused providers (fixes checkhealth warnings)
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 -- UI
 opt.number = true
 opt.relativenumber = true
@@ -24,9 +28,9 @@ opt.background = "dark"
 
 -- Editing
 opt.expandtab = true
-opt.shiftwidth = 2
-opt.tabstop = 2
-opt.softtabstop = 2
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
 opt.smartindent = true
 opt.wrap = false
 opt.linebreak = true

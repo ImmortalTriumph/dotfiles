@@ -1,7 +1,4 @@
-; ╔══════════════════════════════════════════════════════════════════════════════╗
-; ║                         NETWORK INFO WIDGET                                  ║
-; ║                     Hacker Terminal Aesthetic                                ║
-; ╚══════════════════════════════════════════════════════════════════════════════╝
+; === NETWORK INFO WIDGET ===
 
 (defwidget network-info []
   (box :class "info-box network-box" :orientation "v" :space-evenly false :halign "fill" :valign "start"
@@ -29,6 +26,7 @@
         (label :text "[${vpn_status}]" :class "net-value net-vpn")))
 
       (label :text "                      ")
+
     ; Traffic section
     (box :class "net-traffic" :orientation "v" :space-evenly false
       (box :class "net-row" :orientation "h" :space-evenly false

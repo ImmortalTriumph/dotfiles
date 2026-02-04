@@ -1,7 +1,4 @@
-// ╔══════════════════════════════════════════════════════════════════════════════╗
-// ║                         NETWORK INFO STYLES                                  ║
-// ║                     Hacker Terminal Aesthetic                                ║
-// ╚══════════════════════════════════════════════════════════════════════════════╝
+// === NETWORK INFO STYLES ===
 
 .network-box {
   border-color: rgba($cyan, 0.25);
@@ -19,10 +16,9 @@
   margin: 2px 0;
 }
 
-// Primary text - match waybar grays
 .net-key {
   font-size: 18px;
-  color: $fg-dim;  // Match waybar module text (#999999)
+  color: $fg-dim;
   min-width: 100px;
 }
 
@@ -36,10 +32,7 @@
   color: $fg-normal;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Value Colors                                                               │
-// └────────────────────────────────────────────────────────────────────────────┘
-
+// --- Value Colors ---
 .net-bt {
   color: $blue-bright;
 }
@@ -63,21 +56,6 @@
   color: $fg-bright;
 }
 
-// ┌────────────────────────────────────────────────────────────────────────────┐
-// │ Subsection                                                                 │
-// └────────────────────────────────────────────────────────────────────────────┘
-
-.net-subsection {
-  margin-top: 10px;
-  margin-bottom: 8px;
-  padding-top: 6px;
-  border-top: 1px solid $fg-border;
-}
-
 .net-traffic {
   padding: 4px 0;
-}
-
-.net-footer {
-  margin-top: 8px;
 }
