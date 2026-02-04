@@ -9,7 +9,7 @@
     (box :class "sys-content" :orientation "v" :space-evenly false
       ; CPU
       (box :class "sys-row" :orientation "h" :space-evenly false
-        (label :text " cpu" :class "sys-key")
+        (label :text " cpu" :class "sys-key")
         (label :text " ${cpu_stats.bar}" :class "sys-bar sys-bar-cpu")
         (label :text " ${cpu_stats.percent}%" :class "sys-percent")))
 
@@ -31,11 +31,12 @@
       (box :class "sys-row sys-detail" :orientation "h" :space-evenly false
         (label :text "     ${swap_stats.used} / ${swap_stats.total}" :class "sys-info")))
 
+    (label :text "                      ")
     ; Disk section
     (box :class "sys-disk" :orientation "v" :space-evenly false
       ; Root
       (box :class "sys-row" :orientation "h" :space-evenly false
-        (label :text "󰉋 /" :class "sys-key")
+        (label :text "󰉋  /" :class "sys-key")
         (label :text "   ${disk_stats.root.bar}" :class "sys-bar sys-bar-disk")
         (label :text " ${disk_stats.root.percent}%" :class "sys-percent"))
       (box :class "sys-row sys-detail" :orientation "h" :space-evenly false
@@ -43,7 +44,7 @@
 
       ; Home
       (box :class "sys-row" :orientation "h" :space-evenly false
-        (label :text "󰋜 ~" :class "sys-key")
+        (label :text "󰋜  ~" :class "sys-key")
         (label :text "   ${disk_stats.home.bar}" :class "sys-bar sys-bar-disk")
         (label :text " ${disk_stats.home.percent}%" :class "sys-percent"))
       (box :class "sys-row sys-detail" :orientation "h" :space-evenly false

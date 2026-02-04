@@ -28,19 +28,20 @@
         (label :text " ─── " :class "net-dots")
         (label :text "[${vpn_status}]" :class "net-value net-vpn")))
 
+      (label :text "                      ")
     ; Traffic section
     (box :class "net-traffic" :orientation "v" :space-evenly false
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text " down" :class "net-key")
+        (label :text "↓ down" :class "net-key")
         (label :text " ─── " :class "net-dots")
-        (label :text "↓ ${net_download}" :class "net-value net-down"))
+        (label :text " ${net_download}" :class "net-value net-down"))
 
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text "   up" :class "net-key")
+        (label :text "↑   up" :class "net-key")
         (label :text " ─── " :class "net-dots")
-        (label :text "↑ ${net_upload}" :class "net-value net-up"))
+        (label :text " ${net_upload}" :class "net-value net-up"))
 
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text " ping" :class "net-key")
+        (label :text "◉ ping" :class "net-key")
         (label :text " ─── " :class "net-dots")
-        (label :text "◉ ${net_ping}" :class "net-value net-ping")))))
+        (label :text " ${net_ping}" :class "net-value net-ping")))))

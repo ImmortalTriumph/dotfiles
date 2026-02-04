@@ -45,16 +45,16 @@
         "format-paused": "{status_icon}  {artist} - {title}",
         "format-stopped": "",
         "max-length": 45,
+        "player": "spotify",
         "status-icons": {
             "playing": "󰐊",
             "paused": "󰏤",
             "stopped": "󰓛"
         },
-        "ignored-players": ["firefox"],
-        "on-click": "playerctl play-pause",
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous",
-        "tooltip-format": "{player}: {title}\n{album}"
+        "on-click": "playerctl -p spotify play-pause",
+        "on-scroll-up": "playerctl -p spotify next",
+        "on-scroll-down": "playerctl -p spotify previous",
+        "tooltip-format": "{title}\n{album}"
     },
 
     "clock": {

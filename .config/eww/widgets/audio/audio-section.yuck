@@ -21,15 +21,16 @@
 
     ; Content row: album art + track info
     (box :class "media-content" :orientation "h" :space-evenly false
-      ; Album art
+      ; Album art (larger)
       (box :class "album-container"
         (box :class "album-border"
           (image :path {spotify_art != "" ? spotify_art : ""}
-                 :image-width 64 :image-height 64
+                 :image-width 96 :image-height 96
                  :visible {spotify_art != ""})))
-      ; Track info
+      ; Track info: title on top, artist below
       (box :class "track-info" :orientation "v" :space-evenly false :valign "center"
-        (label :text "  ${spotify_info}" :class "track-text" :limit-width 70 :wrap false)))
+        (label :text {spotify_info.title} :class "track-title" :halign "start" :wrap true)
+        (label :text {spotify_info.artist} :class "track-artist" :halign "start" :visible {spotify_info.artist != ""})))
 
     ; Volume and Brightness sliders
     (box :class "controls-row" :orientation "h" :space-evenly false

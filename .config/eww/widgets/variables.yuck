@@ -38,7 +38,9 @@
 ; │ Media Variables                                                            │
 ; └────────────────────────────────────────────────────────────────────────────┘
 
-(defpoll spotify_info :interval "2s" "~/.config/eww/scripts/media/spotify-info.sh")
+(defpoll spotify_info :interval "2s"
+  :initial '{"title": "", "artist": ""}'
+  "~/.config/eww/scripts/media/spotify-info.sh")
 (defpoll spotify_art :interval "2s" "~/.config/eww/scripts/media/spotify-art.sh")
 (defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/volume-info.sh")
 (defpoll visualizer_content :interval "0.05s" :initial "" "cat /tmp/visualizer.txt 2>/dev/null || echo ''")
