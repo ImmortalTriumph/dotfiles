@@ -1,4 +1,3 @@
--- Custom filetype detection for LSP compatibility
 vim.filetype.add({
   extension = {
     jsx = "javascriptreact",

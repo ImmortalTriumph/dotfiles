@@ -1,13 +1,8 @@
--- Core Neovim options
--- Matching the minimalist dark aesthetic
-
 local opt = vim.opt
 
--- Disable unused providers (fixes checkhealth warnings)
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
--- UI
 opt.number = true
 opt.relativenumber = true
 opt.signcolumn = "yes"
@@ -23,10 +18,8 @@ opt.fillchars = { eob = " ", vert = "│", horiz = "─" }
 opt.list = true
 opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 
--- Colors
 opt.background = "dark"
 
--- Editing
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
@@ -36,19 +29,16 @@ opt.wrap = false
 opt.linebreak = true
 opt.breakindent = true
 
--- Search
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
 opt.incsearch = true
 
--- Files
 opt.swapfile = false
 opt.backup = false
 opt.undofile = true
 opt.undodir = vim.fn.stdpath("data") .. "/undo"
 
--- Behavior
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
 opt.scrolloff = 8
@@ -62,7 +52,6 @@ opt.conceallevel = 0
 opt.confirm = true
 opt.shortmess:append("sI")
 
--- Performance
 opt.lazyredraw = false
 opt.synmaxcol = 240
 opt.redrawtime = 1500

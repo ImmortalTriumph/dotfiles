@@ -1,5 +1,3 @@
--- Telescope fuzzy finder
-
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -7,10 +5,7 @@ return {
     cmd = "Telescope",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     config = function()
       local telescope = require("telescope")
@@ -24,24 +19,13 @@ return {
           sorting_strategy = "ascending",
           layout_strategy = "horizontal",
           layout_config = {
-            horizontal = {
-              prompt_position = "top",
-              preview_width = 0.55,
-              results_width = 0.8,
-            },
-            vertical = {
-              mirror = false,
-            },
+            horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8 },
+            vertical = { mirror = false },
             width = 0.87,
             height = 0.80,
             preview_cutoff = 120,
           },
-          file_ignore_patterns = {
-            "node_modules",
-            ".git/",
-            "target/",
-            "%.lock",
-          },
+          file_ignore_patterns = { "node_modules", ".git/", "target/", "%.lock" },
           path_display = { "truncate" },
           winblend = 0,
           border = true,
@@ -57,22 +41,11 @@ return {
           },
         },
         pickers = {
-          find_files = {
-            hidden = true,
-          },
-          live_grep = {
-            additional_args = function()
-              return { "--hidden" }
-            end,
-          },
+          find_files = { hidden = true },
+          live_grep = { additional_args = function() return { "--hidden" } end },
         },
         extensions = {
-          fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
+          fzf = { fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case" },
         },
       })
 

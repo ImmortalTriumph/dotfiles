@@ -1,13 +1,8 @@
--- Debug Adapter Protocol (DAP) Configuration
--- Provides debugging support for C++, Java, and other languages
-
 return {
   {
     "mfussenegger/nvim-dap",
     lazy = true,
-    dependencies = {
-      "jay-babu/mason-nvim-dap.nvim",
-    },
+    dependencies = { "jay-babu/mason-nvim-dap.nvim" },
     keys = {
       { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
       { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Conditional breakpoint" },
@@ -23,97 +18,24 @@ return {
       { "<leader>dp", function() require("dap.ui.widgets").preview() end, desc = "Preview" },
     },
     config = function()
-      local dap = require("dap")
-
-      -- Diagnostic signs for breakpoints
       vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint", linehl = "", numhl = "" })
       vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpointRejected", linehl = "", numhl = "" })
       vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DapLogPoint", linehl = "", numhl = "" })
       vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStoppedLine", numhl = "" })
 
-      -- Highlight groups
       vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#fb4934" })
       vim.api.nvim_set_hl(0, "DapBreakpointCondition", { fg = "#fabd2f" })
       vim.api.nvim_set_hl(0, "DapBreakpointRejected", { fg = "#928374" })
       vim.api.nvim_set_hl(0, "DapLogPoint", { fg = "#83a598" })
       vim.api.nvim_set_hl(0, "DapStopped", { fg = "#b8bb26" })
       vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#3c3836" })
-
-      -- C/C++ configuration with codelldb
-      local mason_path = vim.fn.stdpath("data") .. "/mason"
-      local codelldb_path = mason_path .. "/packages/codelldb/extension/adapter/codelldb"
-      local liblldb_path = mason_path .. "/packages/codelldb/extension/lldb/lib/liblldb.so"
-
-      dap.adapters.codelldb = {
-        type = "server",
-        port = "${port}",
-        executable = {
-          command = codelldb_path,
-          args = { "--port", "${port}" },
-        },
-      }
-
-      dap.configurations.cpp = {
-        {
-          name = "Launch file",
-          type = "codelldb",
-          request = "launch",
-          program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-          end,
-          cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-          args = function()
-            local args_string = vim.fn.input("Arguments: ")
-            return vim.split(args_string, " ", { trimempty = true })
-          end,
-        },
-        {
-          name = "Launch file (no args)",
-          type = "codelldb",
-          request = "launch",
-          program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-          end,
-          cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-        },
-        {
-          name = "Attach to process",
-          type = "codelldb",
-          request = "attach",
-          pid = require("dap.utils").pick_process,
-          cwd = "${workspaceFolder}",
-        },
-      }
-
-      -- Use same configs for C
-      dap.configurations.c = dap.configurations.cpp
-
-      -- Rust uses codelldb as well
-      dap.configurations.rust = {
-        {
-          name = "Launch file",
-          type = "codelldb",
-          request = "launch",
-          program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
-          end,
-          cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-        },
-      }
     end,
   },
-
   {
     "rcarriga/nvim-dap-ui",
     lazy = true,
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
-    },
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
       { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
       { "<leader>de", function() require("dapui").eval() end, desc = "Eval expression", mode = { "n", "v" } },
@@ -124,14 +46,7 @@ return {
 
       dapui.setup({
         icons = { expanded = "", collapsed = "", current_frame = "" },
-        mappings = {
-          expand = { "<CR>", "<2-LeftMouse>" },
-          open = "o",
-          remove = "d",
-          edit = "e",
-          repl = "r",
-          toggle = "t",
-        },
+        mappings = { expand = { "<CR>", "<2-LeftMouse>" }, open = "o", remove = "d", edit = "e", repl = "r", toggle = "t" },
         element_mappings = {},
         expand_lines = true,
         force_buffers = true,
@@ -155,49 +70,20 @@ return {
             position = "bottom",
           },
         },
-        floating = {
-          max_height = nil,
-          max_width = nil,
-          border = "rounded",
-          mappings = {
-            ["close"] = { "q", "<Esc>" },
-          },
-        },
+        floating = { max_height = nil, max_width = nil, border = "rounded", mappings = { ["close"] = { "q", "<Esc>" } } },
         controls = {
           enabled = true,
           element = "repl",
-          icons = {
-            pause = "",
-            play = "",
-            step_into = "",
-            step_over = "",
-            step_out = "",
-            step_back = "",
-            run_last = "",
-            terminate = "",
-            disconnect = "",
-          },
+          icons = { pause = "", play = "", step_into = "", step_over = "", step_out = "", step_back = "", run_last = "", terminate = "", disconnect = "" },
         },
-        render = {
-          max_type_length = nil,
-          max_value_lines = 100,
-          indent = 1,
-        },
+        render = { max_type_length = nil, max_value_lines = 100, indent = 1 },
       })
 
-      -- Auto open/close UI
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
+      dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
+      dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close() end
+      dap.listeners.before.event_exited["dapui_config"] = function() dapui.close() end
     end,
   },
-
   {
     "theHamsta/nvim-dap-virtual-text",
     lazy = true,

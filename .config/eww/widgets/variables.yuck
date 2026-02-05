@@ -1,36 +1,36 @@
 ; === POLLING VARIABLES ===
 
 ; --- Network ---
-(defpoll network_info :interval "5s" "~/.config/eww/scripts/network/network-info.sh")
-(defpoll wifi_ssid :interval "5s" "~/.config/eww/scripts/network/wifi-ssid.sh")
-(defpoll vpn_status :interval "5s" "~/.config/eww/scripts/network/vpn-status.sh")
-(defpoll bluetooth_status :interval "5s" "~/.config/eww/scripts/network/bluetooth-status.sh")
-(defpoll net_upload :interval "1s" "~/.config/eww/scripts/network/net-speed.sh up")
-(defpoll net_download :interval "1s" "~/.config/eww/scripts/network/net-speed.sh down")
-(defpoll net_ping :interval "2s" "~/.config/eww/scripts/network/net-ping.sh")
+(defpoll network_info :interval "5s" "~/.config/eww/widgets/net/scripts/network-info.sh")
+(defpoll wifi_ssid :interval "5s" "~/.config/eww/widgets/net/scripts/wifi-ssid.sh")
+(defpoll vpn_status :interval "5s" "~/.config/eww/widgets/net/scripts/vpn-status.sh")
+(defpoll bluetooth_status :interval "5s" "~/.config/eww/widgets/net/scripts/bluetooth-status.sh")
+(defpoll net_upload :interval "1s" "~/.config/eww/widgets/net/scripts/net-speed.sh up")
+(defpoll net_download :interval "1s" "~/.config/eww/widgets/net/scripts/net-speed.sh down")
+(defpoll net_ping :interval "2s" "~/.config/eww/widgets/net/scripts/net-ping.sh")
 
 ; --- System (JSON with percent & bar) ---
 (defpoll cpu_stats :interval "1s"
   :initial '{"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]"}'
-  "~/.config/eww/scripts/system/cpu-stats.sh")
+  "~/.config/eww/widgets/sys/scripts/cpu-stats.sh")
 
 (defpoll mem_stats :interval "2s"
   :initial '{"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "used": "0B", "total": "0B"}'
-  "~/.config/eww/scripts/system/mem-stats.sh")
+  "~/.config/eww/widgets/sys/scripts/mem-stats.sh")
 
 (defpoll swap_stats :interval "5s"
   :initial '{"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "used": "0B", "total": "0B"}'
-  "~/.config/eww/scripts/system/swap-stats.sh")
+  "~/.config/eww/widgets/sys/scripts/swap-stats.sh")
 
 (defpoll disk_stats :interval "30s"
   :initial '{"root": {"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "info": "0B / 0B"}, "home": {"percent": 0, "bar": "[░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]", "info": "0B / 0B"}}'
-  "~/.config/eww/scripts/system/disk-stats.sh")
+  "~/.config/eww/widgets/sys/scripts/disk-stats.sh")
 
 ; --- Media ---
 (defpoll spotify_info :interval "2s"
   :initial '{"title": "", "artist": ""}'
-  "~/.config/eww/scripts/media/spotify-info.sh")
-(defpoll spotify_art :interval "2s" "~/.config/eww/scripts/media/spotify-art.sh")
-(defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/volume-info.sh")
-(defpoll brightness_percent :interval "1s" :initial "50" "~/.config/eww/scripts/media/brightness-info.sh")
+  "~/.config/eww/widgets/audio/scripts/spotify-info.sh")
+(defpoll spotify_art :interval "2s" "~/.config/eww/widgets/audio/scripts/spotify-art.sh")
+(defpoll volume_percent :interval "1s" :initial "50" "~/.config/eww/widgets/audio/scripts/volume-info.sh")
+(defpoll brightness_percent :interval "1s" :initial "50" "~/.config/eww/widgets/audio/scripts/brightness-info.sh")
 (defpoll visualizer_content :interval "0.05s" :initial "" "cat /tmp/visualizer.txt 2>/dev/null || echo ''")

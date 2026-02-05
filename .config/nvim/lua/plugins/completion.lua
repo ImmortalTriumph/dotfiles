@@ -1,5 +1,3 @@
--- Completion with nvim-cmp
-
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -15,9 +13,7 @@ return {
         version = "v2.*",
         build = "make install_jsregexp",
         dependencies = { "rafamadriz/friendly-snippets" },
-        config = function()
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end,
+        config = function() require("luasnip.loaders.from_vscode").lazy_load() end,
       },
     },
     config = function()
@@ -25,39 +21,15 @@ return {
       local luasnip = require("luasnip")
 
       local kind_icons = {
-        Text = "",
-        Method = "",
-        Function = "",
-        Constructor = "",
-        Field = "",
-        Variable = "",
-        Class = "",
-        Interface = "",
-        Module = "",
-        Property = "",
-        Unit = "",
-        Value = "",
-        Enum = "",
-        Keyword = "",
-        Snippet = "",
-        Color = "",
-        File = "",
-        Reference = "",
-        Folder = "",
-        EnumMember = "",
-        Constant = "",
-        Struct = "",
-        Event = "",
-        Operator = "",
-        TypeParameter = "",
+        Text = "", Method = "", Function = "", Constructor = "", Field = "",
+        Variable = "", Class = "", Interface = "", Module = "", Property = "",
+        Unit = "", Value = "", Enum = "", Keyword = "", Snippet = "",
+        Color = "", File = "", Reference = "", Folder = "", EnumMember = "",
+        Constant = "", Struct = "", Event = "", Operator = "", TypeParameter = "",
       }
 
       cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
+        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
         window = {
           completion = cmp.config.window.bordered({
             border = "rounded",
@@ -113,9 +85,7 @@ return {
             return vim_item
           end,
         },
-        experimental = {
-          ghost_text = true,
-        },
+        experimental = { ghost_text = true },
       })
     end,
   },

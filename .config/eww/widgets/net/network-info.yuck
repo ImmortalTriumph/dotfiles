@@ -6,22 +6,22 @@
     ; Interface info
     (box :class "net-content" :orientation "v" :space-evenly false
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text "󰌗 iface" :class "net-key")
+        (label :text "󰌗  ip  " :class "net-key")
         (label :text " ─── " :class "net-dots")
         (label :text network_info :class "net-value"))
 
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text "󰖩 wifi " :class "net-key")
+        (label :text "󰖩  wifi" :class "net-key")
         (label :text " ─── " :class "net-dots")
         (label :text wifi_ssid :class "net-value"))
 
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text "󰂯 bt   " :class "net-key")
+        (label :text "󰂯  bt  " :class "net-key")
         (label :text " ─── " :class "net-dots")
         (label :text bluetooth_status :class "net-value net-bt"))
 
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text "󰦝 vpn  " :class "net-key")
+        (label :text "󰦝  vpn " :class "net-key")
         (label :text " ─── " :class "net-dots")
         (label :text "[${vpn_status}]" :class "net-value net-vpn")))
 
@@ -35,7 +35,7 @@
         (label :text " ${net_download}" :class "net-value net-down"))
 
       (box :class "net-row" :orientation "h" :space-evenly false
-        (label :text "↑   up" :class "net-key")
+        (label :text "↑ up  " :class "net-key")
         (label :text " ─── " :class "net-dots")
         (label :text " ${net_upload}" :class "net-value net-up"))
 

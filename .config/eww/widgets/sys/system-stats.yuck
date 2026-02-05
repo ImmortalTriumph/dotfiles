@@ -6,7 +6,7 @@
     ; CPU
     (box :class "sys-content" :orientation "v" :space-evenly false
       (box :class "sys-row" :orientation "h" :space-evenly false
-        (label :text " cpu" :class "sys-key")
+        (label :text "󰍛 cpu" :class "sys-key")
         (label :text " ${cpu_stats.bar}" :class "sys-bar sys-bar-cpu")
         (label :text " ${cpu_stats.percent}%" :class "sys-percent")))
 
