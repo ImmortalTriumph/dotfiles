@@ -1,0 +1,35 @@
+; === POWER CONTROLS ===
+
+(defwidget power-buttons []
+  (box :orientation "v" :space-evenly false :halign "center" :valign "center"
+
+    (box :class "power-row" :orientation "v" :space-evenly false :halign "center"
+      (button :class "power-btn btn-close"
+              :onclick "eww close dashboard"
+              :tooltip "Close [x]"
+        (label :text "󰅖" :class "power-icon"))
+
+      (button :class "power-btn btn-lock"
+              :onclick "hyprlock & eww close dashboard"
+              :tooltip "Lock [l]"
+        (label :text "󰌾" :class "power-icon"))
+
+      (button :class "power-btn btn-logout"
+              :onclick "eww close dashboard; hyprctl dispatch exit"
+              :tooltip "Logout [q]"
+        (label :text "󰍃" :class "power-icon"))
+
+      (button :class "power-btn btn-reboot"
+              :onclick "systemctl reboot"
+              :tooltip "Reboot [r]"
+        (label :text "󰜉" :class "power-icon"))
+
+      (button :class "power-btn btn-shutdown"
+              :onclick "systemctl poweroff"
+              :tooltip "Shutdown [s]"
+        (label :text "󰐥" :class "power-icon"))
+
+      (button :class "power-btn btn-force-shutdown"
+              :onclick "systemctl poweroff --force"
+              :tooltip "Force Shutdown [f]"
+        (label :text "󰯈" :class "power-icon")))))

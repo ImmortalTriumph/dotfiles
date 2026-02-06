@@ -1,0 +1,83 @@
+// === SYSTEM STATS STYLES ===
+
+.stats-box {
+  border-color: rgba($purple, 0.25);
+}
+
+.sys-header {
+  margin-bottom: 10px;
+}
+
+.sys-content {
+  padding: 4px 0;
+}
+
+.sys-row {
+  margin: 1px 0;
+}
+
+.sys-detail {
+  margin-bottom: 4px;
+}
+
+.sys-key {
+  font-size: 18px;
+  color: $fg-dim;
+  min-width: 80px;
+}
+
+.sys-bar {
+  font-size: 14px;
+  letter-spacing: -1px;
+}
+
+.sys-bar-cpu {
+  color: $green-bright;
+}
+
+.sys-bar-mem {
+  color: $blue-bright;
+}
+
+.sys-bar-swap {
+  color: $yellow-bright;
+}
+
+.sys-bar-disk {
+  color: $cyan-bright;
+}
+
+.sys-percent {
+  font-size: 18px;
+  color: $fg-normal;
+  min-width: 50px;
+}
+
+.sys-info {
+  font-size: 14px;
+  color: $fg-dim;
+}
+
+.sys-memory {
+  padding: 4px 0;
+}
+
+.sys-disk {
+  padding: 4px 0;
+}
+
+.sys-temp {
+  color: $orange-bright;
+}
+
+.sys-battery {
+  padding: 4px 0;
+}
+
+.sys-bar-bat {
+  color: $green-bright;
+}
+
+.sys-bat-info {
+  color: $green-bright;
+}

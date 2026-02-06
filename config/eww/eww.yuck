@@ -1,0 +1,41 @@
+; === EWW DASHBOARD CONFIGURATION ===
+
+; --- Imports ---
+(include "./widgets/variables.yuck")
+(include "./widgets/audio/audio-section.yuck")
+(include "./widgets/net/network-info.yuck")
+(include "./widgets/sys/system-stats.yuck")
+(include "./widgets/power/power-button.yuck")
+
+; --- Layout ---
+(defwidget layout []
+  (box :class "dashboard" :orientation "v" :space-evenly false :halign "fill" :valign "fill"
+
+    (box :class "wrapper" :orientation "v" :space-evenly false :valign "center" :halign "center"
+     ; TOP: Audio Visualizer + Media Controls
+    (box :class "section" :orientation "v" :space-evenly false :vexpand false :halign "center"
+      (cava-widget)
+      (media-controls))
+
+    (box :class "section" :orientation "h" :space-evenly false :vexpand true :halign "center" :valign "center"
+        ; Left Panel - Network
+	  (box :class "panel panel-left" :halign "end" :valign "start"
+        (network-info))
+
+      ; Center Panel - Power Buttons
+      (box :class "panel panel-center" :halign "center" :valign "center"
+        (power-buttons))
+
+      ; Right Panel - System
+      (box :class "panel panel-right" :halign "start" :valign "start"
+        (system-stats))))))
+
+; --- Window ---
+(defwindow dashboard
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "100%" :anchor "center")
+  :stacking "overlay"
+  :exclusive true
+  :focusable true
+  :namespace "eww-dashboard"
+  (layout))

@@ -1,0 +1,105 @@
+// === POWER CONTROLS ===
+
+.power-header {
+  margin-bottom: 12px;
+}
+
+// --- Buttons ---
+.power-row {
+  padding: 10px 0;
+}
+
+.power-btn {
+  background-color: $bg-panel;
+  padding: 14px;
+  margin: 6px;
+  min-width: 32px;
+  min-height: 32px;
+
+  &:hover {
+    background-color: $bg-hover;
+  }
+
+  &:active {
+    background-color: $graphite-light;
+  }
+}
+
+.power-icon {
+  font-size: 24px;
+  color: $fg-dim;
+}
+
+// --- Button Variants ---
+.btn-close {
+  border-color: rgba($fg-dim, 0.4);
+
+  &:hover {
+    border-color: rgba($fg-normal, 0.6);
+    .power-icon { color: $fg-bright; }
+  }
+}
+
+.btn-lock {
+  border-color: rgba($blue, 0.4);
+  .power-icon { color: $blue-bright; }
+
+  &:hover {
+    border-color: rgba($blue-bright, 0.6);
+    box-shadow: 0 0 6px rgba($blue, 0.15);
+    background-color: rgba($blue, 0.15);
+  }
+}
+
+.btn-logout {
+  border-color: rgba($yellow, 0.4);
+  .power-icon { color: $yellow; }
+
+  &:hover {
+    border-color: rgba($yellow-bright, 0.6);
+    box-shadow: 0 0 6px rgba($yellow, 0.15);
+    background-color: rgba($yellow, 0.15);
+  }
+}
+
+.btn-reboot {
+  border-color: rgba($orange, 0.4);
+  .power-icon { color: $orange-bright; }
+
+  &:hover {
+    border-color: rgba($orange-bright, 0.6);
+    box-shadow: 0 0 6px rgba($orange, 0.15);
+    background-color: rgba($orange, 0.15);
+  }
+}
+
+.btn-shutdown {
+  border-color: rgba($red, 0.4);
+  .power-icon { color: $red-bright; }
+
+  &:hover {
+    border-color: rgba($red-bright, 0.6);
+    box-shadow: 0 0 6px rgba($red, 0.15);
+    background-color: rgba($red, 0.15);
+  }
+}
+
+.btn-force-shutdown {
+  border-color: rgba($red-bright, 0.6);
+  .power-icon { color: $red-bright; }
+
+  &:hover {
+    border-color: rgba($red-bright, 0.9);
+    box-shadow: 0 0 10px rgba($red-bright, 0.3);
+    background-color: rgba($red-bright, 0.25);
+  }
+}
+
+// --- Tooltip ---
+tooltip {
+  background-color: $graphite-dark;
+  color: $fg-normal;
+  border: 1px solid $fg-border;
+  padding: 4px 8px;
+  font-size: 11px;
+}

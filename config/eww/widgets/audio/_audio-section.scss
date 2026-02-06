@@ -1,0 +1,146 @@
+// === AUDIO WIDGETS ===
+
+// --- Cava Visualizer ---
+.cava-box {
+  border-color: rgba($green, 0.25);
+  min-width: 1100px;
+  min-height: 150px;
+}
+
+.cava-content {
+  padding: 8px 0;
+}
+
+.visualizer-text {
+  font-size: 12px;
+  letter-spacing: -1px;
+  color: $green-bright;
+  text-shadow: 0 0 2px rgba($green, 0.3);
+}
+
+// --- Media Box ---
+.media-box {
+  border-color: rgba($cyan, 0.25);
+  margin-top: 15px;
+  min-width: 1100px;
+}
+
+.media-content {
+  padding: 6px 0;
+}
+
+// --- Album Art ---
+.album-container {
+  margin-right: 16px;
+  margin-left: 8px;
+}
+
+.album-border {
+  border: 1px solid $fg-border;
+  min-width: 96px;
+  min-height: 96px;
+  background-color: rgba(20, 20, 20, 0.5);
+}
+
+.track-info {
+  padding: 8px 0;
+  margin-left: 8px;
+}
+
+.track-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: $fg-bright;
+  margin-bottom: 4px;
+}
+
+.track-artist {
+  font-size: 14px;
+  color: $fg-dim;
+}
+
+// --- Controls ---
+.controls-row {
+  padding: 6px 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid $fg-border;
+}
+
+.control-group {
+  margin-right: 8px;
+}
+
+.ctrl-label {
+  font-size: 16px;
+  color: $yellow;
+  min-width: 70px;
+}
+
+.ctrl-vol {
+  color: $cyan-bright;
+}
+
+.ctrl-brt {
+  color: $yellow-bright;
+}
+
+.ctrl-bracket {
+  font-size: 16px;
+  color: $fg-dim;
+}
+
+.ctrl-value {
+  font-size: 16px;
+  color: $fg-normal;
+  min-width: 50px;
+}
+
+// --- Sliders ---
+.slider {
+  min-width: 180px;
+  min-height: 16px;
+
+  trough {
+    background-color: $graphite-dark;
+    min-height: 4px;
+    border-radius: 2px;
+  }
+
+  highlight {
+    min-height: 4px;
+    border-radius: 2px;
+  }
+
+  slider {
+    background-color: $fg-muted;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 5px;
+    margin: -3px 0;
+
+    &:hover {
+      background-color: $fg-dim;
+    }
+  }
+}
+
+.volume-slider {
+  highlight {
+    background-color: $cyan-bright;
+  }
+
+  slider:hover {
+    background-color: $cyan-bright;
+  }
+}
+
+.brightness-slider {
+  highlight {
+    background-color: $yellow-bright;
+  }
+
+  slider:hover {
+    background-color: $yellow-bright;
+  }
+}

@@ -1,0 +1,116 @@
+// === EWW DASHBOARD STYLING ===
+
+// --- Terminal Monochrome Base (matched to waybar/kitty) ---
+$bg-terminal: rgba(12, 12, 12, 0.8);
+$bg-panel: rgba(255, 255, 255, 0.03);
+$bg-hover: rgba(255, 255, 255, 0.08);
+
+$fg-bright: #d9d9d9;
+$fg-normal: #b3b3b3;
+$fg-dim: #999999;
+$fg-muted: #666666;
+$fg-border: #333333;
+
+$graphite: #4d4d4d;
+$graphite-light: #555555;
+$graphite-dark: #1a1a1a;
+
+// --- Gruvbox Accents ---
+$red: #cc241d;
+$red-bright: #fb4934;
+$green: #98971a;
+$green-bright: #b8bb26;
+$yellow: #d79921;
+$yellow-bright: #fabd2f;
+$orange: #d65d0e;
+$orange-bright: #fe8019;
+$blue: #458588;
+$blue-bright: #83a598;
+$purple: #b16286;
+$purple-bright: #d3869b;
+$cyan: #689d6a;
+$cyan-bright: #8ec07c;
+
+// --- Base ---
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font", monospace;
+  font-size: 20px;
+  color: $fg-normal;
+  background-color: transparent;
+}
+
+// --- Layout ---
+.dashboard {
+  background-color: $bg-terminal;
+  padding: 50px;
+}
+
+.wrapper {
+  margin: 70px 0;
+  padding: 50px 0;
+}
+
+.section {
+  padding: 15px 0;
+}
+
+.panel {
+  padding: 0 20px;
+}
+
+.panel-left {
+  margin-right: 10px;
+}
+
+.panel-center {
+  margin: 0 10px;
+}
+
+.panel-right {
+  margin-left: 10px;
+}
+
+// --- Box Styling ---
+.terminal-box,
+.info-box {
+  background-color: $bg-panel;
+  border: 1px solid $fg-border;
+  border-radius: 6px;
+  padding: 16px 20px;
+}
+
+.info-box {
+  min-width: 380px;
+}
+
+.cava-box {
+  border-color: rgba($green, 0.25);
+}
+
+.media-box {
+  border-color: rgba($cyan, 0.25);
+}
+
+.network-box {
+  border-color: rgba($cyan, 0.25);
+}
+
+.power-box {
+  border-color: rgba($red, 0.25);
+}
+
+.stats-box {
+  border-color: rgba($purple, 0.25);
+}
+
+// --- Utilities ---
+.spacer {
+  min-height: 8px;
+}
+
+// --- Widget Imports ---
+@import "widgets/audio/audio-section";
+@import "widgets/net/network-info";
+@import "widgets/sys/system-stats";
+@import "widgets/power/power-button";
